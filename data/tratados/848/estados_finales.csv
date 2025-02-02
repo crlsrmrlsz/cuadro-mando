@@ -1,0 +1,20 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+52;Resolución Desistimiento;1;Res. Desist.
+51;Resolucion Denegatoria;1;Res. Deneg.
+286;Presentación Solicitud de Desistimiento;0;Present. Sol. Desist.
+156;Procedimiento de Reintegro (Reintegra);0;proc. Reintegro (Reintegra)
+152;Propuesta de Resolución de Desistimiento;0;Prop. Res. Desist.
+82;Pago - Reconocimiento de Obligación;0;Pg. - Reconocimiento Obligación
+55;Resolucion Inadmision;0;Res. Inadmision
+52;Resolucion Aceptación Desistimiento;0;Res. Aceptación Desist.
+50;Resolucion de Concesión;0;Res. Conc.
+43;Propuesta de resolucion definitiva denegatoria;0;Prop. res. definitiva denegatoria
+42;Propuesta de resolución definitiva de concesión;0;Prop. res. definitiva concesión
+41;Propuesta Provisional Denegatoria;0;Prop. Prov. Deneg.
+40;Propuesta de resolución provisional de concesión;0;Prop. res. provisional concesión
+30;Evaluación definitiva;0;Eval. definitiva
+30;Evaluación de Solicitud;0;Eval. Sol.
+15;Presentación de alegaciones;0;Present. alegaciones
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de la solicitud;0;Present. la solicitud

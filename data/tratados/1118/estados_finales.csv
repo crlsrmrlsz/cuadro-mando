@@ -1,0 +1,12 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+52;Resolución de Desistimiento;1;Res. Desist.
+51;Resolución Denegatoria;1;Res. Deneg.
+50;Resolución Favorable;1;Res. Favorable
+122;Aviso Recepción;0;Aviso Recepción
+57;Resolución Archivo;0;Res. Archivo
+35;Solicitud de informe a ITSS;0;Sol. informe ITSS
+35;Aviso a TGSS;0;Aviso TGSS
+25;Trámite de audiencia;0;Trám. audiencia
+10;Requerimiento de Subsanación;0;Req. Subsanación
+1;Presentación de solicitud;0;Present. solicitud

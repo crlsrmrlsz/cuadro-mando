@@ -1,0 +1,22 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+82;Pago - Reconocimiento de Obligación (ADO,O);1;Pg. - Reconocimiento Obligación (ADO,O)
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+283;Propuesta Resolución Pérdida de Derecho al Cobro Total;0;Prop. Res. Pérd. Der. Cob. Total
+283;Propuesta Resolución Pérdida de Derecho al Cobro Parcial;0;Prop. Res. Pérd. Der. Cob. Parcial
+282;Presentación de renuncia parcial;0;Present. renuncia parcial
+281;Resolución de Renuncia Parcial;0;Res. Renuncia Parcial
+278;Resolución de Pérdida de Derecho al Cobro Parcial;0;Res. Pérd. Der. Cob. Parcial
+278;Resolución de Pérdida de Derecho al Cobro Total;0;Res. Pérd. Der. Cob. Total
+73;Requerimiento documentación de justificación;0;Req. documentación justif.
+70;Justificación de gastos;0;Just. gastos
+53;Resolución de renuncia total;0;Res. renuncia total
+52;Resolución de desistimiento;0;Res. desistimiento
+51;Resolución Desfavorable;0;Res. Desfavorable
+50;Resolución de Concesión;0;Res. Conc.
+43;Propuesta Resolución Desfavorable;0;Prop. Res. Desfavorable
+42;Propuesta Resolución de Concesión;0;Prop. Res. Conc.
+30;Calificación y evaluación de solicitud;0;Calificación evaluación solicitud
+21;Presentación de renuncia total;0;Present. renuncia total
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de Solicitud;0;Present. Sol.

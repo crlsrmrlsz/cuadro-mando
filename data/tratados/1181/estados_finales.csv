@@ -1,0 +1,18 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento y Archivo del expediente;1;Fin procedimiento Archivo expediente
+202;ANULADO - Solicitud Creada por Error;0;ANULADO - Sol. Creada Error
+55;Resolución de Inadmisión;0;Res. Inadm.
+55;Diligencia de duplicidad de expediente;0;Diligencia duplicidad expediente
+52;Resolución de desistimiento por duplicidad;0;Res. desistimiento duplicidad
+52;Resolución Aceptación Renuncia;0;Res. Aceptación Renuncia
+52;Resolución de desistimiento;0;Res. desistimiento
+51;Resolución Desestimatoria - Incumplimiento de requisitos;0;Res. Desest. - Incumplimiento requisitos
+50;Resolución de Concesión;0;Res. Conc.
+43;IPR Desestimatorio por incumplimiento de requisitos;0;IPR Desestimatorio incumplimiento requisitos
+42;IPR Concesión;0;IPR Conc.
+30;Evaluación de requisitos;0;Eval. requisitos
+25;Tramite de Audiencia - Inadmisión;0;Tramite Aud. - Inadm.
+25;Tramite de Audiencia;0;Tramite Aud.
+10;Requerimiento por duplicidad;0;Req. duplicidad
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

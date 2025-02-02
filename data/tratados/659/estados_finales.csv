@@ -1,0 +1,22 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+295;Seguimiento;1;Seguimiento
+156;Inicio procedimiento de reintegro;1;Inic. procedimiento reintegro
+100;Fin de procedimiento;1;Fin procedimiento
+70;Presentación de Justificación;1;Present. Just.
+21;Presentación de Renuncia;1;Present. Renuncia
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+155;Propuesta Resolución de inadmisión;0;Prop. Res. inadmisión
+152;Propuesta Resolución Desistimiento;0;Prop. Res. Desist.
+90;Presentación recurso de alzada;0;Present. recurso alzada
+82;Pago;0;Pg.
+55;Resolución de inadmisión;0;Res. inadmisión
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolución Aprobatoria;0;Res. Aprobatoria
+43;Propuesta de Resolución Denegatoria;0;Prop. Res. Deneg.
+42;Propuesta de Resolución Aprobatoria;0;Prop. Res. Aprobatoria
+41;Propuesta Provisional de Resolución denegatoria;0;Prop. Prov. Res. denegatoria
+30;Evaluacion de solicitud;0;Evaluacion solicitud
+25;Trámite de audiencia;0;Trám. audiencia
+10;Requerimiento documentacion solicitud;0;Req. documentacion solicitud
+1;Presentacion de solicitud;0;Present. solicitud

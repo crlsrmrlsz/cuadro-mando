@@ -1,0 +1,12 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+332;Resolución Archivo Retirada;0;Res. Archivo Retirada
+332;Resolución Archivo Retirada-Cancelación;0;Res. Archivo Retirada-Cancelación
+331;Resolución de Retirada Temporal;0;Res. Retirada Temporal
+331;Resolución de Retirada Temporal o Cancelación;0;Res. Retirada Temporal o Cancelación
+327;Devolución tarjeta Retirada;0;Dev. tarjeta Retirada
+266;Comunicación de Acta de Irregularidades;0;Comunicación Acta Irregularidades
+90;Presentación de Recurso de Alzada ;0;Present. Rec. Alzada 
+54;Resolución de Revocación de Resolución de Retirada Temporal o Cancelación;0;Res. Revocación Res. Retirada Temporal o Cancelación
+25;Comunicación Inicio Retirada/Candelación y de Audiencia;0;Comunicación Inic. Retirada/Candelación de Aud.
+25;Comunicación Inicio Retirada por no devolución tarjeta y Audiencia;0;Comunicación Inic. Retirada no devolución tarjeta Aud.

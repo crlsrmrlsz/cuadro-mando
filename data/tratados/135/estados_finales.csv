@@ -1,0 +1,23 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+57;Archivo de expediente;1;Archivo expediente
+302;Visita de obra;0;Visita obra
+302;Verificación de obra;0;Verificación obra
+100;Fin de Procedimiento;0;Fin proc.
+56;Reintegro;0;Reintegro
+51;Resolución Desestimatoria - Falta de presupuesto;0;Res. Desest. - Falt. presupuesto
+51;Resolución Desestimatoria - Falta de Firma;0;Res. Desest. - Falt. Firma
+51;Resolución Desestimatoria - Falta Documentación;0;Res. Desest. - Falt. Doc.
+51;Resolución Desestimatoria - Fuera de Plazo;0;Res. Desest. - Fuera Plazo
+51;Resolución Desestimatoria - Incumplimiento de Requisitos;0;Res. Desest. - Incumplimiento Req.
+50;Resolución Estimatoria y Pago;0;Res. Est. Pg.
+42;Propuesta Resolución Estimatoria;0;Prop. Res. Est.
+41;Propuesta Resolución Desestimatoria - Falta de presupuesto;0;Prop. Res. Desest. - Falt. presupuesto
+41;Propuesta Resolución Desestimatoria - Falta Documentación;0;Prop. Res. Desest. - Falt. Doc.
+41;Propuesta Resolución Desestimatoria - Falta de Firma;0;Prop. Res. Desest. - Falt. Firma
+41;Propuesta Resolución Desestimatoria - Incumplimiento de Requisitos;0;Prop. Res. Desest. - Incumplimiento Req.
+41;Propuesta Resolución Desestimatoria - Fuera de Plazo;0;Prop. Res. Desest. - Fuera Plazo
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de Audiencia;0;Trám. Aud.
+10;Requerimiento de documentación;0;Req. documentación
+6;Requerimiento de firma;0;Req. firma
+1;Presentación de solicitud;0;Present. solicitud

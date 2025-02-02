@@ -1,0 +1,13 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+304;Solicitud de Confirmación al Ministerio;0;Sol. Confirmación Ministerio
+52;Resolución desistimiento solicitud del certificado;0;Res. desistimiento solicitud certificado
+52;Resolución desistimiento solicitud de prórroga del certificado;0;Res. desistimiento solicitud prórroga certificado
+51;Resolución denegatoria expedición de prórroga del certificado;0;Res. denegatoria expedición prórroga certificado
+51;Resolución denegatoria expedición del certificado;0;Res. denegatoria expedición certificado
+50;Resolución prórroga del certificado de denominación no coincidente;0;Res. prórroga certificado denominación no coincidente
+50;Resolución expedición del certificado de denominación no coincidente;0;Res. expedición certificado denominación no coincidente
+25;Trámite de audiencia solicitud de certificado;0;Trám. audiencia solicitud certificado
+25;Trámite de audiencia solicitud de prórroga del certificado;0;Trám. audiencia solicitud prórroga certificado
+1;Presentación de solicitud de certificado;0;Present. solicitud certificado
+1;Presentación de solicitud de prórroga del certificado;0;Present. solicitud prórroga certificado

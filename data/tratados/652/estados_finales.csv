@@ -1,0 +1,29 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+51;Resolución de desestimación;1;Res. desestimación
+286;Presentación de solicitud de desistimiento;0;Present. solicitud desistimiento
+279;Justificación final;0;Just. final
+278;Resolución fin de procedimiento del Acuerdo de inicio pérdida derecho al cobro;0;Res. fin procedimiento Acuerdo inicio pérdida derecho cobro
+278;Resolucion de Pérdida de Derecho al Cobro;0;Res. Pérd. Der. Cob.
+266;Revision Documentacion / Seguimiento Proyectos;0;Revision Documentacion / Seguimiento Proyectos
+251;Evaluado y pendiente de valoración;0;Evaluado pendiente valoración
+242;Valoración de proyectos;0;Valoración proyectos
+160;Solicitud modificación resolución;0;Sol. modificación res.
+156;Procedimiento de reintegro;0;proc. reintegro
+155;Propuesta de Inadmision (POR DUPLICIDAD);0;Prop. Inadmision (POR DUPLICIDAD)
+152;Propuesta de desistimiento;0;Prop. desistimiento
+82;Pago;0;Pg.
+60;Modificación Resolución Concesión;0;Modificación Res. Conc.
+55;Resolución de Inadmision (POR DUPLICIDAD);0;Res. Inadmision (POR DUPLICIDAD)
+53;Resolución de renuncia total;0;Res. renuncia total
+52;Resolución Desistimiento;0;Res. Desist.
+50;Resolución de concesión;0;Res. concesión
+42;Propuesta Resolución Definitiva;0;Prop. Res. Def.
+42;Propuesta Modificación Resolución Concesión;0;Prop. Modificación Res. Conc.
+40;Propuesta de Resolución Provisional;0;Prop. Res. Prov.
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Acuerdo de inicio de pérdida de derecho al cobro;0;Acuerdo inicio pérdida derecho cobro
+21;Presentación de renuncia total;0;Present. renuncia total
+15;Presentación de alegaciones;0;Present. alegaciones
+10;Requerimiento de Documentación;0;Req. Doc.
+1;Presentación de Solicitud;0;Present. Sol.

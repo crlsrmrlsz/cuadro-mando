@@ -1,0 +1,28 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+279;Liquidación Expediente;0;Liq. Expediente
+278;Resolucion de Pérdida de Derecho al Cobro;0;Res. Pérd. Der. Cob.
+278;Resolución fin de procedimiento del Acuerdo de inicio pérdida derecho al cobro;0;Res. fin procedimiento Acuerdo inicio pérdida derecho cobro
+266;Seguimiento de proyectos;0;Seguimiento proyectos
+251;Organo Instructor;0;Organo Instructor
+242;Organo Colegiado (Valoración de proyectos);0;Organo Colegiado (Valoración proyectos)
+160;Solicitud modificación resolución;0;Sol. modificación res.
+156;Procedimiento de reintegro;0;proc. reintegro
+155;Propuesta de Inadmision;0;Prop. Inadmision
+155;Propuesta de Inadmision (POR DUPLICIDAD);0;Prop. Inadmision (POR DUPLICIDAD)
+82;Pago Anticipo (50%);0;Pg. Anticipo (50%)
+82;Pago Final - Resolucion de Liquidacion;0;Pg. Final - Res. Liq.
+60;Modificación Resolución Favorable;0;Modificación Res. Favorable
+55;Resolución de inadmisión;0;Res. inadmisión
+55;Resolución de inadmisión (POR DUPLICIDAD);0;Res. inadmisión (POR DUPLICIDAD)
+53;Resolución de renuncia total;0;Res. renuncia total
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolucion Favorable;0;Res. Favorable
+42;Propuesta Definitiva;0;Prop. Def.
+42;Propuesta Modificación Resolución Concesión;0;Prop. Modificación Res. Conc.
+40;Propuesta Provisional;0;Prop. Prov.
+25;Acuerdo de inicio Pérdida de Derecho al Cobro;0;Acuerdo inicio Pérd. Der. Cob.
+21;Presentación renuncia total;0;Present. renuncia total
+15;Presentación de alegaciones;0;Present. alegaciones
+10;Requerimiento de Documentación de Solicitud;0;Req. Doc. Sol.
+1;Presentación de Solicitud;0;Present. Sol.

@@ -1,0 +1,37 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+306;Propuesta aprobatoria con sustitución (no pagado);0;Prop. aprobatoria sustitución (no pagado)
+287;Seguimiento segundo año;0;Seguimiento segundo año
+287;Seguimiento tercer año;0;Seguimiento tercer año
+287;Seguimiento primer año;0;Seguimiento primer año
+286;Presentación solicitud de desistimiento;0;Present. solicitud desistimiento
+278;Resolución de pérdida de derecho al cobro;0;Res. pérdida derecho cobro
+156;Inicio de procedimiento de reintegro primer año;0;Inic. procedimiento reintegro primer año
+156;Inicio de procedimiento de reintegro segundo año;0;Inic. procedimiento reintegro segundo año
+156;Inicio de procedimiento de reintegro tercer año;0;Inic. procedimiento reintegro tercer año
+156;Inicio de procedimiento de reintegro;0;Inic. procedimiento reintegro
+155;Propuesta de resolución de inadmisión;0;Prop. res. inadmisión
+82;Pago;0;Pg.
+61;Resolución aprobatoria con sustitución (no pagado);0;Res. aprobatoria sustitución (no pagado)
+61;Resolución aprobatoria de sustitución (ya pagado);0;Res. aprobatoria sustitución (ya pagado)
+61;Resolución denegatoria con sustitución (no pagado);0;Res. denegatoria sustitución (no pagado)
+55;Resolución de inadmisión;0;Res. inadmisión
+53;Resolución de renuncia con pago (sin intereses);0;Res. renuncia pago (sin intereses)
+53;Resolución de renuncia sin pago;0;Res. renuncia sin pago
+52;Resolución de aceptación de desistimiento;0;Res. aceptación desistimiento
+52;Resolución de desistimiento;0;Res. desistimiento
+51;Resolución denegatoria por falta de presupuesto;0;Res. denegatoria falta presupuesto
+51;Resolución denegatoria por incumplimiento requisitos;0;Res. denegatoria incumplimiento requisitos
+50;Resolución aprobatoria;0;Res. aprobatoria
+43;Propuesta de resolución denegatoria por falta de presupuesto;0;Prop. res. denegatoria falta presupuesto
+42;Propuesta de resolución aprobatoria;0;Prop. res. aprobatoria
+40;Propuesta provisional de resolución aprobatoria;0;Prop. provisional res. aprobatoria
+30;Evaluación de sustitución;0;Eval. sustitución
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de audiencia;0;Trám. audiencia
+25;Trámite audiencia en pérdida de derecho al cobro;0;Trám. audiencia pérdida derecho cobro
+25;Trámite de audiencia (propuesta denegatoria);0;Trám. audiencia (propuesta denegatoria)
+21;Presentación de renuncia;0;Present. renuncia
+11;Presentación de sustitución;0;Present. sustitución
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

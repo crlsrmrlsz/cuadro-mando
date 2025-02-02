@@ -1,0 +1,11 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+404;Baja de agente;1;Baja agente
+100;Fin de procedimiento y Archivo del expediente;0;Fin procedimiento Archivo expediente
+55;Duplicidad de expediente;0;Duplicidad expediente
+52;Resolución de desistimiento;0;Res. desistimiento
+51;Resolución Desestimatoria - Incumplimiento de requisitos;0;Res. Desest. - Incumplimiento requisitos
+50;Resolución de Habilitación;0;Res. Habilitación
+30;Verificación de requisitos;0;Verificación requisitos
+25;Tramite de Audiencia;0;Tramite Aud.
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación y Revisión de la solicitud;0;Present. Revisión la solicitud

@@ -1,0 +1,20 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+328;Devolución Obra;0;Dev. Obra
+327;Comunicación Devolución Obra;0;Comunicación Dev. Obra
+311;Subsanación;0;Subsanación
+294;Informe Comité Técnico;0;Inf. Comité Técnico
+293;Informe de Candidaturas Excluidas ;0;Inf. Candidaturas Excluidas 
+234;Presentación Objeto Premio;0;Present. Objeto Premio
+82;Abono Premio;0;Ab. Premio
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución de Exclusión no Presentado;0;Res. Exclusión no Presentado
+51;Resolución Desestimatoria;0;Res. Desest.
+51;Resolución de No-Concesión;0;Res. No-Conc.
+51;Resolución de Exclusión no Coincide;0;Res. Exclusión no Coincide
+50;Resolución Favorable;0;Res. Favorable
+30;Evaluación de solicitud;0;Eval. solicitud
+30;Evaluación Comité Técnico;0;Eval. Comité Técnico
+30;Reevaluación ;0;Reevaluación 
+10;Requerimiento de Información Complementaria;0;Req. Información Complementaria
+1;Presentación solicitud;0;Present. solicitud

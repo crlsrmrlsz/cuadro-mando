@@ -1,0 +1,30 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+55;Resolución de Inadmisión;1;Res. Inadm.
+52;Resolución de Desistimiento;1;Res. Desist.
+51;Resolución Denegatoria por Falta de Crédito;1;Res. Deneg. Falt. Crédito
+51;Resolución Denegatoria por incumplimiento de requisitos;1;Res. Deneg. incumplimiento requisitos
+286;Presentación de Solicitud de Desistimiento;0;Present. Sol. Desist.
+279;Liquidación;0;Liq.
+156;Acuerdo de inicio de reintegro;0;Acuerdo inicio reintegro
+155;Propuesta Resolución de Inadmisión;0;Prop. Res. Inadm.
+82;Pago;0;Pg.
+70;Comunicación de contratos;0;Comunicación contratos
+70;Justificación de la Ayuda;0;Just. la Ayuda
+60;Modificación Resolución Favorable;0;Modificación Res. Favorable
+56;Resolución de Reintegro;0;Res. Reintegro
+53;Resolución de Renuncia Parcial;0;Res. Renuncia Parcial
+53;Resolución de Renuncia total;0;Res. Renuncia total
+50;Resolución Aprobatoria;0;Res. Aprobatoria
+43;Propuesta de Resolución Denegatoria por Falta de Crédito;0;Prop. Res. Deneg. Falt. Crédito
+43;Propuesta Definitiva Resolución Denegatoria Incumplimiento de Requisitos;0;Prop. Def. Res. Deneg. Incumplimiento Req.
+42;Propuesta Modificación Resolución Concesión;0;Prop. Modificación Res. Conc.
+42;Propuesta Definitiva Aprobatoria;0;Prop. Def. Aprobatoria
+41;Propuesta Provisional Resolución Denegatoria Incumplimiento de Requisitos;0;Prop. Prov. Res. Deneg. Incumplimiento Req.
+40;Propuesta Provisional Aprobatoria;0;Prop. Prov. Aprobatoria
+30;Evaluación de la solicitud;0;Eval. la solicitud
+21;Presentación de renuncia parcial;0;Present. renuncia parcial
+21;Presentación de renuncia total;0;Present. renuncia total
+10;Requerimiento de datos y/o documentación;0;Req. datos y/o documentación
+1;Ayuda por gastos de desplazamiento;0;Ayuda gastos desplazamiento
+1;Presentación de solicitud;0;Present. solicitud

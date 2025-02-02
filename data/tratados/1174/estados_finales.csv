@@ -1,0 +1,14 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+521;Confirmación de asistencia;0;Confirmación asistencia
+520;Comunicación de fechas y plaza definitiva;0;Comunicación fechas plaza definitiva
+309;Lista de Reserva;0;Lista Reserva
+55;Resolución de inadmisión por duplicidad;0;Res. inadmisión duplicidad
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolucion de Adjudicacion Provisional;0;Res. Adjudicacion Prov.
+41;Propuesta de Resolución Provisional Denegatoria;0;Prop. Res. Prov. Deneg.
+30;Evaluación y adjudicación provisional;0;Eval. adjudicación provisional
+21;Presentación de Renuncia;0;Present. Renuncia
+10;Requerimiento Documentación;0;Req. Doc.
+1;Presentación de solicitud;0;Present. solicitud

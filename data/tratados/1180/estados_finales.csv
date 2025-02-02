@@ -1,0 +1,28 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+478;Archivo expediente;1;Archivo expediente
+30;Evaluación de solicitud (abono);1;Eval. solicitud (abono)
+100;Fin de Procedimiento;0;Fin proc.
+82;Certificado para Pago con Justificación y abono;0;Certificado para Pg. Just. abono
+55;Resolución de Inadmisión;0;Res. Inadm.
+55;Diligencia de duplicidad de expediente;0;Diligencia duplicidad expediente
+55;Diligencia de Constancia de la ineficacia por NO aceptación de la Ayuda;0;Diligencia Constancia la ineficacia NO aceptación la Ayuda
+55;Diligencia de Constancia de la ineficacia de la Resolución de desistimiento;0;Diligencia Constancia la ineficacia la Res. desistimiento
+52;Resolución de desistimiento;0;Res. desistimiento
+52;Resolucion Aceptación Renuncia;0;Res. Aceptación Renuncia
+52;Resolución de Aceptación de Desistimiento;0;Res. Aceptación Desist.
+51;Resolución Desestimatoria. Falta de crédito;0;Res. Desest.. Falt. crédito
+51;Resolución Desestimatoria - Incumplimiento de requisitos;0;Res. Desest. - Incumplimiento requisitos
+50;Resolución de Concesión;0;Res. Conc.
+43;IPR Desestimatorio por incumplimiento de requisitos;0;IPR Desestimatorio incumplimiento requisitos
+43;IPR Desestimatorio por falta de crédito;0;IPR Desestimatorio falta crédito
+42;IPR Concesión;0;IPR Conc.
+30;Evaluación de Solicitud;0;Eval. Sol.
+25;Tramite de Audiencia - Inadmisión;0;Tramite Aud. - Inadm.
+25;Tramite de Audiencia;0;Tramite Aud.
+10;Requerimiento por duplicidad;0;Req. duplicidad
+10;Requerimiento de Justificación de Abono;0;Req. Just. Ab.
+10;Requerimiento de documentación (abono);0;Req. documentación (abono)
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación con Justificación y Revisión de la solicitud;0;Present. Just. Revisión la solicitud
+1;Presentación de solicitud;0;Present. solicitud
+1;Presentación de Solicitud de Abono;0;Present. Sol. Ab.

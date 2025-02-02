@@ -1,0 +1,16 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+269;Requerimiento justificación actuaciones;1;Req. justif. actuaciones
+52;Resolución Desistimiento;1;Res. Desist.
+51;Resolución Desfavorable;1;Res. Desfavorable
+267;Comunicación inicio de actuaciones;0;Comunicación inicio actuaciones
+255;Informe Consejo Provincial;0;Inf. Consejo Provincial
+251;Informe Mesa de Empleo;0;Inf. Mesa Empleo
+242;Valorar expediente;0;Valorar expediente
+82;Pago 35% - Reconocimiento de Obligacion (Ado,O);0;Pg. 35% - Reconocimiento Obligacion (Ado,O)
+82;Pago 50% - Reconocimiento de Obligacion (Ado,O);0;Pg. 50% - Reconocimiento Obligacion (Ado,O)
+50;Resolución Favorable;0;Res. Favorable
+41;Propuesta de Resolución Desfavorable Provisional;0;Prop. Res. Desfavorable Prov.
+40;Propuesta de Resolución Favorable Provisional;0;Prop. Res. Favorable Prov.
+25;Trámite de audiencia;0;Trám. audiencia
+10;Requerimiento Documentación Solicitud;0;Req. Doc. Sol.
+1;Presentación de Solicitud;0;Present. Sol.

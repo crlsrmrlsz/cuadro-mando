@@ -1,0 +1,13 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+202;Expediente Anulado;1;Expediente Anulado
+100;Fin de procedimiento;1;Fin procedimiento
+161;Denegación de Modificación de Resolución de Autorización;0;Denegación Modificación Res. Autorización
+60;Modificación Resolución de Autorización;0;Modificación Res. Autorización
+55;Inadmisión de la solicitud;0;Inadm. la solicitud
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Desfavorable;0;Res. Desfavorable
+50;Resolución de Concesión;0;Res. Conc.
+43;Propuesta de Resolución Desfavorable;0;Prop. Res. Desfavorable
+42;Propuesta de Resolución Favorable;0;Prop. Res. Favorable
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

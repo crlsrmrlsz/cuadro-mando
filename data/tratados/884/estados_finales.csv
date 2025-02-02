@@ -1,0 +1,31 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+309;Lista de Reserva Provisional por Insuficiencia de Credito;0;Lista Reserva Prov. Insuficiencia Credito
+287;Seguimiento;0;Seguimiento
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+283;Resolución No procede pérdida total;0;Res. No procede pérdida total
+283;Propuesta Resolución de Pérdida de Derecho al Cobro Total;0;Prop. Res. Pérd. Der. Cob. Total
+278;Resolución de Pérdida de Derecho al Cobro Total;0;Res. Pérd. Der. Cob. Total
+278;Resolucion de perdida parcial de derecho al cobro;0;Res. perdida parcial derecho cobro
+155;Propuesta Resolución de Inadmisión;0;Prop. Res. Inadm.
+152;Propuesta de Resolucion Desistimiento;0;Prop. Res. Desist.
+90;Recurso de alzada;0;Rec. alzada
+82;Pago Parcial;0;Pg. Parcial
+82;Pago Total;0;Pg. Total
+70;Presentación Documentación Justificativa;0;Present. Doc. Justificativa
+55;Resolución de inadmisión;0;Res. inadmisión
+53;Resolución Aceptación de Renuncia;0;Res. Aceptación Renuncia
+52;Resolucion Desistimiento;0;Res. Desist.
+51;Resolución desestimatoria - Insuficiencia Credito;0;Res. desestimatoria - Insuficiencia Credito
+51;Resolución desestimatoria - Incumple Requisitos;0;Res. desestimatoria - Incumple Req.
+50;Resolución de Concesión;0;Res. Conc.
+42;Propuesta Resolución Estimatoria de Concesión;0;Prop. Res. Est. Conc.
+42;Propuesta Resolución Estimatoria Abono Pérdida Parcial;0;Prop. Res. Est. Ab. Pérd. Parcial
+41;Propuesta Resolución Desestimatoria - Incumple Requisitos;0;Prop. Res. Desest. - Incumple Req.
+41;Propuesta Resolución Desestimatoria - Insuficiencia Credito;0;Prop. Res. Desest. - Insuficiencia Credito
+30;Evaluación de solicitud;0;Eval. solicitud
+30;Evaluación de justificación tras alegaciones;0;Eval. justif. tras alegaciones
+30;Evaluación de justificación;0;Eval. justif.
+21;Presentación de Renuncia;0;Present. Renuncia
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de la solicitud;0;Present. la solicitud

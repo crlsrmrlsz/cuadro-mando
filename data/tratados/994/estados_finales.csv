@@ -1,0 +1,34 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento y Archivo del expediente;1;Fin procedimiento Archivo expediente
+100;Fin de procedimiento de Abono y Archivo del expediente;1;Fin procedimiento Ab. Archivo expediente
+327;Devolución.;0;Dev..
+327;Devolución Instrucción .;0;Dev. Instrucción .
+309;Lista de Reserva;0;Lista Reserva
+55;Resolución de Inadmisión;0;Res. Inadm.
+52;Resolución de desistimiento. Falta documentación. Defecto de forma. Duplicidad;0;Res. desistimiento. Falt. documentación. Defecto forma. Duplicidad
+52;Resolución Aceptación de Renuncia;0;Res. Aceptación Renuncia
+52;Resolución Incumplimiento Parcial;0;Res. Incumplimiento Parcial
+52;Resolución Pérdida Derecho Cobro Total Abono ;0;Res. Pérd. Der. Cob. Total Ab. 
+52;Resolución Pérdida Derecho Cobro Total ;0;Res. Pérd. Der. Cob. Total 
+52;Resolución Aceptación de Renuncia Abono;0;Res. Aceptación Renuncia Ab.
+51;Resolución Desestimatoria - Incumplimiento de requisitos;0;Res. Desest. - Incumplimiento requisitos
+51;Resolución Desestimatoria. Falta de crédito;0;Res. Desest.. Falt. crédito
+50;Resolución Estimatoria de Abono;0;Res. Est. Ab.
+50;Resolución estimatoria de Concesión.;0;Res. estimatoria Conc..
+43;IPR Desestimatorio por falta de crédito;0;IPR Desestimatorio falta crédito
+43;IPR Desestimatorio por incumplimiento de requisitos;0;IPR Desestimatorio incumplimiento requisitos
+42;IPR Pérdida Derecho Cobro Total Abono;0;IPR Pérd. Der. Cob. Total Ab.
+42;IPR Cumplimiento Parcial;0;IPR Cumplimiento Parcial
+42;IPR Cumplimiento;0;IPR Cumplimiento
+42;IPR Concesión;0;IPR Conc.
+42;IPR Pérdida Derecho Cobro Total;0;IPR Pérd. Der. Cob. Total
+30;Evaluación de requisitos;0;Eval. requisitos
+30;Evaluación de la documentación justificativa;0;Eval. la documentación justificativa
+25;Trámite de Audiencia (Abono);0;Trám. Aud. (Ab.)
+25;Tramite de Audiencia;0;Tramite Aud.
+25;Tramite de Audiencia - Inadmisión;0;Tramite Aud. - Inadm.
+10;Requerimiento. Falta documentación. Defecto de forma. Duplicidad;0;Req.. Falt. documentación. Defecto forma. Duplicidad
+10;Requerimiento de Oficio;0;Req. Oficio
+10;Requerimiento de Subsanación;0;Req. Subsanación
+1;Presentación y Revisión de la solicitud;0;Present. Revisión la solicitud
+1;Presentación de Solicitud de Abono;0;Present. Sol. Ab.

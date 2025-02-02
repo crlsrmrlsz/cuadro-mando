@@ -1,0 +1,17 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento y Archivo del expediente;1;Fin procedimiento Archivo expediente
+286;Presentación Renuncia / Desistimiento;0;Present. Renuncia / Desist.
+55;Resolución de inadmisión;0;Res. inadmisión
+52;Resolución de desistimiento;0;Res. desistimiento
+52;Resolución de Aceptación de Renuncia/ Desistimiento;0;Res. Aceptación Renuncia/ Desist.
+51;Resolución Desestimatoria por incumplimiento de requisitos;0;Res. Desest. incumplimiento requisitos
+51;Resolución Desestimatoria por falta de crédito;0;Res. Desest. falta crédito
+50;Resolución de Concesión;0;Res. Conc.
+43;IPR Desestimatorio por incumplimiento de requisitos;0;IPR Desestimatorio incumplimiento requisitos
+43;IPR Desestimatorio por falta de crédito;0;IPR Desestimatorio falta crédito
+42;IPR Concesión;0;IPR Conc.
+30;Cálculo de cuantía y Verificación de requisitos;0;Cálculo cuantía Verificación requisitos
+25;Tramite de Audiencia;0;Tramite Aud.
+25;Tramite de Audiencia de Inadmisión;0;Tramite Aud. Inadm.
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación y Revisión de la solicitud;0;Present. Revisión la solicitud

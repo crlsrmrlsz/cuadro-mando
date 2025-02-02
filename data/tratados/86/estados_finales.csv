@@ -1,0 +1,8 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+51;Denegar inscripción;0;Denegar inscripción
+50;Inscribir certificado;0;Inscribir certificado
+30;Evaluación Solicitud;0;Eval. Sol.
+25;Esperar subsanación;0;Esperar subsanación
+10;Requerir subsanación;0;Requerir subsanación
+1;Presentación de Solicitud;0;Present. Sol.

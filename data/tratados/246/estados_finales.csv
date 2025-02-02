@@ -1,0 +1,23 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+287;Seguimiento;0;Seguimiento
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+278;Resolución de pérdida de derecho al cobro;0;Res. pérdida derecho cobro
+156;Inicio de procedimiento de reintegro;0;Inic. procedimiento reintegro
+155;Propuesta Resolución de inadmisión;0;Prop. Res. inadmisión
+82;Pago;0;Pg.
+55;Resolución de inadmisión;0;Res. inadmisión
+53;Resolución de Renuncia;0;Res. Renuncia
+52;Aceptación de Desistimiento;0;Aceptación Desist.
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución denegatoria por falta de presupuesto;0;Res. denegatoria falta presupuesto
+51;Resolución denegatoria por incumplimiento requisitos;0;Res. denegatoria incumplimiento requisitos
+50;Resolución aprobatoria;0;Res. aprobatoria
+43;Propuesta Resolución Denegatoria por falta de presupuesto;0;Prop. Res. Deneg. falta presupuesto
+42;Propuesta Resolución aprobatoria;0;Prop. Res. aprobatoria
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite audiencia en pérdida de derecho al cobro;0;Trám. audiencia pérdida derecho cobro
+25;Trámite de audiencia (propuesta denegatoria);0;Trám. audiencia (propuesta denegatoria)
+21;Presentación de Renuncia;0;Present. Renuncia
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

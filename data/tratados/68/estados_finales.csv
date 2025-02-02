@@ -1,0 +1,38 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+73;Requerimiento documentación justificativa 1ª fase;1;Req. documentación justificativa 1ª fase
+294;Informe Comisión Técnica;0;Inf. Comisión Técnica
+286;Presentación de solicitud de desistimiento;0;Present. solicitud desistimiento
+278;Resolución Pérdida de Derecho al Cobro Total;0;Res. Pérd. Der. Cob. Total
+278;Resolución Pérdida de Derecho al Cobro Parcial;0;Res. Pérd. Der. Cob. Parcial
+242;Valoración solicitud;0;Valoración solicitud
+181;Propuesta Primer Pago;0;Prop. Primer Pg.
+181;Propuesta Segundo Pago;0;Prop. Segundo Pg.
+155;Propuesta Resolución de Inadmisión;0;Prop. Res. Inadm.
+82;Segundo Pago;0;Segundo Pg.
+82;Primer Pago;0;Primer Pg.
+73;Requerimiento documentación justificativa 2ª fase;0;Req. documentación justificativa 2ª fase
+70;Presentación documentación justificativa 2ª fase;0;Present. documentación justificativa 2ª fase
+70;Presentación documentación justificativa 1ª fase;0;Present. documentación justificativa 1ª fase
+55;Resolución de Inadmisión;0;Res. Inadm.
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria por incumplimiento de requisitos;0;Res. Deneg. incumplimiento requisitos
+51;Resolución Denegatoria por falta de presupuesto;0;Res. Deneg. falta presupuesto
+50;Resolución aprobatoria;0;Res. aprobatoria
+43;Propuesta definitiva resolución denegatoria por falta de presupuesto;0;Prop. definitiva res. denegatoria falta presupuesto
+43;Propuesta definitiva resolución denegatoria por incumplimiento de requisitos;0;Prop. definitiva res. denegatoria incumplimiento requisitos
+42;Propuesta definitiva de resolución aprobatoria;0;Prop. definitiva res. aprobatoria
+41;Propuesta provisional resolución denegatoria por incumplimiento de requisitos;0;Prop. provisional res. denegatoria incumplimiento requisitos
+41;Propuesta provisional resolución denegatoria por falta de presupuesto;0;Prop. provisional res. denegatoria falta presupuesto
+40;Propuesta provisional resolución aprobatoria;0;Prop. provisional res. aprobatoria
+30;Evaluación justificación 1ª fase;0;Eval. justif. 1ª fase
+30;Evaluación de solicitud;0;Eval. solicitud
+30;Evaluación justificación 2ª fase;0;Eval. justif. 2ª fase
+25;Trámite de audiencia en pérdida de derecho al cobro total;0;Trám. audiencia pérdida derecho cobro total
+25;Trámite de audiencia;0;Trám. audiencia
+25;Trámite de audiencia en pérdida de derecho al cobro parcial;0;Trám. audiencia pérdida derecho cobro parcial
+25;Trámite audiencia Propuesta provisional resolución dene. incump. de requisitos;0;Trám. audiencia Prop. provisional res. dene. incump. requisitos
+25;Trámite de audiencia Propuesta provisional denegatoria por falta de presupuesto;0;Trám. audiencia Prop. provisional denegatoria falta presupuesto
+25;Trámite de audiencia Propuesta provisional aprobatoria;0;Trám. audiencia Prop. provisional aprobatoria
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

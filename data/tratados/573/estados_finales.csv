@@ -1,0 +1,29 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Resolución Fin Procedimiento Reintegro;1;Res. Fin proc. Reintegro
+100;Fin de procedimiento;1;Fin procedimiento
+419;Trámite Audiencia Recurso de alzada ;0;Trám. Aud. Rec. alzada 
+418;Requerimiento recurso de alzada;0;Req. recurso alzada
+295;Acuerdo de Inicio Reintegro;0;Acuerdo Inic. Reintegro
+286;Presentación de solicitud de desistimiento;0;Present. solicitud desistimiento
+224;Desestimación del Recurso de alzada ;0;Desestimación Rec. alzada 
+223;Estimación del Recurso de alzada;0;Estimación Rec. alzada
+155;Propuesta de Resolución de Inadmisión Fuera de Plazo;0;Prop. Res. Inadm. Fuera Plazo
+155;Propuesta de Resolución de Inadmisión por Duplicidad;0;Prop. Res. Inadm. Duplicidad
+152;Propuesta de Resolución de Desistimiento Expreso;0;Prop. Res. Desist. Expreso
+152;Propuesta de Resolución de Desistimiento Tácito;0;Prop. Res. Desist. Tácito
+122;Comunicación de importes + Instrucciones 046;0;Comunicación importes + Instrucciones 046
+90;Presentación de Recurso de Alzada;0;Present. Rec. Alzada
+56;Resolución de Reintegro;0;Res. Reintegro
+55;Resolución de Inadmisión Fuera de Plazo;0;Res. Inadm. Fuera Plazo
+55;Resolución de Inadmisión por Duplicidad;0;Res. Inadm. Duplicidad
+52;Resolución de Desistimiento Tácito;0;Res. Desist. Tácito
+52;Resolución de Desistimiento Expreso;0;Res. Desist. Expreso
+51;Resolución Desestimatoria;0;Res. Desest.
+50;Resolución Estimatoria de Concesión;0;Res. Est. Conc.
+43;Propuesta Resolución Desestimatoria;0;Prop. Res. Desest.
+42;Propuesta Resolución Estimatoria de Concesión;0;Prop. Res. Est. Conc.
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de Audiencia;0;Trám. Aud.
+10;Requerimiento documentación Reintegro;0;Req. documentación Reintegro
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

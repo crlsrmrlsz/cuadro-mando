@@ -1,0 +1,11 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento.;1;Fin proc..
+70;Presentación justificación;1;Present. justif.
+55;Inadmisión por duplicidad.;0;Inadm. duplicidad.
+53;Resolución de Renuncia.;0;Res. Renuncia.
+51;Resolución Desfavorable.;0;Res. Desfavorable.
+50;Inscripción en el Registro.;0;Inscripción el Reg..
+30;Evaluación de solicitud.;0;Eval. solicitud.
+21;Presentación de Renuncia.;0;Present. Renuncia.
+10;Requerimiento de documentación.;0;Req. documentación.
+1;Presentación de solicitud.;0;Present. solicitud.

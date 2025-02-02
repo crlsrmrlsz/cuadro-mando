@@ -1,0 +1,11 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+275;Acuse de Recibo a la notificación;0;Acuse Recibo la notificación
+122;Comunicación de Fin de ERTE;0;Comunicación Fin ERTE
+122;Comunicación de cambio de modalidad;0;Comunicación cambio modalidad
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución Desfavorable;0;Res. Desfavorable
+50;Resolución Favorable;0;Res. Favorable
+10;Requerimiento de subsanación de la Comunicación de cambio de modalidad;0;Req. subsanación la Comunicación cambio modalidad
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

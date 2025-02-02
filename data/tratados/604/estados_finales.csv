@@ -1,0 +1,18 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+286;Presentación Solicitud de Desistimiento;0;Present. Sol. Desist.
+155;Propuesta Resolucion de inadmisión;0;Prop. Res. inadmisión
+82;Pago - Reconocimiento de Obligación;0;Pg. - Reconocimiento Obligación
+55;Resolucion Inadmision;0;Res. Inadmision
+52;Resolucion Desistimiento Tácito;0;Res. Desist. Tácito
+52;Resolucion Desistimiento Expreso;0;Res. Desist. Expreso
+51;Resolucion Desfavorable;0;Res. Desfavorable
+50;Resolucion Favorable;0;Res. Favorable
+43;Propuesta de Resolucion Desfavorable Definitiva;0;Prop. Res. Desfavorable Def.
+42;Propuesta de Resolucion Favorable Definitiva;0;Prop. Res. Favorable Def.
+41;Propuesta de Resolucion Desfavorable Provisional;0;Prop. Res. Desfavorable Prov.
+40;Propuesta de resolucion Favorable Provisional;0;Prop. res. Favorable Prov.
+30;Evaluación de Solicitud;0;Eval. Sol.
+25;Trámite de audiencia;0;Trám. audiencia
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de la solicitud;0;Present. la solicitud

@@ -1,0 +1,46 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+314;Propuesta aprobatoria con subrogación (no pagado);0;Prop. aprobatoria subrogación (no pagado)
+306;Propuesta aprobatoria de sustitución sin pago;0;Prop. aprobatoria sustitución sin pago
+306;Propuesta denegatoria de sustitución sin pago;0;Prop. denegatoria sustitución sin pago
+300;Informe de adecuación del puesto;0;Inf. adecuación puesto
+287;Seguimiento primer periodo;0;Seguimiento primer periodo
+287;Seguimiento segundo periodo;0;Seguimiento segundo periodo
+287;Seguimiento tercer periodo;0;Seguimiento tercer periodo
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+278;Resolución de pérdida de derecho al cobro;0;Res. pérdida derecho cobro
+156;Inicio procedimiento de reintegro segundo periodo;0;Inic. procedimiento reintegro segundo periodo
+156;Inicio procedimiento de reintegro primer periodo;0;Inic. procedimiento reintegro primer periodo
+156;Inicio de procedimiento de reintegro por renuncia;0;Inic. procedimiento reintegro renuncia
+156;Inicio de procedimiento de reintegro tras sustitución;0;Inic. procedimiento reintegro tras sustitución
+156;Inicio procedimiento de reintegro tercer periodo;0;Inic. procedimiento reintegro tercer periodo
+155;Propuesta Resolución de inadmisión;0;Prop. Res. inadmisión
+152;Propuesta Resolución Desistimiento;0;Prop. Res. Desist.
+82;Pago;0;Pg.
+62;Resolución aprobatoria con subrogación (no pagado);0;Res. aprobatoria subrogación (no pagado)
+62;Resolución aprobatoria de subrogación (ya pagado);0;Res. aprobatoria subrogación (ya pagado)
+62;Resolución denegatoria con subrogación (no pagado);0;Res. denegatoria subrogación (no pagado)
+61;Resolución aprobatoria de sustitución sin pago;0;Res. aprobatoria sustitución sin pago
+61;Resolución aprobatoria de sustitución con pago;0;Res. aprobatoria sustitución pago
+61;Resolución denegatoria de sustitución sin pago;0;Res. denegatoria sustitución sin pago
+55;Resolución de inadmisión;0;Res. inadmisión
+53;Resolución aceptación de renuncia;0;Res. aceptación renuncia
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria por Falta de Presupuesto;0;Res. Deneg. Falt. Presupuesto
+51;Resolución Denegatoria por Incumplimiento de Requisitos;0;Res. Deneg. Incumplimiento Req.
+50;Resolución Aprobatoria;0;Res. Aprobatoria
+43;Propuesta Definitiva Resolución denegatoria por incumplimiento requisitos;0;Prop. Def. Res. denegatoria incumplimiento requisitos
+43;Propuesta Definitiva Resolución denegatoria por falta de presupuesto;0;Prop. Def. Res. denegatoria falta presupuesto
+42;Propuesta Definitiva de Resolución Aprobatoria;0;Prop. Def. Res. Aprobatoria
+41;Propuesta Provisional de Resolución Desfavorable;0;Prop. Prov. Res. Desfavorable
+40;Propuesta Provisional de Resolución Favorable;0;Prop. Prov. Res. Favorable
+30;Evaluación de la solicitud;0;Eval. la solicitud
+30;Evaluación de subrogación;0;Eval. subrogación
+30;Evaluación de sustitución;0;Eval. sustitución
+25;Trámite de audiencia sustitución;0;Trám. audiencia sustitución
+25;Trámite audiencia en pérdida de derecho al cobro;0;Trám. audiencia pérdida derecho cobro
+21;Presentación de Renuncia;0;Present. Renuncia
+12;Presentación de subrogación;0;Present. subrogación
+11;Presentación de sustitución;0;Present. sustitución
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

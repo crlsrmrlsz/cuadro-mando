@@ -1,0 +1,23 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+50;Resolución de Concesión;1;Res. Conc.
+294;Informe de Órgano Colegiado;0;Inf. Órgano Colegiado
+293;Informe de Calificación;0;Inf. Calificación
+286;Presentación solicitud de desistimiento;0;Present. solicitud desistimiento
+242;Valoración de la Solicitud;0;Valoración la Sol.
+155;Propuesta de resolución de inadmisión;0;Prop. res. inadmisión
+152;Propuesta de Resolución de Desistimiento;0;Prop. Res. Desist.
+55;Resolución de inadmisión;0;Res. inadmisión
+52;Resolución de desistimiento;0;Res. desistimiento
+51;Resolución Denegatoria por falta de presupuesto;0;Res. Deneg. falta presupuesto
+51;Resolución Denegatoria Incumplimiento de Requisitos;0;Res. Deneg. Incumplimiento Req.
+43;Propuesta Definitiva Resolución Denegatoria por falta de presupuesto;0;Prop. Def. Res. Deneg. falta presupuesto
+43;Propuesta Definitiva Resolución Denegatoria Incumplimiento de Requisitos;0;Prop. Def. Res. Deneg. Incumplimiento Req.
+42;Propuesta Definitiva Resolución Concesión;0;Prop. Def. Res. Conc.
+41;Propuesta Provisional Resolución Denegatoria por falta de presupuesto;0;Prop. Prov. Res. Deneg. falta presupuesto
+41;Propuesta Provisional Resolución Denegatoria Incumplimiento de Requisitos;0;Prop. Prov. Res. Deneg. Incumplimiento Req.
+40;Propuesta Provisional Resolución Concesión;0;Prop. Prov. Res. Conc.
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de audiencia;0;Trám. audiencia
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

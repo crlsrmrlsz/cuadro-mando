@@ -1,0 +1,16 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+242;Valoración Jurado;0;Valoración Jurado
+242;Valoración Comisión Técnica;0;Valoración Comisión Técnica
+82;Pago premio;0;Pg. premio
+52;Resolución de desistimiento;0;Res. desistimiento
+51;Resolución no seleccionado premio;0;Res. no seleccionado premio
+51;Resolución desestimatoria por incumplimiento de requisitos;0;Res. desestimatoria incumplimiento requisitos
+50;Resolución seleccionado premio;0;Res. seleccionado premio
+43;Propuesta de resolución no seleccionado premio;0;Prop. res. no seleccionado premio
+42;Propuesta de resolución seleccionado premio;0;Prop. res. seleccionado premio
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de audiencia;0;Trám. audiencia
+10;Requerimiento documentación de complementaria;0;Req. documentación complementaria
+10;Requerimiento documentación de solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

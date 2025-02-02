@@ -1,0 +1,21 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin procedimiento;1;Fin procedimiento
+271;Resolución no selección y en reserva;0;Res. no selección en reserva
+265;Inscripción Registro Unidades Competencia;0;Inscripción Reg. Unidades Competencia
+264;Resolución acreditación competencia profesional;0;Res. acreditación competencia profesional
+263;Evaluación competencia profesional;0;Eval. competencia profesional
+262;Selección Comisión Evaluación;0;Selección Comisión Eval.
+261;Asesoramiento;0;Asesoramiento
+260;Resolución selección definitiva;0;Res. selección definitiva
+259;Resolución admisión definitiva y selección provisional;0;Res. admisión definitiva selección provisional
+258;Resolución exclusión definitiva;0;Res. exclusión definitiva
+257;Resolución exclusión provisional;0;Res. exclusión provisional
+256;Resolución admisión provisional;0;Res. admisión provisional
+242;Valoración Comisión Admisión;0;Valoración Comisión Admisión
+224;Desestimación de Recurso de Alzada;0;Desestimación Rec. Alzada
+220;Recurso de Alzada;0;Rec. Alzada
+52;Resolución desistimiento;0;Res. desistimiento
+30;Evaluación Solicitud;0;Eval. Sol.
+25;Trámite de audiencia;0;Trám. audiencia
+15;Presentación alegaciones valoración;0;Present. alegaciones valoración
+1;Presentación Solicitud;0;Present. Sol.

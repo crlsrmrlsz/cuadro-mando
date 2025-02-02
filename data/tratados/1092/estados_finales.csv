@@ -1,0 +1,29 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+56;Resolución de Reintegro;1;Res. Reintegro
+52;Resolución de Desistimiento;1;Res. Desist.
+51;Resolución Denegatoria por incumplimiento de requisitos;1;Res. Deneg. incumplimiento requisitos
+43;Propuesta Definitiva Resolución Denegatoria por Falta de Crédito;1;Prop. Def. Res. Deneg. Falt. Crédito
+286;Presentación de Solicitud de Desistimiento;0;Present. Sol. Desist.
+156;Acuerdo de inicio de reintegro;0;Acuerdo inicio reintegro
+82;Pago;0;Pg.
+70;Comunicación de contratos;0;Comunicación contratos
+61;Modificación Resolución Denegatoria;0;Modificación Res. Deneg.
+60;Modificación Resolución Favorable SIN Modificación de Importe;0;Modificación Res. Favorable SIN Modificación Importe
+60;Modificación Resolución Favorable;0;Modificación Res. Favorable
+53;Resolución de Renuncia Parcial;0;Res. Renuncia Parcial
+53;Resolución de Renuncia total;0;Res. Renuncia total
+50;Resolución Aprobatoria;0;Res. Aprobatoria
+43;Propuesta Definitiva Resolución Denegatoria Incumplimiento de Requisitos;0;Prop. Def. Res. Deneg. Incumplimiento Req.
+43;Propuesta Definitiva Modificación Resolución Denegatoria;0;Prop. Def. Modificación Res. Deneg.
+42;Propuesta Modificación Resolución Concesión;0;Prop. Modificación Res. Conc.
+42;Propuesta Modificación Resolución Concesión SIN Modificación de Importe;0;Prop. Modificación Res. Conc. SIN Modificación Importe
+42;Propuesta Definitiva Aprobatoria;0;Prop. Def. Aprobatoria
+41;Propuesta Provisional Resolución Denegatoria Incumplimiento de Requisitos;0;Prop. Prov. Res. Deneg. Incumplimiento Req.
+41;Propuesta Provisional Modificación Resolución Denegatoria;0;Prop. Prov. Modificación Res. Deneg.
+40;Propuesta Provisional Aprobatoria;0;Prop. Prov. Aprobatoria
+30;Evaluación de la solicitud;0;Eval. la solicitud
+21;Presentación de renuncia total;0;Present. renuncia total
+21;Presentación de renuncia parcial;0;Present. renuncia parcial
+10;Requerimiento de datos y/o documentación;0;Req. datos y/o documentación
+1;Presentación de solicitud;0;Present. solicitud

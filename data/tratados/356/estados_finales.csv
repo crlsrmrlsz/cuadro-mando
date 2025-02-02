@@ -1,0 +1,28 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+300;Informe de necesidad de adaptación;0;Inf. necesidad adaptación
+287;Seguimiento primer periodo;0;Seguimiento primer periodo
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+278;Resolución de pérdida de derecho al cobro;0;Res. pérdida derecho cobro
+156;Inicio de procedimiento de reintegro por renuncia;0;Inic. procedimiento reintegro renuncia
+156;Inicio procedimiento de reintegro periodo;0;Inic. procedimiento reintegro periodo
+155;Propuesta Resolución de inadmisión;0;Prop. Res. inadmisión
+152;Propuesta Resolución Desistimiento;0;Prop. Res. Desist.
+82;Pago;0;Pg.
+55;Resolución de inadmisión;0;Res. inadmisión
+53;Resolución aceptación de renuncia con pago previo sin intereses;0;Res. aceptación renuncia pago previo sin intereses
+53;Resolución aceptación de renuncia sin pago;0;Res. aceptación renuncia sin pago
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria por Incumplimiento de Requisitos;0;Res. Deneg. Incumplimiento Req.
+51;Resolución Denegatoria por Falta de Presupuesto;0;Res. Deneg. Falt. Presupuesto
+50;Resolución Aprobatoria;0;Res. Aprobatoria
+43;Propuesta Resolución denegatoria por falta de presupuesto;0;Prop. Res. denegatoria falta presupuesto
+43;Propuesta Resolución denegatoria por incumplimiento requisitos;0;Prop. Res. denegatoria incumplimiento requisitos
+42;Propuesta de Resolución Aprobatoria;0;Prop. Res. Aprobatoria
+30;Evaluación de la solicitud;0;Eval. la solicitud
+25;Trámite de audiencia;0;Trám. audiencia
+25;Trámite de audiencia previo;0;Trám. audiencia previo
+25;Trámite audiencia en pérdida de derecho al cobro;0;Trám. audiencia pérdida derecho cobro
+21;Presentación de Renuncia;0;Present. Renuncia
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

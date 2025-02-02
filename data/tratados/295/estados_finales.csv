@@ -1,0 +1,24 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+255;Organo Colegiado;1;Organo Colegiado
+100;Fin de Procedimiento;1;Fin proc.
+279;Liquidacion Expediente (justificación);0;Liq. Expediente (justif.)
+278;Resolucion de Pérdida de Derecho al Cobro;0;Res. Pérd. Der. Cob.
+278;Resolucion de Pérdida de Derecho al Cobro (NO INICIO);0;Res. Pérd. Der. Cob. (NO INICIO)
+270;Modificación Resolución Desfavorable;0;Modificación Res. Desfavorable
+266;Seguimiento de proyectos;0;Seguimiento proyectos
+242;Valoración de proyectos;0;Valoración proyectos
+160;Solicitud modificación resolución;0;Sol. modificación res.
+156;Procedimiento de reintegro;0;proc. reintegro
+82;Pago 75%;0;Pg. 75%
+82;Pago Final - Resolucion de Liquidacion;0;Pg. Final - Res. Liq.
+60;Modificación Resolución Favorable;0;Modificación Res. Favorable
+55;Inadmisión por Duplicidad;0;Inadm. Duplicidad
+53;Resolución de renuncia;0;Res. renuncia
+52;Resolución Desistimiento;0;Res. Desist.
+50;Resolución Definitiva;0;Res. Def.
+40;Propuesta de Resolución;0;Prop. Res.
+25;Trámite de audiencia en Pérdida de Derecho al Cobro (NO INICIO);0;Trám. audiencia Pérd. Der. Cob. (NO INICIO)
+25;Trámite de audiencia en Pérdida de Derecho al Cobro (liquidación);0;Trám. audiencia Pérd. Der. Cob. (liquidación)
+21;Presentación de renuncia;0;Present. renuncia
+10;Requerimiento de Documentación de Solicitud;0;Req. Doc. Sol.
+1;Presentación de Solicitud;0;Present. Sol.

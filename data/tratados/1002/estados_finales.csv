@@ -1,0 +1,25 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+212;Suspensión del cómputo de plazo de mantenimiento;1;Suspensión cómputo plazo mantenimiento
+100;Fin de procedimiento;1;Fin procedimiento
+62;Resolución aprobatoria de subrogación (ya pagado);1;Res. aprobatoria subrogación (ya pagado)
+287;Seguimiento (9 meses);0;Seguimiento (9 meses)
+287;1º Seguimiento (18 meses);0;1º Seguimiento (18 meses)
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+156;Inicio de Procedimiento de Reintegro (Reintegra);0;Inic. proc. Reintegro (Reintegra)
+155;Propuesta Resolución de inadmisión;0;Prop. Res. inadmisión
+152;Propuesta de Resolución de Desistimiento;0;Prop. Res. Desist.
+53;Resolución de Renuncia;0;Res. Renuncia
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución denegatoria por incumplimiento requisitos;0;Res. denegatoria incumplimiento requisitos
+50;Resolución aprobatoria;0;Res. aprobatoria
+43;Propuesta Definitiva de Resolución Desfavorable;0;Prop. Def. Res. Desfavorable
+43;Propuesta Resolución Denegatoria por falta de presupuesto;0;Prop. Res. Deneg. falta presupuesto
+42;Propuesta Definitiva de Resolución Favorable;0;Prop. Def. Res. Favorable
+41;Propuesta Provisional de Resolución Desfavorable;0;Prop. Prov. Res. Desfavorable
+40;Propuesta Provisional de Resolución Favorable;0;Prop. Prov. Res. Favorable
+30;Evaluación de solicitud;0;Eval. solicitud
+30;Evaluación de subrogación;0;Eval. subrogación
+21;Presentación de Renuncia;0;Present. Renuncia
+12;Presentación de subrogación;0;Present. subrogación
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

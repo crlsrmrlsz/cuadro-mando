@@ -1,0 +1,37 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+57;Archivo de expediente;1;Archivo expediente
+41;Propuesta Resolución de Pérdida de Derecho;1;Prop. Res. Pérd. Der.
+302;Visita de obra (abono);0;Visita obra (abono)
+302;Visita de obra;0;Visita obra
+100;Fin de Procedimiento;0;Fin proc.
+53;Propuesta Resolución Aceptación de Renuncia;0;Prop. Res. Aceptación Renuncia
+53;Resolución Aceptación de Renuncia;0;Res. Aceptación Renuncia
+51;Resolución Desestimatoria - Incumplimiento de Requisitos;0;Res. Desest. - Incumplimiento Req.
+51;Resolución Desestimatoria - Falta de presupuesto;0;Res. Desest. - Falt. presupuesto
+51;Resolución Desestimatoria - Incumplimiento de Requisitos (abono);0;Res. Desest. - Incumplimiento Req. (abono)
+51;Resolución Desestimatoria - Fuera de Plazo;0;Res. Desest. - Fuera Plazo
+51;Resolución Desestimatoria - Falta Documentación (abono);0;Res. Desest. - Falt. Doc. (abono)
+51;Resolución Desestimatoria - Falta Documentación;0;Res. Desest. - Falt. Doc.
+50;Resolución Estimatoria de Concesión;0;Res. Est. Conc.
+50;Resolución Estimatoria de Concesión (Obra Terminada);0;Res. Est. Conc. (Obra Terminada)
+50;Resolución Estimatoria de Abono (Obra Terminada);0;Res. Est. Ab. (Obra Terminada)
+50;Resolución Estimatoria de Abono;0;Res. Est. Ab.
+42;Propuesta Resolución Estimatoria de Abono;0;Prop. Res. Est. Ab.
+42;Propuesta Resolución Estimatoria de Concesión;0;Prop. Res. Est. Conc.
+42;Propuesta Resolución Estimatoria de Concesión (Obra Terminada);0;Prop. Res. Est. Conc. (Obra Terminada)
+42;Propuesta Resolución Estimatoria de Abono (Obra Terminada);0;Prop. Res. Est. Ab. (Obra Terminada)
+41;Propuesta Resolución Desestimatoria - Falta Documentación (abono);0;Prop. Res. Desest. - Falt. Doc. (abono)
+41;Propuesta Resolución Desestimatoria - Incumplimiento de Requisitos (abono);0;Prop. Res. Desest. - Incumplimiento Req. (abono)
+41;Propuesta Resolución Desestimatoria - Falta Documentación;0;Prop. Res. Desest. - Falt. Doc.
+41;Propuesta Resolución Desestimatoria - Fuera de Plazo;0;Prop. Res. Desest. - Fuera Plazo
+41;Propuesta Resolución Desestimatoria - Incumplimiento de Requisitos;0;Prop. Res. Desest. - Incumplimiento Req.
+41;Propuesta Resolución Desestimatoria - Falta de presupuesto;0;Prop. Res. Desest. - Falt. presupuesto
+30;Evaluación de solicitud (abono);0;Eval. solicitud (abono)
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de Audiencia;0;Trám. Aud.
+25;Trámite de Audiencia (abono);0;Trám. Aud. (abono)
+10;Requerimiento de presentación de justificación;0;Req. presentación justif.
+10;Requerimiento de documentación (abono);0;Req. documentación (abono)
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud
+1;Presentación de solicitud de Abono;0;Present. solicitud Ab.

@@ -1,0 +1,25 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+489;Resolución de concesión de abono anticipado;0;Res. concesión abono anticipado
+278;Resolución de pérdida de abono anticipado;0;Res. pérdida abono anticipado
+82;Pago;0;Pg.
+70;Requerimiento de aportación de garantía;0;Req. aportación garantía
+55;Resolución inadmisión;0;Res. inadmisión
+52;Resolución desistimiento;0;Res. desistimiento
+51;Resolución denegatoria (Abono);0;Res. denegatoria (Ab.)
+51;Resolución denegatoria;0;Res. denegatoria
+50;Resolución concesión;0;Res. concesión
+50;Resolución de Pago parcial;0;Res. Pg. parcial
+50;Resolución de Pago;0;Res. Pg.
+43;Propuesta de resolución desfavorable definitiva (Abono);0;Prop. res. desfavorable definitiva (Ab.)
+43;Propuesta de resolución desfavorable definitiva;0;Prop. res. desfavorable definitiva
+42;Propuesta de resolución de concesión;0;Prop. res. concesión
+42;Propuesta de resolución de concesión (Abono);0;Prop. res. concesión (Ab.)
+42;Propuesta de resolución de concesión pago parcial;0;Prop. res. concesión pago parcial
+30;Evaluación de la solicitud;0;Eval. la solicitud
+30;Evaluación de la solicitud (Abono);0;Eval. la solicitud (Ab.)
+25;Trámite de audiencia;0;Trám. audiencia
+25;Trámite de audiencia (Abono);0;Trám. audiencia (Ab.)
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud
+1;Presentación de solicitud de abono;0;Present. solicitud abono

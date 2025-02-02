@@ -1,0 +1,26 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+53;Resolución de renuncia total;1;Res. renuncia total
+266;Seguimiento de proyectos;0;Seguimiento proyectos
+251;Evaluado y pendiente de valoración;0;Evaluado pendiente valoración
+242;Valoración de proyectos;0;Valoración proyectos
+242;Informe de SSCC Definitivo;0;Inf. SSCC Definitivo
+242;Informe de SSCC;0;Inf. SSCC
+160;Solicitud modificación resolución;0;Sol. modificación res.
+155;Propuesta de Inadmision (POR DUPLICIDAD);0;Prop. Inadmision (POR DUPLICIDAD)
+152;Propuesta de resolución de desistimiento;0;Prop. res. desistimiento
+82;Pago Anticipo;0;Pg. Anticipo
+60;Modificación Resolución de concesión;0;Modificación Res. concesión
+55;Resolución de inadmisión (POR DUPLICIDAD);0;Res. inadmisión (POR DUPLICIDAD)
+52;Resolución de desistimiento;0;Res. desistimiento
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolución de Concesión;0;Res. Conc.
+42;Propuesta definitiva;0;Prop. definitiva
+42;Propuesta Modificación Resolución Concesión;0;Prop. Modificación Res. Conc.
+40;Propuesta de Resolución Provisional;0;Prop. Res. Prov.
+30;Evaluado y valorado definitivamente;0;Evaluado valorado definitivamente
+30;Evaluación de solicitud;0;Eval. solicitud
+21;Presentación renuncia total;0;Present. renuncia total
+15;Alegaciones a la Propuesta Provisional;0;Alegaciones la Prop. Prov.
+10;Requerimiento de Documentación de Solicitud;0;Req. Doc. Sol.
+1;Presentación de Solicitud;0;Present. Sol.

@@ -1,0 +1,20 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+278;Resolución de Pérdida de Derecho al Cobro;0;Res. Pérd. Der. Cob.
+156;Procedimiento de Reintegro (Reintegra);0;proc. Reintegro (Reintegra)
+82;Liquidación;0;Liq.
+82;Pago - Anticipo 90%;0;Pg. - Anticipo 90%
+82;Pago - Resto 10%;0;Pg. - Resto 10%
+82;Liquidación con alegaciones;0;Liq. alegaciones
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Desfavorable;0;Res. Desfavorable
+50;Resolución de Concesión;0;Res. Conc.
+43;Propuesta Resolución Desfavorable;0;Prop. Res. Desfavorable
+42;Propuesta Resolución de Concesión;0;Prop. Res. Conc.
+40;Propuesta Provisional de Concesión;0;Prop. Prov. Conc.
+30;Evaluación y Servicios de Verificación;0;Eval. Servicios Verificación
+25;Acuerdo de inicio de pérdida de derecho al cobro;0;Acuerdo inicio pérdida derecho cobro
+15;Presentación de alegaciones;0;Present. alegaciones
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de Solicitud;0;Present. Sol.

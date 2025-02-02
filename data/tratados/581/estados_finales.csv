@@ -1,0 +1,16 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+286;Presentación Solicitud de Desistimiento;0;Present. Sol. Desist.
+267;Comunicación Ficha evaluación;0;Comunicación Ficha evaluación
+267;Comunicación inicio de Trabajos;0;Comunicación inicio Trabajos
+155;Propuesta Resolucion de inadmisión;0;Prop. Res. inadmisión
+55;Resolucion Inadmision;0;Res. Inadmision
+52;Resolucion Desistimiento;0;Res. Desist.
+51;Resolucion Desfavorable;0;Res. Desfavorable
+50;Resolucion Favorable;0;Res. Favorable
+43;Propuesta de Resolucion Desfavorable Definitiva;0;Prop. Res. Desfavorable Def.
+42;Propuesta de Resolucion Favorable Definitiva;0;Prop. Res. Favorable Def.
+30;Evaluación de Solicitud;0;Eval. Sol.
+10;Requerimiento Ficha de Evaluación;0;Req. Ficha Eval.
+10;Requerimiento de Subsanación;0;Req. Subsanación
+1;Presentación de solicitud LCQ;0;Present. solicitud LCQ

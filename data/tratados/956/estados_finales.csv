@@ -1,0 +1,15 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+338;Resolución Desestimatoria;0;Res. Desest.
+82;2º Pago;0;2º Pg.
+82;1º Pago;0;1º Pg.
+55;Resolución de Inadmisión;0;Res. Inadm.
+52;Resolucion Desistimiento;0;Res. Desist.
+51;Resolucion Desfavorable;0;Res. Desfavorable
+50;Resolucion Favorable;0;Res. Favorable
+41;Propuesta de Resolucion Desfavorable Provisional;0;Prop. Res. Desfavorable Prov.
+40;Propuesta de resolucion Favorable Provisional;0;Prop. res. Favorable Prov.
+35;Presentación de Informes ;0;Present. Inf.s 
+30;Evaluación de Solicitud;0;Eval. Sol.
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

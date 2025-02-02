@@ -1,0 +1,20 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin procedimiento;1;Fin procedimiento
+287;Seguimiento;0;Seguimiento
+286;Presentación de solicitud de desistimiento;0;Present. solicitud desistimiento
+278;Pérdida de derecho al cobro total;0;Pérd. derecho cobro total
+152;Propuesta de desistimiento;0;Prop. desistimiento
+82;Pago-Reconocimiento de obligación (ADO,O);0;Pg.-Reconocimiento obligación (ADO,O)
+74;No justificado-Incumplimiento total;0;No justificado-Incumplimiento total
+73;Requerimiento Documentación Justificativa;0;Req. Doc. Justificativa
+72;Justificación incompleta-Liquidación parcial;0;Just. incompleta-Liq. parcial
+71;Justificación completa-Liquidación total;0;Just. completa-Liq. total
+70;Presentacion Documentacion Justificativa;0;Present. Documentacion Justificativa
+53;Resolucion de aceptacion de renuncia;0;Res. aceptacion renuncia
+52;Resolucion Desistimiento;0;Res. Desist.
+51;Resolucion Denegatoria por incumplimiento de requisitos;0;Res. Deneg. incumplimiento requisitos
+50;Resolucion aprobatoria;0;Res. aprobatoria
+30;Evaluacion Solicitud;0;Evaluacion Sol.
+21;Presentacion de renuncia;0;Present. renuncia
+10;Requerimiento Documentacion Solicitud;0;Req. Documentacion Sol.
+1;Presentacion de solicitud;0;Present. solicitud

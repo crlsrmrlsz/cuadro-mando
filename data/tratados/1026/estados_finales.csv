@@ -1,0 +1,39 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+379;Devolución voluntaria del anticipo por modificación de la resolución;0;Dev. voluntaria anticipo modificación la res.
+279;Liquidación Expediente Definitivo;0;Liq. Expediente Definitivo
+279;Liquidación Expediente;0;Liq. Expediente
+278;Resolución de Pérdida de Derecho al Cobro (NO INICIO);0;Res. Pérd. Der. Cob. (NO INICIO)
+278;Resolución de fin de procedimiento de Pérdida de Derecho al Cobro (NO INICIO);0;Res. fin procedimiento Pérd. Der. Cob. (NO INICIO)
+278;Resolución de Pérdida de Derecho al Cobro;0;Res. Pérd. Der. Cob.
+278;Resolución de pérdida de derecho al cobro total;0;Res. pérdida derecho cobro total
+278;Resolución fin de procedimiento del Acuerdo de inicio pérdida derecho al cobro;0;Res. fin procedimiento Acuerdo inicio pérdida derecho cobro
+266;Seguimiento de proyectos;0;Seguimiento proyectos
+266;Seguimiento de proyectos Definitivo;0;Seguimiento proyectos Definitivo
+251;Evaluado y pendiente de valoración;0;Evaluado pendiente valoración
+242;Valoración de proyectos;0;Valoración proyectos
+242;Informe de SSCC;0;Inf. SSCC
+242;Informe de SSCC Definitivo;0;Inf. SSCC Definitivo
+160;Solicitud modificación resolución;0;Sol. modificación res.
+156;Procedimiento de reintegro;0;proc. reintegro
+155;Propuesta de Inadmision (POR DUPLICIDAD);0;Prop. Inadmision (POR DUPLICIDAD)
+82;Pago Anticipo;0;Pg. Anticipo
+82;Pago Final - Resolución de Liquidación;0;Pg. Final - Res. Liq.
+60;Modificación Resolución Favorable;0;Modificación Res. Favorable
+55;Resolución de inadmisión (POR DUPLICIDAD);0;Res. inadmisión (POR DUPLICIDAD)
+53;Resolución de renuncia total;0;Res. renuncia total
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolución de Concesión;0;Res. Conc.
+42;Propuesta Modificación Resolución Concesión;0;Prop. Modificación Res. Conc.
+42;Propuesta definitiva;0;Prop. definitiva
+40;Propuesta de Resolución Provisional;0;Prop. Res. Prov.
+30;Evaluación de solicitud;0;Eval. solicitud
+30;Evaluado y valorado definitivamente;0;Evaluado valorado definitivamente
+25;Acuerdo de inicio Pérdida de Derecho al Cobro;0;Acuerdo inicio Pérd. Der. Cob.
+25;Acuerdo de Inicio de Pérdida de Derecho al Cobro (NO INICIO);0;Acuerdo Inic. Pérd. Der. Cob. (NO INICIO)
+25;Acuerdo de inicio de pérdida de derecho al cobro total;0;Acuerdo inicio pérdida derecho cobro total
+21;Presentación renuncia total;0;Present. renuncia total
+15;Presentación de alegaciones;0;Present. alegaciones
+15;Alegaciones a la Propuesta Provisional;0;Alegaciones la Prop. Prov.
+10;Requerimiento de Documentación de Solicitud;0;Req. Doc. Sol.
+1;Presentación de Solicitud;0;Present. Sol.

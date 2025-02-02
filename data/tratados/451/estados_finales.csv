@@ -1,0 +1,30 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+340;Pendiente de Valoración Definitiva;1;Pend. Valoración Def.
+340;Pendiente de Valoración Provisional;1;Pend. Valoración Prov.
+100;Fin de Procedimiento;1;Fin proc.
+359;Acuerdo de inicio de Pérdida de Derecho al Cobro;0;Acuerdo inicio Pérd. Der. Cob.
+316;Resolución de Concesión Estimatoria con Crédito;0;Res. Conc. Est. Crédito
+283;Propuesta de Resolución de Pérdida de Derecho al Cobro de la ayuda;0;Prop. Res. Pérd. Der. Cob. la ayuda
+283;Propuesta de Resolución Fin de Pérdida de Derecho al Cobro de la ayuda;0;Prop. Res. Fin Pérd. Der. Cob. la ayuda
+278;Resolución de Pérdida de Derecho al Cobro de la ayuda;0;Res. Pérd. Der. Cob. la ayuda
+278;Resolución de Fin de Pérdida de Derecho al Cobro de la ayuda;0;Res. Fin Pérd. Der. Cob. la ayuda
+181;Abono;0;Ab.
+155;P.R. Inadmisión Solicitud Duplicada;0;P.R. Inadm. Sol. Duplicada
+155;P.R. Inadmisión Solicitud Fuera de Plazo;0;P.R. Inadm. Sol. Fuera Plazo
+153;Propuesta de Resolución Desistimiento del Abono de la Ayuda;0;Prop. Res. Desist. Ab. la Ayuda
+153;P.R. Desistimiento Voluntario Solicitud;0;P.R. Desist. Voluntario Sol.
+152;P.R. Desistimiento Requerimiento Documentación;0;P.R. Desist. Req. Doc.
+55;Resolución Inadmisión Solicitud Fuera de Plazo;0;Res. Inadm. Sol. Fuera Plazo
+55;Resolución Inadmisión Solicitud Duplicada;0;Res. Inadm. Sol. Duplicada
+53;Resolución Desistimiento Voluntario Solicitud;0;Res. Desist. Voluntario Sol.
+53;Resolución Desistimiento por Renuncia Voluntaria a la Ayuda;0;Res. Desist. Renuncia Voluntaria la Ayuda
+52;Resolución Desistimiento Requerimiento Documentación;0;Res. Desist. Req. Doc.
+41;P.R. Provisional Desestimatoria;0;P.R. Prov. Desest.
+40;P.R. Provisional Estimatoria sin Crédito;0;P.R. Prov. Est. sin Crédito
+40;P.R. Provisional Estimatoria con Crédito;0;P.R. Prov. Est. Crédito
+30;Evaluación de alegaciones;0;Eval. alegaciones
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de audiencia evaluación solicitud;0;Trám. audiencia evaluación solicitud
+10;Requerimiento de Documentación para el Abono de la Ayuda;0;Req. Doc. para Ab. la Ayuda
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

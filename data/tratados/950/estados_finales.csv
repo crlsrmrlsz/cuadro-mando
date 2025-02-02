@@ -1,0 +1,15 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+265;Inscripción en Registro;0;Inscripción Reg.
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria;0;Res. Deneg.
+51;Resolución Desfavorable de Descalificación;0;Res. Desfavorable Descalificación
+50;Resolución Favorable de Descalificación;0;Res. Favorable Descalificación
+50;Resolución Favorable de Calificación;0;Res. Favorable Calificación
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de audiencia;0;Trám. audiencia
+15;Presentación de alegaciones;0;Present. alegaciones
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de Solicitud;0;Present. Sol.
+1;Propuesta de Descalificación;0;Prop. Descalificación

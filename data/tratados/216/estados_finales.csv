@@ -1,0 +1,46 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+330;Emisión del Baremo de Movilidad Reducida - Pensionista;0;Emisión Baremo Movilidad Reducida - Pensionista
+330;Emisión del Baremo de Movilidad Reducida;0;Emisión Baremo Movilidad Reducida
+329;Reconocimiento del Grado de Discapacidad;0;Reconocimiento Grado Discapacidad
+90;Presentación de Recurso de Alzada - Razones Humanitarias;0;Present. Rec. Alzada - Razones Humanitarias
+90;Presentación de Recurso de Alzada - Pensionista;0;Present. Rec. Alzada - Pensionista
+90;Presentación de Recurso de Alzada - Hospital Nacional de Parapléjicos;0;Present. Rec. Alzada - Hospital Nacional Parapléjicos
+90;Presentación de Recurso de Alzada;0;Present. Rec. Alzada
+90;Presentación de Recurso de Alzada - Transporte Colectivo;0;Present. Rec. Alzada - Transporte Colectivo
+54;Resolución de Revocación de R. Denegatoria - Hospital Nacional de Parapléjicos;0;Res. Revocación R. Deneg. - Hospital Nacional Parapléjicos
+54;Resolución de Revocación de R. Denegatoria - Razones Humanitarias;0;Res. Revocación R. Deneg. - Razones Humanitarias
+54;Resolución de Revocación de Resolución Denegatoria;0;Res. Revocación Res. Deneg.
+54;Resolución de Revocación de Resolución Denegatoria- Transporte colectivo;0;Res. Revocación Res. Deneg.- Transporte colectivo
+54;Resolución de Revocación de Resolución Denegatoria - Pensionista;0;Res. Revocación Res. Deneg. - Pensionista
+52;Resolución Desistimiento a Persona con Discapacidad;0;Res. Desist. Persona Discapacidad
+52;Resolución Desistimiento - Razones Humanitarias;0;Res. Desist. - Razones Humanitarias
+52;Resolución Desistimiento - Pensionista;0;Res. Desist. - Pensionista
+52;Resolución Desistimiento - Hospital Nacional de Parapléjicos;0;Res. Desist. - Hospital Nacional Parapléjicos
+52;Resolución Desistimiento - Transporte Colectivo;0;Res. Desist. - Transporte Colectivo
+51;Resolución Denegatoria a Persona con Discapacidad;0;Res. Deneg. Persona Discapacidad
+51;Resolución Denegatoria - Transporte Colectivo;0;Res. Deneg. - Transporte Colectivo
+51;Resolución Denegatoria - Hospital Nacional de Parapléjicos;0;Res. Deneg. - Hospital Nacional Parapléjicos
+51;Resolución Denegatoria -  Pensionista;0;Res. Deneg. - Pensionista
+51;Resolución Denegatoria - Razones Humanitarias;0;Res. Deneg. - Razones Humanitarias
+50;Resolución de Concesión - Transporte Colectivo;0;Res. Conc. - Transporte Colectivo
+50;Resolución de Concesión - Pensionista;0;Res. Conc. - Pensionista
+50;Resolución de Concesión a Persona con Discapacidad;0;Res. Conc. Persona Discapacidad
+50;Resolución de Concesión - Hospital Nacional de Parapléjicos;0;Res. Conc. - Hospital Nacional Parapléjicos
+50;Resolución de Concesión - Razones Humanitarias;0;Res. Conc. - Razones Humanitarias
+30;Evaluación de Solicitud - Hospital Nacional de Parapléjicos;0;Eval. Sol. - Hospital Nacional Parapléjicos
+30;Evaluación de Solicitud de Persona con Discapacidad;0;Eval. Sol. Persona Discapacidad
+30;Evaluación de Solicitud - Transporte Colectivo;0;Eval. Sol. - Transporte Colectivo
+30;Evaluación de Solicitud - Pensionista;0;Eval. Sol. - Pensionista
+30;Evaluación de Solicitud - Razones Humanitarias;0;Eval. Sol. - Razones Humanitarias
+10;Requerimiento de Documentación - Pensionista;0;Req. Doc. - Pensionista
+10;Requerimiento de Traslado del Expediente;0;Req. Traslado Expediente
+10;Requerimiento de Documentación - Transporte colectivo;0;Req. Doc. - Transporte colectivo
+10;Requerimiento de Documentación - Hospital Nacional de Parapléjicos;0;Req. Doc. - Hospital Nacional Parapléjicos
+10;Requerimiento de Documentación - Razones Humanitarias;0;Req. Doc. - Razones Humanitarias
+10;Requerimiento de Documentación a Persona con Discapacidad;0;Req. Doc. Persona Discapacidad
+1;Presentación de Solicitud de Persona con Discapacidad;0;Present. Sol. Persona Discapacidad
+1;Presentación de Solicitud - Transporte Colectivo;0;Present. Sol. - Transporte Colectivo
+1;Presentación de Solicitud - Pensionista;0;Present. Sol. - Pensionista
+1;Presentación de Solicitud - Razones Humanitarias;0;Present. Sol. - Razones Humanitarias
+1;Presentación de Solicitud - Hospital Nacional de Parapléjicos;0;Present. Sol. - Hospital Nacional Parapléjicos

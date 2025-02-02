@@ -1,0 +1,32 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+40;Propuesta de Resolución Provisional;1;Prop. Res. Prov.
+359;Acuerdo de Inicio de Pérdida de Derecho al Cobro;0;Acuerdo Inic. Pérd. Der. Cob.
+287;Seguimiento Actuaciones;0;Seguimiento Actuaciones
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+278;Resolución de Pérdida de Derecho al Cobro;0;Res. Pérd. Der. Cob.
+251;Evaluado y pendiente de valoración;0;Evaluado pendiente valoración
+242;Valoración de proyecto;0;Valoración proyecto
+160;Solicitud Modificación Resolución;0;Sol. Modificación Res.
+156;Procedimiento de Reintegro;0;proc. Reintegro
+155;Propuesta de Inadmisión por duplicidad;0;Prop. Inadm. duplicidad
+155;Propuesta de Inadmisión a Trámite;0;Prop. Inadm. Trám.
+152;Propuesta de Resolución de Desistimiento;0;Prop. Res. Desist.
+82;Pago liquidación - resto 50%;0;Pg. liquidación - resto 50%
+82;Pago final de la liquidación;0;Pg. final la liquidación
+82;Pago anticipo;0;Pg. anticipo
+70;Justificación del Proyecto;0;Just. Proyecto
+60;Modificación Resolución de Concesión;0;Modificación Res. Conc.
+55;Resolución de inadmisión a trámite;0;Res. inadmisión trámite
+55;Resolución de inadmisión por duplicidad;0;Res. inadmisión duplicidad
+53;Resolución Renuncia Total;0;Res. Renuncia Total
+52;Resolución de Desistimiento Tácito;0;Res. Desist. Tácito
+52;Resolución de Desistimiento Expreso;0;Res. Desist. Expreso
+50;Resolución de Concesión;0;Res. Conc.
+42;Propuesta de Modificación Resolución Concesión;0;Prop. Modificación Res. Conc.
+42;Propuesta Definitiva;0;Prop. Def.
+30;Evaluación de Solicitud;0;Eval. Sol.
+25;Alegaciones a la pérdida de derecho al cobro;0;Alegaciones la pérdida derecho cobro
+21;Presentación de Renuncia Total;0;Present. Renuncia Total
+10;Requerimiento de Documentación;0;Req. Doc.
+1;Presentación de la solicitud;0;Present. la solicitud

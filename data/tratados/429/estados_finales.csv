@@ -1,0 +1,19 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin del procedimiento;1;Fin procedimiento
+348;Contestación parcial a la solicitud;0;Contestación parcial la solicitud
+347;Contestación a la solicitud;0;Contestación la solicitud
+346;Resolución suministro parcial;0;Res. suministro parcial
+344;Redirigir solicitud;0;Redirigir solicitud
+343;Requerimiento de información a otras unidades;0;Req. información otras unidades
+342;Solicitud no admitida;0;Sol. no admitida
+236;Requerimiento de subsanación o concreción;0;Req. subsanación o concreción
+90;Presentación recurso de alzada;0;Present. recurso alzada
+66;Resolución desestimación recurso de alzada;0;Res. desestimación recurso alzada
+65;Resolución estimación parcial recurso de alzada;0;Res. estimación parcial recurso alzada
+64;Resolución estimación recurso de alzada;0;Res. estimación recurso alzada
+63;Resolución inadmisión recurso de alzada;0;Res. inadmisión recurso alzada
+52;Resolución desistimiento;0;Res. desistimiento
+51;Resolución denegatoria;0;Res. denegatoria
+36;Recepción de información;0;Recepción información
+30;Evaluación de la solicitud;0;Eval. la solicitud
+1;Presentación de la solicitud;0;Present. la solicitud

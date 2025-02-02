@@ -1,0 +1,36 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+294;Informe del Instructor;0;Inf. Instructor
+293;Informe de Calificación y Evaluación Favorable;0;Inf. Calificación Eval. Favorable
+293;Informe de Calificación Desfavorable;0;Inf. Calificación Desfavorable
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+278;Resolución de pérdida de Derecho al Cobro Total;0;Res. pérdida Der. Cob. Total
+278;Resolución de pérdida de Derecho al Cobro Parcial;0;Res. pérdida Der. Cob. Parcial
+242;Valoración Solicitud;0;Valoración Sol.
+160;Presentación Solicitud de Modificación de Resolución;0;Present. Sol. Modificación Res.
+82;Pago-Reconocimiento de Obligación (ADO,O);0;Pg.-Reconocimiento Obligación (ADO,O)
+74;No Justificado;0;No Justificado
+73;Requerimiento documentación de justificación;0;Req. documentación justif.
+72;justificación Incompleta;0;justif. Incompleta
+71;justificación Completa;0;justif. Completa
+70;Presentación de justificación de Gastos;0;Present. justif. Gastos
+60;Modificación de Resolución;0;Modificación Res.
+55;Resolución de Inadmisión;0;Res. Inadm.
+53;Resolución de Renuncia;0;Res. Renuncia
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución de pérdida de eficacia de la declaración responsable (Desestimatoria);0;Res. pérdida eficacia la declaración responsable (Desest.)
+51;Resolución Desestimatoria Falta de Presupuesto;0;Res. Desest. Falt. Presupuesto
+50;Resolución de Concesión;0;Res. Conc.
+43;Propuesta definitiva Resolución Desestimatoria Falta de Presupuesto;0;Prop. definitiva Res. Desest. Falt. Presupuesto
+43;Propuesta definitiva Resolución Desestimatoria;0;Prop. definitiva Res. Desest.
+42;Propuesta definitiva de Resolución Concesión;0;Prop. definitiva Res. Conc.
+41;Propuesta Provisional Resolución Desestimatoria Falta de Presupuesto;0;Prop. Prov. Res. Desest. Falt. Presupuesto
+41;Propuesta Provisional Resolución Desestimatoria;0;Prop. Prov. Res. Desest.
+40;Propuesta Provisional de Resolución Concesión;0;Prop. Prov. Res. Conc.
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Tramite de Audiencia;0;Tramite Aud.
+25;trámite de Audiencia en pérdida de Derecho al Cobro Total;0;trámite Aud. pérdida Der. Cob. Total
+25;Tramite de Audiencia de Inadmisión;0;Tramite Aud. Inadm.
+21;Presentación de Renuncia;0;Present. Renuncia
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud de Subvención;0;Present. solicitud Subvención

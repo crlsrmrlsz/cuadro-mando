@@ -1,0 +1,31 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+82;Pago Final (SOLO DIPUTACION);1;Pg. Final (SOLO DIPUTACION)
+279;Liquidacion Expediente (justificación);0;Liq. Expediente (justif.)
+278;Resolucion de Pérdida de Derecho al Cobro;0;Res. Pérd. Der. Cob.
+270;Modificación Resolución Desfavorable;0;Modificación Res. Desfavorable
+266;Comunicación inicio primer proyecto;0;Comunicación inicio primer proyecto
+266;Seguimiento de proyectos;0;Seguimiento proyectos
+255;Organo Colegiado;0;Organo Colegiado
+251;Informe de Servicios Centrales;0;Inf. Servicios Centrales
+242;Valoración de proyectos;0;Valoración proyectos
+160;Solicitud modificación resolución;0;Sol. modificación res.
+156;Procedimiento de reintegro;0;proc. reintegro
+155;Propuesta de Resolución de Inadmisión;0;Prop. Res. Inadm.
+82;Pago 75%;0;Pg. 75%
+82;Pago Final - Resolucion de Liquidacion;0;Pg. Final - Res. Liq.
+82;Pago Final - Resolucion de Liquidacion (SOLO JUNTA);0;Pg. Final - Res. Liq. (SOLO JUNTA)
+63;Resolución de Inadmisión;0;Res. Inadm.
+60;Modificación Resolución Favorable;0;Modificación Res. Favorable
+53;Resolución de renuncia;0;Res. renuncia
+52;Resolución Desistimiento;0;Res. Desist.
+50;Resolución Definitiva;0;Res. Def.
+50;Resolucion de Concesión (Correcccion de Errores);0;Res. Conc. (Correcccion Errores)
+42;Propuesta Resolución Definitiva;0;Prop. Res. Def.
+40;Propuesta de Resolución Provisional;0;Prop. Res. Prov.
+25;Resolución de pérdida de derecho al cobro (expediente no iniciado);0;Res. pérdida derecho cobro (expediente no iniciado)
+25;Trámite audiencia en pérdida de derecho al cobro (No inicio);0;Trám. audiencia pérdida derecho cobro (No inicio)
+25;Trámite de audiencia en Pérdida de Derecho al Cobro (liquidación);0;Trám. audiencia Pérd. Der. Cob. (liquidación)
+21;Presentación renuncia;0;Present. renuncia
+10;Requerimiento de Documentación de Solicitud;0;Req. Doc. Sol.
+1;Presentación de Solicitud;0;Present. Sol.

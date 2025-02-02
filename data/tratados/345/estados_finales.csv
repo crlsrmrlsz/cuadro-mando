@@ -1,0 +1,25 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+286;Solicitud de desistimiento de modificación;0;Sol. desistimiento modificación
+286;Presentación de solicitud de desistimiento;0;Present. solicitud desistimiento
+284;Propuesta Provisional de Resolución de Procedimiento;0;Prop. Prov. Res. proc.
+278;Resolución Pérdida de Derecho al Cobro;0;Res. Pérd. Der. Cob.
+270;Resolución Desfavorable Modificación;0;Res. Desfavorable Modificación
+82;Pago;0;Pg.
+73;Requerimiento de documentación de justificación;0;Req. documentación justif.
+70;Justificación Final;0;Just. Final
+70;Justificación Parcial;0;Just. Parcial
+60;Resolución Favorable Modificación;0;Res. Favorable Modificación
+55;Resolución de Inadmisión;0;Res. Inadm.
+53;Resolución de Renuncia;0;Res. Renuncia
+52;Resolución de Desistimiento;0;Res. Desist.
+52;Resolución Desistimiento Modificación;0;Res. Desist. Modificación
+51;Resolución Desfavorable;0;Res. Desfavorable
+50;Resolución Favorable;0;Res. Favorable
+43;Propuesta Definitiva Resolución Desfavorable;0;Prop. Def. Res. Desfavorable
+42;Propuesta Definitiva Resolución Favorable;0;Prop. Def. Res. Favorable
+30;Evaluación y Valoración ;0;Eval. Valoración 
+21;Presentación de renuncia;0;Present. renuncia
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud
+1;Solicitud de modificación;0;Sol. modificación

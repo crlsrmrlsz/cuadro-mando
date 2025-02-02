@@ -1,0 +1,46 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+340;Evaluado y Pendiente de Valoración;0;Evaluado Pend. Valoración
+224;Desestimación Recurso de Alzada;0;Desestimación Rec. Alzada
+223;Estimación Recurso Alzada;0;Estimación Rec. Alzada
+202;ANULADO - Solicitud Creada por Error;0;ANULADO - Sol. Creada Error
+181;Abono;0;Ab.
+155;P.R. Inadmisión Solicitud Fuera de Plazo;0;P.R. Inadm. Sol. Fuera Plazo
+155;P.R. Inadmisión Solicitud Duplicada;0;P.R. Inadm. Sol. Duplicada
+153;P.R. Desistimiento Voluntario Solicitud;0;P.R. Desist. Voluntario Sol.
+153;P.R. Renuncia Voluntaria Ayuda;0;P.R. Renuncia Voluntaria Ayuda
+152;P.R. Desistimiento Requerimiento Documentación;0;P.R. Desist. Req. Doc.
+90;Presentación de Recurso de Alzada;0;Present. Rec. Alzada
+60;Cambio de condiciones;0;Cambio condiciones
+55;Resolución Inadmisión Solicitud Fuera de Plazo;0;Res. Inadm. Sol. Fuera Plazo
+55;Resolución Inadmisión Solicitud Duplicada;0;Res. Inadm. Sol. Duplicada
+53;Resolución Renuncia Voluntaria Ayuda;0;Res. Renuncia Voluntaria Ayuda
+53;Resolución Desistimiento Voluntario Solicitud;0;Res. Desist. Voluntario Sol.
+52;Resolución Desistimiento Requerimiento Documentación;0;Res. Desist. Req. Doc.
+51;Resolución Desestimatoria por Falta de Crédito;0;Res. Desest. Falt. Crédito
+51;Resolución Desestimatoria Mod. Concesión;0;Res. Desest. Mod. Conc.
+51;Resolución Desestimatoria Incumplimiento Requisitos - Recurso Alzada;0;Res. Desest. Incumplimiento Req. - Rec. Alzada
+51;Resolución Fin del Procedimiento - Causa sobrevenida;0;Res. Fin proc. - Causa sobrevenida
+51;Resolución Desestimatoria por Incumplimiento de Requisitos;0;Res. Desest. Incumplimiento Req.
+51;Resolución Desestimatoria sin Crédito - Recurso Alzada;0;Res. Desest. sin Crédito - Rec. Alzada
+50;Resolución Estimatoria Mod. Concesión;0;Res. Est. Mod. Conc.
+50;Resolución Estimatoria con Crédito - Recurso Alzada;0;Res. Est. Crédito - Rec. Alzada
+50;Resolución Estimatoria;0;Res. Est.
+43;Propuesta Resolución Fin del Procedimiento - Causa sobrevenida;0;Prop. Res. Fin proc. - Causa sobrevenida
+43;Propuesta Resolución Desestimatoria por Incumplimiento de Requisitos;0;Prop. Res. Desest. Incumplimiento Req.
+43;Propuesta Resolución Desestimatoria por Falta de Crédito;0;Prop. Res. Desest. Falt. Crédito
+43;P.R. Desestimatoria Mod. Concesión;0;P.R. Desest. Mod. Conc.
+43;Propuesta de Resolución Desestimatoria Incumplimiento Requisitos -Recurso Alzada;0;Prop. Res. Desest. Incumplimiento Req. -Rec. Alzada
+43;Propuesta de Resolución Desestimatoria sin Crédito - Recurso Alzada;0;Prop. Res. Desest. sin Crédito - Rec. Alzada
+42;P.R. Estimatoria Mod. Concesión;0;P.R. Est. Mod. Conc.
+42;Propuesta de Resolución Estimatoria con Crédito - Recurso Alzada;0;Prop. Res. Est. Crédito - Rec. Alzada
+42;Propuesta Resolución Estimatoria;0;Prop. Res. Est.
+30;Evaluación de solicitud;0;Eval. solicitud
+30;Evaluación Abono;0;Eval. Ab.
+25;Trámite Audiencia Cambio Condiciones;0;Trám. Aud. Cambio Condiciones
+25;Trámite Audiencia Evaluación;0;Trám. Aud. Eval.
+10;Requerimiento evaluación;0;Req. evaluación
+10;Requerimiento Evaluación Abono;0;Req. Eval. Ab.
+10;Requerimiento Cambio Condiciones;0;Req. Cambio Condiciones
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

@@ -1,0 +1,11 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+57;Resolución de archivo;0;Res. archivo
+55;Resolución de inadmisión;0;Res. inadmisión
+52;Resolución de desistimiento;0;Res. desistimiento
+51;Resolución denegatoria;0;Res. denegatoria
+50;Resolución aprobatoria;0;Res. aprobatoria
+42;Propuesta de resolución;0;Prop. res.
+30;Evaluación de solicitud;0;Eval. solicitud
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

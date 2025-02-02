@@ -1,0 +1,15 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+481;Resolución caducidad;0;Res. caducidad
+480;Informe-Propuesta caducidad;0;Inf.-Prop. caducidad
+258;Resolución Exclusión Definitiva;0;Res. Exclusión Def.
+257;Resolución Exclusión Provisional;0;Res. Exclusión Prov.
+155;Propuesta de inadmisión;0;Prop. inadmisión
+90;Presentación de Recurso de Alzada;0;Present. Rec. Alzada
+59;Resolución Recurso de Alzada;0;Res. Rec. Alzada
+55;Resolución de Inadmisión;0;Res. Inadm.
+50;Resolución de Adjudicación de Concierto;0;Res. Adjudicación Concierto
+42;Propuesta Favorable;0;Prop. Favorable
+30;Evaluación de la solicitud;0;Eval. la solicitud
+10;Subsanación de datos y/o documentación;0;Subsanación datos y/o documentación
+1;Presentación de solicitud;0;Present. solicitud

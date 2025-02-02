@@ -1,0 +1,18 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+155;Propuesta Resolución de inadmisión;0;Prop. Res. inadmisión
+152;Propuesta de Resolución de Desistimiento;0;Prop. Res. Desist.
+55;Resolución de inadmisión;0;Res. inadmisión
+53;Resolución de Renuncia;0;Res. Renuncia
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolución Aprobatoria;0;Res. Aprobatoria
+43;Propuesta Definitiva de Resolución Denegatoria;0;Prop. Def. Res. Deneg.
+42;Propuesta Definitiva de Resolución Aprobatoria;0;Prop. Def. Res. Aprobatoria
+41;Propuesta Provisional de Resolución Denegatoria;0;Prop. Prov. Res. Deneg.
+40;Propuesta Provisional de Resolución Aprobatoria;0;Prop. Prov. Res. Aprobatoria
+30;Evaluación de solicitud;0;Eval. solicitud
+21;Presentación de Renuncia;0;Present. Renuncia
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

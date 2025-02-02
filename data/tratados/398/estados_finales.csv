@@ -1,0 +1,22 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+52;Resolución Desistimiento;1;Res. Desist.
+279;Justificación final;0;Just. final
+278;Resolucion de Pérdida de Derecho al Cobro (NO INICIO);0;Res. Pérd. Der. Cob. (NO INICIO)
+266;Revision Documentacion / Seguimiento Proyectos;0;Revision Documentacion / Seguimiento Proyectos
+255;Propuesta Organo Instructor;0;Prop. Organo Instructor
+251;Informe de Servicios Centrales;0;Inf. Servicios Centrales
+242;Valoración de proyectos;0;Valoración proyectos
+156;Procedimiento de reintegro;0;proc. reintegro
+155;Propuesta de Resolución de Inadmisión;0;Prop. Res. Inadm.
+82;Pago;0;Pg.
+63;Resolución de Inadmisión;0;Res. Inadm.
+53;Resolución de renuncia;0;Res. renuncia
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolución Definitiva;0;Res. Def.
+42;Propuesta Resolución Definitiva;0;Prop. Res. Def.
+40;Propuesta de Resolución Provisional;0;Prop. Res. Prov.
+25;Trámite de audiencia en Pérdida de Derecho al Cobro (NO INICIO);0;Trám. audiencia Pérd. Der. Cob. (NO INICIO)
+21;Presentación de renuncia;0;Present. renuncia
+10;Requerimiento de Documentación de Solicitud;0;Req. Doc. Sol.
+1;Presentación de Solicitud;0;Present. Sol.

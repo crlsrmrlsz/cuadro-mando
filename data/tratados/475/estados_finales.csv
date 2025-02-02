@@ -1,0 +1,18 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+73;Requerimiento Documentación de Justificación;1;Req. Doc. Just.
+286;Presentación solicitud de desistimiento;0;Present. solicitud desistimiento
+155;Propuesta de inadmisión;0;Prop. inadmisión
+82;Pago - Reconocimiento de Obligación (ADO,O);0;Pg. - Reconocimiento Obligación (ADO,O)
+70;Justificación de gastos;0;Just. gastos
+55;Resolución de inadmisión;0;Res. inadmisión
+52;Resolución de desistimiento;0;Res. desistimiento
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolución Aprobatoria;0;Res. Aprobatoria
+43;Propuesta Definitiva de Resolución Denegatoria;0;Prop. Def. Res. Deneg.
+42;Propuesta Definitiva de Resolución Aprobatoria;0;Prop. Def. Res. Aprobatoria
+41;Propuesta Provisional de Resolución Denegatoria / Trámite de audiencia;0;Prop. Prov. Res. Deneg. / Trám. audiencia
+40;Propuesta Provisional de Resolución Aprobatoria;0;Prop. Prov. Res. Aprobatoria
+30;Evaluación de solicitud;0;Eval. solicitud
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

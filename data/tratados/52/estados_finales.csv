@@ -1,0 +1,94 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+52;Resolución de Desestimiento;1;Res. Desestimiento
+157;Propuesta de archivo;0;Prop. archivo
+71;Certificado de Pago Primer Abono;0;Certificado Pg. Primer Ab.
+71;Certificado de Pago Cuarto Abono;0;Certificado Pg. Cuarto Ab.
+71;Certificado de Pago PRÓRROGA Cuarto Abono;0;Certificado Pg. PRÓRROGA Cuarto Ab.
+71;Certificado de Pago Tercer Abono;0;Certificado Pg. Tercer Ab.
+71;Certificado de Pago PRÓRROGA Segundo Abono;0;Certificado Pg. PRÓRROGA Segundo Ab.
+71;Certificado de Pago PRÓRROGA Quinto Abono;0;Certificado Pg. PRÓRROGA Quinto Ab.
+71;Certificado de Pago Quinto Abono;0;Certificado Pg. Quinto Ab.
+71;Certificado de Pago PRÓRROGA Primer Abono;0;Certificado Pg. PRÓRROGA Primer Ab.
+71;Certificado de Pago PRÓRROGA Tercer Abono;0;Certificado Pg. PRÓRROGA Tercer Ab.
+71;Certificado de Pago Segundo Abono;0;Certificado Pg. Segundo Ab.
+67;Resolución de pérdida total de la subvención;0;Res. pérdida total la subvención
+66;Propuesta de pérdida total de la subvención;0;Prop. pérdida total la subvención
+65;Requerimiento de subsanación Cuarto abono;0;Req. subsanación Cuarto abono
+65;Requerimiento de subsanación Tercer abono PRÓRROGA;0;Req. subsanación Tercer abono PRÓRROGA
+65;Requerimiento de subsanación Segundo abono;0;Req. subsanación Segundo abono
+65;Requerimiento de subsanación Primer abono;0;Req. subsanación Primer abono
+65;Requerimiento de subsanación Tercer abono;0;Req. subsanación Tercer abono
+65;Requerimiento de subsanación Segundo abono PRÓRROGA;0;Req. subsanación Segundo abono PRÓRROGA
+65;Requerimiento de subsanación Quinto abono;0;Req. subsanación Quinto abono
+65;Requerimiento de subsanación Quinto abono PRÓRROGA;0;Req. subsanación Quinto abono PRÓRROGA
+65;Requerimiento de subsanación Cuarto abono PRÓRROGA;0;Req. subsanación Cuarto abono PRÓRROGA
+65;Requerimiento de subsanación Primer abono PRÓRROGA;0;Req. subsanación Primer abono PRÓRROGA
+63;Resolución de denegación de abono trimestral (defecto de forma) Primer abono;0;Res. denegación abono trimestral (defecto forma) Primer abono
+63;Resolución de denegación de abono trimestral (defecto de forma) Tercer abono;0;Res. denegación abono trimestral (defecto forma) Tercer abono
+63;Resolución de denegación de abono trimestral (defecto de forma) Cuarto abono;0;Res. denegación abono trimestral (defecto forma) Cuarto abono
+63;Resolución de denegación de abono trimestral (defecto de forma) Quinto abono;0;Res. denegación abono trimestral (defecto forma) Quinto abono
+63;Resol. de denegación de abono trimest. (fuera plazo) PRÓRROGA Tercer abono;0;Resol. denegación abono trimest. (fuera plazo) PRÓRROGA Tercer abono
+63;Resol. de denegación de abono trimest. (defecto de forma) PRÓRROGA Segundo abono;0;Resol. denegación abono trimest. (defecto forma) PRÓRROGA Segundo abono
+63;Resol. de denegación de abono trimest. (defecto de forma) PRÓRROGA Tercer abono;0;Resol. denegación abono trimest. (defecto forma) PRÓRROGA Tercer abono
+63;Resol. de denegación de abono trimest. (defecto de forma) PRÓRROGA Cuarto abono;0;Resol. denegación abono trimest. (defecto forma) PRÓRROGA Cuarto abono
+63;Resolución de denegación de abono trimestral (fuera plazo) Primer abono;0;Res. denegación abono trimestral (fuera plazo) Primer abono
+63;Resol. de denegación de abono trimest. (fuera plazo) PRÓRROGA Segundo abono;0;Resol. denegación abono trimest. (fuera plazo) PRÓRROGA Segundo abono
+63;Resol. de denegación de abono trimest. (fuera plazo) PRÓRROGA Cuarto abono;0;Resol. denegación abono trimest. (fuera plazo) PRÓRROGA Cuarto abono
+63;Resolución de denegación de abono trimestral (fuera plazo) Cuarto abono;0;Res. denegación abono trimestral (fuera plazo) Cuarto abono
+63;Resol. de denegación de abono trimest. (fuera plazo) PRÓRROGA Quinto abono;0;Resol. denegación abono trimest. (fuera plazo) PRÓRROGA Quinto abono
+63;Resol. de denegación de abono trimest. (defecto de forma) PRÓRROGA Primer abono;0;Resol. denegación abono trimest. (defecto forma) PRÓRROGA Primer abono
+63;Resolución de denegación de abono trimestral (fuera plazo) Tercer abono;0;Res. denegación abono trimestral (fuera plazo) Tercer abono
+63;Resolución de denegación de abono trimestral (fuera plazo) Segundo abono;0;Res. denegación abono trimestral (fuera plazo) Segundo abono
+63;Resolución de denegación de abono trimestral (fuera plazo) Quinto abono;0;Res. denegación abono trimestral (fuera plazo) Quinto abono
+63;Resolución de denegación de abono trimestral (defecto de forma) Segundo abono;0;Res. denegación abono trimestral (defecto forma) Segundo abono
+63;Resol. de denegación de abono trimest. (fuera plazo) PRÓRROGA Primer abono;0;Resol. denegación abono trimest. (fuera plazo) PRÓRROGA Primer abono
+63;Resol. de denegación de abono trimest. (defecto de forma) PRÓRROGA Quinto abono;0;Resol. denegación abono trimest. (defecto forma) PRÓRROGA Quinto abono
+62;Propuesta de denegación de abono trimestral (defecto de forma) Segundo abono;0;Prop. denegación abono trimestral (defecto forma) Segundo abono
+62;Prop. de denegación de abono trimest. (fuera plazo) PRÓRROGA Segundo abono;0;Prop. denegación abono trimest. (fuera plazo) PRÓRROGA Segundo abono
+62;Propuesta de denegación de abono trimestral (fuera plazo) Primer abono;0;Prop. denegación abono trimestral (fuera plazo) Primer abono
+62;Propuesta de denegación de abono trimestral (fuera plazo) Segundo abono;0;Prop. denegación abono trimestral (fuera plazo) Segundo abono
+62;Propuesta de denegación de abono trimestral (fuera plazo) Cuarto abono;0;Prop. denegación abono trimestral (fuera plazo) Cuarto abono
+62;Propuesta de denegación de abono trimestral (fuera plazo) Quinto abono;0;Prop. denegación abono trimestral (fuera plazo) Quinto abono
+62;Prop. de denegación de abono trimest. (defecto de forma) PRÓRROGA Cuarto abono;0;Prop. denegación abono trimest. (defecto forma) PRÓRROGA Cuarto abono
+62;Prop. de denegación de abono trimest. (defecto de forma) PRÓRROGA Primer abono;0;Prop. denegación abono trimest. (defecto forma) PRÓRROGA Primer abono
+62;Prop. de denegación de abono trimest. (defecto de forma) PRÓRROGA Quinto abono;0;Prop. denegación abono trimest. (defecto forma) PRÓRROGA Quinto abono
+62;Propuesta de denegación de abono trimestral (defecto de forma) Tercer abono;0;Prop. denegación abono trimestral (defecto forma) Tercer abono
+62;Prop. de denegación de abono trimest. (fuera plazo) PRÓRROGA Cuarto abono;0;Prop. denegación abono trimest. (fuera plazo) PRÓRROGA Cuarto abono
+62;Propuesta de denegación de abono trimestral (defecto de forma) Cuarto abono;0;Prop. denegación abono trimestral (defecto forma) Cuarto abono
+62;Prop. de denegación de abono trimest. (fuera plazo) PRÓRROGA Tercer abono;0;Prop. denegación abono trimest. (fuera plazo) PRÓRROGA Tercer abono
+62;Propuesta de denegación de abono trimestral (defecto de forma) Primer abono;0;Prop. denegación abono trimestral (defecto forma) Primer abono
+62;Propuesta de denegación de abono trimestral (fuera plazo) Tercer abono;0;Prop. denegación abono trimestral (fuera plazo) Tercer abono
+62;Propuesta de denegación de abono trimestral (defecto de forma) Quinto abono;0;Prop. denegación abono trimestral (defecto forma) Quinto abono
+62;Prop. de denegación de abono trimest. (fuera plazo) PRÓRROGA Primer abono;0;Prop. denegación abono trimest. (fuera plazo) PRÓRROGA Primer abono
+62;Prop. de denegación de abono trimest. (fuera plazo) PRÓRROGA Quinto abono;0;Prop. denegación abono trimest. (fuera plazo) PRÓRROGA Quinto abono
+62;Prop. de denegación de abono trimest. (defecto de forma) PRÓRROGA Segundo abono;0;Prop. denegación abono trimest. (defecto forma) PRÓRROGA Segundo abono
+62;Prop. de denegación de abono trimest. (defecto de forma) PRÓRROGA Tercer abono;0;Prop. denegación abono trimest. (defecto forma) PRÓRROGA Tercer abono
+61;Solicitud de Abono Primer Periodo;0;Sol. Ab. Primer Periodo
+61;Solicitud de Abono PRÓRROGA Cuarto Periodo;0;Sol. Ab. PRÓRROGA Cuarto Periodo
+61;Solicitud de Abono PRÓRROGA Quinto Periodo;0;Sol. Ab. PRÓRROGA Quinto Periodo
+61;Solicitud de Abono Segundo Periodo;0;Sol. Ab. Segundo Periodo
+61;Solicitud de Abono Tercer Periodo;0;Sol. Ab. Tercer Periodo
+61;Solicitud de Abono PRÓRROGA Segundo Periodo;0;Sol. Ab. PRÓRROGA Segundo Periodo
+61;Solicitud de Abono Quinto Periodo;0;Sol. Ab. Quinto Periodo
+61;Solicitud de Abono PRÓRROGA Primer Periodo;0;Sol. Ab. PRÓRROGA Primer Periodo
+61;Solicitud de Abono PRÓRROGA Tercer Periodo;0;Sol. Ab. PRÓRROGA Tercer Periodo
+61;Solicitud de Abono Cuarto Periodo;0;Sol. Ab. Cuarto Periodo
+57;Resolución de archivo;0;Res. archivo
+55;Resolución de Inadmisión;0;Res. Inadm.
+51;Resolución Desestimatoria Falta de Presupuesto;0;Res. Desest. Falt. Presupuesto
+51;Resolución desestimatoria incumplimiento de requisitos;0;Res. desestimatoria incumplimiento requisitos
+51;Resolución Desestimatoria Imcumplimiento requisitos básicos;0;Res. Desest. Imcumplimiento requisitos básicos
+51;Resolución desestimatoria;0;Res. desestimatoria
+50;Resolución Estimatoria (con contrato);0;Res. Est. (con contrato)
+41;Propuesta de resolución desestimatoria incumplimiento de requisitos;0;Prop. res. desestimatoria incumplimiento requisitos
+41;Propuesta de resolución desestimatoria;0;Prop. res. desestimatoria
+41;Propuesta Resolución Denegatoria Falta de Presupuesto;0;Prop. Res. Deneg. Falt. Presupuesto
+41;Propuesta de resolución desestimatoria incumplimiento requisitos básicos;0;Prop. res. desestimatoria incumplimiento requisitos básicos
+40;Propuesta de Resolución Estimatoria(con contrato);0;Prop. Res. Est.(con contrato)
+40;Propuesta de Resolución Estimatoria (SIN contrato);0;Prop. Res. Est. (SIN contrato)
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de Audiencia (Sin Contrato);0;Trám. Aud. (Sin Contrato)
+25;Trámite de Audiencia;0;Trám. Aud.
+10;Requerimiento Documentación Solicitud;0;Req. Doc. Sol.
+1;Presentación de solicitud;0;Present. solicitud

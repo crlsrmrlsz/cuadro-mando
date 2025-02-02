@@ -1,0 +1,18 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+293;Informe favorable de cumplimiento de requisitos;0;Inf. favorable cumplimiento requisitos
+293;Informe desfavorable de cumplimiento de requisitos;0;Inf. desfavorable cumplimiento requisitos
+181;Propuesta de pago anticipado;0;Prop. pago anticipado
+152;Propuesta de Resolución de Desistimiento;0;Prop. Res. Desist.
+55;Resolución de Inadmisión;0;Res. Inadm.
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria por Agotamiento de Presupuesto;0;Res. Deneg. Agotamiento Presupuesto
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolución de Concesión;0;Res. Conc.
+43;Propuesta Resolución Definitiva Desfavorable;0;Prop. Res. Def. Desfavorable
+42;Propuesta Resolución Definitiva Favorable;0;Prop. Res. Def. Favorable
+41;Propuesta de Resolución Provisional Desfavorable;0;Prop. Res. Prov. Desfavorable
+40;Propuesta de Resolución Provisional Favorable;0;Prop. Res. Prov. Favorable
+30;Evaluación de solicitud;0;Eval. solicitud
+10;Requerimiento de Documentación;0;Req. Doc.
+1;Presentación de Solicitud;0;Present. Sol.

@@ -1,0 +1,20 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+279;Justificación final;0;Just. final
+278;Resolución de pérdida de derecho al cobro;0;Res. pérdida derecho cobro
+242;Valoración;0;Valoración
+160;Solicitud modificación resolución;0;Sol. modificación res.
+82;Pago final;0;Pg. final
+73;Requerimiento de documentación justificativa;0;Req. documentación justificativa
+53;Resolución de renuncia;0;Res. renuncia
+52;Resolucion Desistimiento;0;Res. Desist.
+51;Resolucion Desfavorable modificación;0;Res. Desfavorable modificación
+51;Resolucion Desestimatoria;0;Res. Desest.
+50;Resolucion Estimatoria;0;Res. Est.
+50;Resolucion Favorable modificación;0;Res. Favorable modificación
+43;Propuesta definitiva Resolución Desestimatoria;0;Prop. definitiva Res. Desest.
+42;Propuesta definitiva de Resolución Estimatoria;0;Prop. definitiva Res. Est.
+40;Propuesta provisional de resolución de procedimiento;0;Prop. provisional res. procedimiento
+21;Presentación de renuncia;0;Present. renuncia
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud de Subvención;0;Present. solicitud Subvención

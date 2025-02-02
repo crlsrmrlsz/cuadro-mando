@@ -1,0 +1,24 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+286;Presentación de solicitud de desistimiento;0;Present. solicitud desistimiento
+279;Justificación final;0;Just. final
+278;Resolucion de Pérdida de Derecho al Cobro;0;Res. Pérd. Der. Cob.
+278;Resolucion de Pérdida de Derecho al Cobro (NO INICIO);0;Res. Pérd. Der. Cob. (NO INICIO)
+266;Comunicación Inicio Contrato;0;Comunicación Inic. Contrato
+156;Procedimiento de Reintegro (Reintegra);0;proc. Reintegro (Reintegra)
+155;Propuesta de Resolución de Inadmisión;0;Prop. Res. Inadm.
+82;Pago;0;Pg.
+55;Resolución de Inadmisión;0;Res. Inadm.
+53;Resolución de renuncia;0;Res. renuncia
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución Desfavorable;0;Res. Desfavorable
+50;Resolución Favorable;0;Res. Favorable
+43;Propuesta Resolución Desfavorable Definitiva;0;Prop. Res. Desfavorable Def.
+42;Propuesta Definitiva de Resolucion Aprobatoria;0;Prop. Def. Res. Aprobatoria
+41;Propuesta Resolución Desfavorable Provisional;0;Prop. Res. Desfavorable Prov.
+40;Propuesta Provisional de Resolución Aprobatoria;0;Prop. Prov. Res. Aprobatoria
+25;Trámite de audiencia en Pérdida de Derecho al Cobro (NO INICIO);0;Trám. audiencia Pérd. Der. Cob. (NO INICIO)
+25;Trámite de audiencia en Pérdida de Derecho al Cobro;0;Trám. audiencia Pérd. Der. Cob.
+21;Presentación de Renuncia;0;Present. Renuncia
+10;Requerimiento Documentación Solicitud;0;Req. Doc. Sol.
+1;Presentación de solicitud;0;Present. solicitud

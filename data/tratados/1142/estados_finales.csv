@@ -1,0 +1,16 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+477;Expedición de Título;0;Expedición Título
+476;No Apto Definitivo;0;No Apto Definitivo
+475;No Apto Provisional;0;No Apto Prov.
+474;Apto Definitivo;0;Apto Definitivo
+473;Apto Provisional;0;Apto Prov.
+472;No Admitidos Definitivo;0;No Admitidos Definitivo
+471;No Admitidos Provisional;0;No Admitidos Prov.
+470;Admitidos Definitivo;0;Admitidos Definitivo
+469;Admitidos Provisional;0;Admitidos Prov.
+334;Duplicado;0;Duplicado
+30;Evaluación de Solicitud;0;Eval. Sol.
+25;Alegaciones No Admitidos;0;Alegaciones No Admitidos
+25;Alegaciones No Apto;0;Alegaciones No Apto
+1;Presentación de la solicitud;0;Present. la solicitud

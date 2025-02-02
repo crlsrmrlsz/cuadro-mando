@@ -1,0 +1,39 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+340;Evaluado y Pendiente de Valoración;1;Evaluado Pend. Valoración
+100;Fin de Procedimiento;1;Fin proc.
+224;Desestimacion Recurso de Alzada;0;Desestimacion Rec. Alzada
+223;Estimacion Recurso Alzada;0;Estimacion Rec. Alzada
+202;ANULADO - Solicitud Creada por Error;0;ANULADO - Sol. Creada Error
+181;Abono;0;Ab.
+155;P.R. Inadmisión Solicitud Duplicada;0;P.R. Inadm. Sol. Duplicada
+155;P.R. Inadmisión Solicitud Fuera de Plazo;0;P.R. Inadm. Sol. Fuera Plazo
+153;P.R. Desistimiento Voluntario Solicitud;0;P.R. Desist. Voluntario Sol.
+153;P.R. Renuncia Voluntaria Ayuda;0;P.R. Renuncia Voluntaria Ayuda
+152;P.R. Desistimiento Requerimiento Documentación;0;P.R. Desist. Req. Doc.
+90;Presentacion de Recurso de Alzada;0;Present. Rec. Alzada
+60;Cambio de condiciones;0;Cambio condiciones
+55;Resolución Inadmisión Solicitud Fuera de Plazo;0;Res. Inadm. Sol. Fuera Plazo
+55;Resolución Inadmisión Solicitud Duplicada;0;Res. Inadm. Sol. Duplicada
+53;Resolucion Renuncia Voluntaria Ayuda;0;Res. Renuncia Voluntaria Ayuda
+53;Resolución Desistimiento Voluntario Solicitud;0;Res. Desist. Voluntario Sol.
+52;Resolución Desistimiento Requerimiento Documentación;0;Res. Desist. Req. Doc.
+51;Resolucion Desestimatoria por Falta de Credito;0;Res. Desest. Falt. Credito
+51;Resolucion Desestimatoria Incumplimiento Requisitos - Recurso Alzada;0;Res. Desest. Incumplimiento Req. - Rec. Alzada
+51;Resolucion Desestimatoria sin Credito - Recurso Alzada;0;Res. Desest. sin Credito - Rec. Alzada
+51;Resolucion Desestimatoria por Incumplimiento de Requisitos;0;Res. Desest. Incumplimiento Req.
+51;Resolucion Desestimatoria Mod. Concesion;0;Res. Desest. Mod. Concesion
+50;Resolución Estimatoria;0;Res. Est.
+50;Resolucion Estimatoria Mod. Concesion;0;Res. Est. Mod. Concesion
+50;Resolucion Estimatoria con Credito - Recurso Alzada;0;Res. Est. Credito - Rec. Alzada
+43;Propuesta de Resolucion Desestimatoria Incumplimiento Requisitos -Recurso Alzada;0;Prop. Res. Desest. Incumplimiento Req. -Rec. Alzada
+43;P.R. Desestimatoria Mod. Concesion;0;P.R. Desest. Mod. Concesion
+43;Propuesta de Resolucion Desestimatoria sin Credito - Recurso Alzada;0;Prop. Res. Desest. sin Credito - Rec. Alzada
+42;Propuesta de Resolucion Estimatoria con Credito - Recurso Alzada;0;Prop. Res. Est. Credito - Rec. Alzada
+42;P.R. Estimatoria Mod. Concesion;0;P.R. Est. Mod. Concesion
+30;Evaluacion Abono;0;Evaluacion Ab.
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Tramite Audiencia Cambio Condiciones;0;Tramite Aud. Cambio Condiciones
+10;Requerimiento Cambio Condiciones;0;Req. Cambio Condiciones
+10;Requerimiento Evaluacion Abono;0;Req. Evaluacion Ab.
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

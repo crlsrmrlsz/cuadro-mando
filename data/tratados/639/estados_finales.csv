@@ -1,0 +1,32 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin procedimiento;1;Fin procedimiento
+393;Solicitud anticipo;0;Sol. anticipo
+303;Informe de cumplimiento de condiciones Total o Parcial;0;Inf. cumplimiento condiciones Total o Parcial
+301;Requerimiento del mes;0;Req. mes
+293;Informe de Calificación y Calificación Técnica;0;Inf. Calificación Calificación Técnica
+286;Presentación de solicitud de desistimiento;0;Present. solicitud desistimiento
+283;Acuerdo de inicio pérdida de derecho al cobro (Total o Parcial);0;Acuerdo inicio pérdida derecho cobro (Total o Parcial)
+278;Resolución de pérdida de derecho al cobro (Total o Parcial);0;Res. pérdida derecho cobro (Total o Parcial)
+242;Valoración solicitud;0;Valoración solicitud
+220;Recurso de Reposición;0;Rec. Reposición
+155;Propuesta Resolución de Inadmisión;0;Prop. Res. Inadm.
+74;Informe de incumplimiento total;0;Inf. incumplimiento total
+73;Requerimiento Documentación Justificativa;0;Req. Doc. Justificativa
+72;Liquidación parcial;0;Liq. parcial
+71;Liquidación total;0;Liq. total
+70;Presentación justificación;0;Present. justif.
+55;Resolución de Inadmisión;0;Res. Inadm.
+53;Resolución de renuncia;0;Res. renuncia
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolución aprobatoria;0;Res. aprobatoria
+43;Propuesta Definitiva Resolución Denegatoria;0;Prop. Def. Res. Deneg.
+42;Propuesta definitiva resolución aprobatoria;0;Prop. definitiva res. aprobatoria
+41;Propuesta Provisional Resolución Denegatoria;0;Prop. Prov. Res. Deneg.
+40;Propuesta provisional resolución aprobatoria;0;Prop. provisional res. aprobatoria
+30;Evaluación Solicitud;0;Eval. Sol.
+25;Trámite Audiencia (Alegaciones a la Propuesta Provisional);0;Trám. Aud. (Alegaciones la Prop. Prov.)
+25;Trámite Audiencia en pérdida de derecho al cobro (Alegaciones);0;Trám. Aud. pérdida derecho cobro (Alegaciones)
+21;Presentación de renuncia;0;Present. renuncia
+10;Requerimiento Documentación Solicitud;0;Req. Doc. Sol.
+1;Presentación de solicitud;0;Present. solicitud

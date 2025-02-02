@@ -1,0 +1,38 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+51;Resolución de Denegación;1;Res. Denegación
+359;Acuerdo de inicio de Pérdida de derecho al cobro por incumplimiento obligaciones;0;Acuerdo inicio Pérd. derecho cobro incumplimiento obligaciones
+359;Acuerdo de inicio de Pérdida de derecho al cobro;0;Acuerdo inicio Pérd. derecho cobro
+287;Seguimiento actuaciones verificación de cumplimiento de obligaciones;0;Seguimiento actuaciones verificación cumplimiento obligaciones
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+278;Resolución de pérdida de derecho al cobro por incumplimiento de obligaciones.;0;Res. pérdida derecho cobro incumplimiento obligaciones.
+278;Resolución de pérdida de derecho al cobro.;0;Res. pérdida derecho cobro.
+251;Evaluado y pendiente de valoración;0;Evaluado pendiente valoración
+251;Evaluado y Valorado Definitivamente;0;Evaluado Valorado Def.mente
+242;Valoración de proyecto;0;Valoración proyecto
+160;Solicitud modificación resolución;0;Sol. modificación res.
+156;Procedimiento de Reintegro;0;proc. Reintegro
+155;Propuesta de inadmisión de modificación Resolución Concesión;0;Prop. inadmisión modificación Res. Conc.
+155;Propuesta de Inadmisión por duplicidad;0;Prop. Inadm. duplicidad
+152;Propuesta de Resolución de Desistimiento;0;Prop. Res. Desist.
+82;Pago anticipo;0;Pg. anticipo
+82;Pago liquidación - resto 50%;0;Pg. liquidación - resto 50%
+82;Pago final de la liquidación;0;Pg. final la liquidación
+70;Justificación del Proyecto;0;Just. Proyecto
+60;Modificación Resolución de Concesión;0;Modificación Res. Conc.
+55;Resolución de inadmisión por duplicidad;0;Res. inadmisión duplicidad
+55;Resolución de inadmisión de modificación Resolución Concesión;0;Res. inadmisión modificación Res. Conc.
+53;Resolución Renuncia Total;0;Res. Renuncia Total
+52;Resolución de Desistimiento Expreso;0;Res. Desist. Expreso
+52;Resolución de Desistimiento Tácito;0;Res. Desist. Tácito
+50;Resolución de Concesión;0;Res. Conc.
+42;Propuesta Definitiva;0;Prop. Def.
+42;Propuesta de Modificación Resolución Concesión;0;Prop. Modificación Res. Conc.
+40;Propuesta de Resolución Provisional;0;Prop. Res. Prov.
+30;Evaluación de Solicitud;0;Eval. Sol.
+21;Presentación de Renuncia Total;0;Present. Renuncia Total
+15;Alegaciones a la pérdida de derecho al cobro;0;Alegaciones la pérdida derecho cobro
+15;Alegaciones a la Propuesta Provisional;0;Alegaciones la Prop. Prov.
+15;Alegaciones a la pérdida de derecho al cobro por incumplimiento de obligaciones;0;Alegaciones la pérdida derecho cobro incumplimiento obligaciones
+10;Requerimiento de Documentación;0;Req. Doc.
+1;Presentación de la solicitud;0;Present. la solicitud

@@ -1,0 +1,30 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin procedimiento;1;Fin procedimiento
+303;Informe de cumplimiento de condiciones de SSPP;0;Inf. cumplimiento condiciones SSPP
+301;Plazo Prórroga de un Mes;0;Plazo Prór. un Mes
+293;Informe de Calificación y Calificación Técnica;0;Inf. Calificación Calificación Técnica
+286;Presentación de solicitud de desistimiento;0;Present. solicitud desistimiento
+278;Resolución de pérdida de derecho al cobro total;0;Res. pérdida derecho cobro total
+242;Valoración solicitud;0;Valoración solicitud
+155;Propuesta Resolución de Inadmisión;0;Prop. Res. Inadm.
+82;Pago-Reconocimiento de obligación (ADO,O);0;Pg.-Reconocimiento obligación (ADO,O)
+74;No justificado-Incumplimiento total;0;No justificado-Incumplimiento total
+73;Requerimiento de documentación justificativa;0;Req. documentación justificativa
+73;Requerimiento Documentación Justificativa;0;Req. Doc. Justificativa
+72;Justificación incompleta-Liquidación parcial;0;Just. incompleta-Liq. parcial
+71;Justificación completa-Liquidación total;0;Just. completa-Liq. total
+70;Presentación Documentación Justificativa;0;Present. Doc. Justificativa
+55;Resolución de Inadmisión;0;Res. Inadm.
+53;Resolución de aceptación de renuncia;0;Res. aceptación renuncia
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria por incumplimiento de requisitos;0;Res. Deneg. incumplimiento requisitos
+50;Resolución aprobatoria;0;Res. aprobatoria
+42;Propuesta definitiva resolución aprobatoria;0;Prop. definitiva res. aprobatoria
+40;Propuesta provisional resolución aprobatoria;0;Prop. provisional res. aprobatoria
+30;Evaluación Solicitud;0;Eval. Sol.
+25;Trámite de audiencia en pérdida de derecho al cobro;0;Trám. audiencia pérdida derecho cobro
+25;Trámite de audiencia Propuesta provisional aprobatoria;0;Trám. audiencia Prop. provisional aprobatoria
+25;Trámite de audiencia en pérdida de derecho al cobro (SSCC);0;Trám. audiencia pérdida derecho cobro (SSCC)
+21;Presentación de renuncia;0;Present. renuncia
+10;Requerimiento Documentación Solicitud;0;Req. Doc. Sol.
+1;Presentación de solicitud;0;Present. solicitud

@@ -1,0 +1,46 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+157;Archivo Expediente;1;Archivo Expediente
+505;Barrado de la Pérdida de Derecho al Cobro Parcial.;0;Barrado la Pérd. Der. Cob. Parcial.
+302;Visita de obra (abono);0;Visita obra (abono)
+155;Propuesta Inadmisión a trámite No Objeto;0;Prop. Inadm. trámite No Objeto
+153;Propuesta Aceptación de Renuncia Al Abono;0;Prop. Aceptación Renuncia Al Ab.
+153;Propuesta Aceptación Desistimiento/Renuncia;0;Prop. Aceptación Desist./Renuncia
+100;Fin de procedimiento;0;Fin procedimiento
+90;Inicio Expediente Pérdida Derecho Cobro - No Justificación;0;Inic. Expediente Pérd. Der. Cob. - No Just.
+90;Inicio Expediente Pérdida Derecho Cobro Total - Falta Documentación ;0;Inic. Expediente Pérd. Der. Cob. Total - Falt. Doc. 
+90;Inicio Expediente Pérdida Derecho Cobro - Incump. Req.;0;Inic. Expediente Pérd. Der. Cob. - Incump. Req.
+90;Inicio Expediente Pérdida Derecho Cobro Parcial;0;Inic. Expediente Pérd. Der. Cob. Parcial
+82;Trámite de Pago al Beneficiario;0;Trám. Pg. Beneficiario
+55;Duplicidad de Expediente;0;Duplicidad Expediente
+55;Resolución Inadmisión a trámite No Objeto;0;Res. Inadm. trámite No Objeto
+53;Resolución Aceptación Desistimiento/Renuncia;0;Res. Aceptación Desist./Renuncia
+53;Resolución Aceptación de Renuncia al Abono;0;Res. Aceptación Renuncia Ab.
+51;Resolución Desistimatoria Incumplimiento Perdida Total  (abono);0;Res. Desistimatoria Incumplimiento Perdida Total (abono)
+51;Resolución Pérdida Derecho Cobro - Incump. Req.;0;Res. Pérd. Der. Cob. - Incump. Req.
+51;Resolución Desistimiento - Falta Documentación;0;Res. Desist. - Falt. Doc.
+51;Resolución Desistimiento - Falta Documentación (abono);0;Res. Desist. - Falt. Doc. (abono)
+51;Resolución Pérdida Derecho Cobro - No Justificación;0;Res. Pérd. Der. Cob. - No Just.
+51;Resolución Pérdida Derecho Cobro Parcial;0;Res. Pérd. Der. Cob. Parcial
+51;Resolución Pérdida Derecho Cobro - Falta Documentación ;0;Res. Pérd. Der. Cob. - Falt. Doc. 
+50;Resolución Estimatoria Abono;0;Res. Est. Ab.
+50;Resolución Reconocimiento de la Ayuda;0;Res. Reconocimiento la Ayuda
+50;Resolución Estimatoria Abono Pérdida Parcial;0;Res. Est. Ab. Pérd. Parcial
+43;Propuesta Resolución Desistimatoria Incumplimiento Perdida Total  (abono);0;Prop. Res. Desistimatoria Incumplimiento Perdida Total (abono)
+43;Propuesta Resolución Desistimiento - Falta Documentación (abono);0;Prop. Res. Desist. - Falt. Doc. (abono)
+42;Propuesta Resolución Estimatoria Abono;0;Prop. Res. Est. Ab.
+42;Propuesta Resolución Reconocimiento de la Ayuda;0;Prop. Res. Reconocimiento la Ayuda
+42;Propuesta Resolución Estimatoria Abono Pérdida Parcial;0;Prop. Res. Est. Ab. Pérd. Parcial
+41;Propuesta Resolución Desistimiento - Falta Documentación;0;Prop. Res. Desist. - Falt. Doc.
+41;Propuesta Resolución Pérdida Derecho Cobro - Falta Documentación ;0;Prop. Res. Pérd. Der. Cob. - Falt. Doc. 
+41;Propuesta Resolución Pérdida Derecho Cobro - No Justificación;0;Prop. Res. Pérd. Der. Cob. - No Just.
+41;Propuesta Resolución Pérdida Derecho Cobro Parcial;0;Prop. Res. Pérd. Der. Cob. Parcial
+41;Propuesta Resolución Pérdida Derecho Cobro - Incump. Req.;0;Prop. Res. Pérd. Der. Cob. - Incump. Req.
+30;Evaluación de solicitud (Abono);0;Eval. solicitud (Ab.)
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de Audiencia;0;Trám. Aud.
+25;Trámite de Audiencia (Abono);0;Trám. Aud. (Ab.)
+10;Requerimiento de Presentación de Justificación;0;Req. Present. Just.
+10;Requerimiento de documentación (Abono);0;Req. documentación (Ab.)
+10;Requerimiento de documentacion;0;Req. documentacion
+1;Presentacion de solicitud;0;Present. solicitud
+1;Presentación de solicitud de Abono;0;Present. solicitud Ab.

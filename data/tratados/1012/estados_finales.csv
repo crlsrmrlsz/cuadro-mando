@@ -1,0 +1,44 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+53; Resolución Aceptación Desestimiento/Renuncia al Abono;1; Res. Aceptación Desestimiento/Renuncia Ab.
+51;Resolución Desestimatoria Incumplimiento Perdida Total - Abono;1;Res. Desest. Incumplimiento Perdida Total - Ab.
+51;Resolución Pérdida Derecho Cobro TOTAL Desistimiento Falta Doc.;1;Res. Pérd. Der. Cob. TOTAL Desist. Falt. Doc.
+359;Inicio Exp. Pérdida Derecho Cobro TOTAL Desistimiento Falta Doc.;0;Inic. Exp. Pérd. Der. Cob. TOTAL Desist. Falt. Doc.
+338;Resolucion Desistimiento - Falta Documentación;0;Res. Desist. - Falt. Doc.
+337;Propuesta Desistimiento - Falta Documentación;0;Prop. Desist. - Falt. Doc.
+155;Propuesta inadmisión - DEFECTO DE FORMA;0;Prop. inadmisión - DEFECTO DE FORMA
+82;Certificado Cumplimiento - Abono;0;Certificado Cumplimiento - Ab.
+82;Certificado Pago - Abono;0;Certificado Pg. - Ab.
+55;Resolución de inadmisión - DEFECTO DE FORMA;0;Res. inadmisión - DEFECTO DE FORMA
+55;Resolución Inadmisión a trámite - NO OBJETO;0;Res. Inadm. trámite - NO OBJETO
+55;Resolución Inadmisión a trámite - FUERA DE PLAZO;0;Res. Inadm. trámite - FUERA DE PLAZO
+53;Resolución Aceptación de Desistimiento/RENUNCIA ;0;Res. Aceptación Desist./RENUNCIA 
+53;Propuesta Resolución Aceptación Desistimiento Renuncia/Desistimiento ;0;Prop. Res. Aceptación Desist. Renuncia/Desist. 
+52;Resolución Desistimiento Duplicidad;0;Res. Desist. Duplicidad
+52;Resolución Desistimiento - Falta Documentación (Abono);0;Res. Desist. - Falt. Doc. (Ab.)
+51;Resolución Desestimatoria - Incumplimiento de requisitos;0;Res. Desest. - Incumplimiento requisitos
+51;Resolución Desfavorable por Falta de Presupuesto;0;Res. Desfavorable Falt. Presupuesto
+50;Resolución Estimatoria Abono Pérdida Parcial ;0;Res. Est. Ab. Pérd. Parcial 
+50;Resolución Estimatoria Concesión;0;Res. Est. Conc.
+43; IPR Desestimiento/Renuncia al Abono;0; IPR Desestimiento/Renuncia Ab.
+43;IPR Desestimatorio por incumplimiento de requisitos;0;IPR Desestimatorio incumplimiento requisitos
+43;IPR Desestimatorio Incumplimiento Perdida Total - Abono;0;IPR Desestimatorio Incumplimiento Perdida Total - Ab.
+43;Propuesta Resolución Desistimiento - Falta Documentación (abono);0;Prop. Res. Desist. - Falt. Doc. (abono)
+43;IPR Desestimatorio Falta de Presupuesto;0;IPR Desestimatorio Falt. Presupuesto
+43;IP. Pérdida Derecho Cobro TOTAL Desistimiento Falta Doc.;0;IP. Pérd. Der. Cob. TOTAL Desist. Falt. Doc.
+42;IPR Concesión;0;IPR Conc.
+42;IPR Estimatorio Abono Perdida Parcial;0;IPR Estimatorio Ab. Perdida Parcial
+42;IPR Estimatorio Abono;0;IPR Estimatorio Ab.
+30;Evaluación de requisitos;0;Eval. requisitos
+30;Evaluación de requisitos - Abono;0;Eval. requisitos - Ab.
+30;Evaluación tras Audiencia - Abono;0;Eval. tras Aud. - Ab.
+30;Evaluación de requisitos Tras Audiencia;0;Eval. requisitos Tras Aud.
+25;Tramite de Audiencia;0;Tramite Aud.
+25;Trámite de Audiencia de Inadmisión - FUERA PLAZO;0;Trám. Aud. Inadm. - FUERA PLAZO
+25;Tramite de Audiencia 15 dias - Abono;0;Tramite Aud. 15 dias - Ab.
+25;Trámite de Audiencia de Inadmisión - NO OBJETO;0;Trám. Aud. Inadm. - NO OBJETO
+10;Requerimiento de duplicidad;0;Req. duplicidad
+10;Requerimiento de documentación - Abono;0;Req. documentación - Ab.
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación y Revisión de la solicitud;0;Present. Revisión la solicitud
+1;Presentación y Revisión de la solicitud de Abono;0;Present. Revisión la solicitud Ab.

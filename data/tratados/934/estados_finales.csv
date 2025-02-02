@@ -1,0 +1,51 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+202;ANULADO - Solicitud Creada por Error;1;ANULADO - Sol. Creada Error
+100;Fin de Procedimiento;1;Fin proc.
+51;Resolución Desestimatoria Incumplimiento Requisitos - Recurso Alzada;1;Res. Desest. Incumplimiento Req. - Rec. Alzada
+51;Resolución Desestimatoria sin Crédito - Recurso Alzada;1;Res. Desest. sin Crédito - Rec. Alzada
+309;Lista Reserva;0;Lista Reserva
+223;Estimación Recurso Alzada;0;Estimación Rec. Alzada
+181;Abono;0;Ab.
+90;Presentación de Recurso de Alzada;0;Present. Rec. Alzada
+60;Cambio de condiciones;0;Cambio condiciones
+55;Resolución de inadmisión;0;Res. inadmisión
+55;Diligencia de vinculación de expedientes duplicados;0;Diligencia vinculación expedientes duplicados
+54;Diligencia que constata que Resolución queda sin efectos-Contrato no formalizado;0;Diligencia que constata que Res. queda sin efectos-Contrato no formalizado
+53;Resolución Renuncia Voluntaria Ayuda;0;Res. Renuncia Voluntaria Ayuda
+53;Resolución Desistimiento Voluntario Solicitud;0;Res. Desist. Voluntario Sol.
+52;Resolución Desistimiento. Falta Documentación. Defecto de Forma. Duplicidad;0;Res. Desist.. Falt. Doc.. Defecto Forma. Duplicidad
+51;Resolución Desestimatoria por Falta de Crédito;0;Res. Desest. Falt. Crédito
+51;Resolución Desestimatoria - Lista Reserva;0;Res. Desest. - Lista Reserva
+51;Resolución Desestimatoria por Incumplimiento de Requisitos;0;Res. Desest. Incumplimiento Req.
+51;Resolución Desestimatoria Mod. Concesión;0;Res. Desest. Mod. Conc.
+51;R. Desistimiento de la resolución  de modificación;0;R. Desist. la res. de modificación
+50;Resolución Estimatoria - Contrato no formalizado;0;Res. Est. - Contrato no formalizado
+50;Resolución Estimatoria Mod. Concesión;0;Res. Est. Mod. Conc.
+50;Resolución Estimatoria;0;Res. Est.
+50;Resolución Estimatoria con Crédito - Recurso Alzada;0;Res. Est. Crédito - Rec. Alzada
+50;Resolución Estimatoria - Lista Reserva;0;Res. Est. - Lista Reserva
+43;Propuesta de Resolución Desestimatoria Incumplimiento Requisitos- Recurso Alzada;0;Prop. Res. Desest. Incumplimiento Req.- Rec. Alzada
+43;Propuesta Resolución Desestimatoria por Falta de Crédito;0;Prop. Res. Desest. Falt. Crédito
+43;Propuesta Resolución Desestimatoria por Incumplimiento de Requisitos;0;Prop. Res. Desest. Incumplimiento Req.
+43;PR que deja sin efectos la Resolución  - Contrato no formalizado;0;PR que deja sin efectos Res. - Contrato no formalizado
+43;P.R. Desestimatoria - Lista Reserva ;0;P.R. Desest. - Lista Reserva 
+43;Propuesta de Resolución Desestimatoria sin Crédito - Recurso Alzada;0;Prop. Res. Desest. sin Crédito - Rec. Alzada
+43;P.R. Desestimatoria Mod. Concesión;0;P.R. Desest. Mod. Conc.
+42;Propuesta Resolución Estimatoria - Contrato no formalizado;0;Prop. Res. Est. - Contrato no formalizado
+42;P.R. Estimatoria Mod. Concesión;0;P.R. Est. Mod. Conc.
+42;P.R. Estimatoria - Lista Reserva;0;P.R. Est. - Lista Reserva
+42;Propuesta Resolución Estimatoria;0;Prop. Res. Est.
+42;Propuesta de Resolución Estimatoria con Crédito - Recurso Alzada;0;Prop. Res. Est. Crédito - Rec. Alzada
+30;Evaluación Abono;0;Eval. Ab.
+30;Verificación de requisitos. Evaluación;0;Verificación requisitos. Eval.
+30;Evaluación - Lista Reserva;0;Eval. - Lista Reserva
+25;Trámite Audiencia Cambio Condiciones;0;Trám. Aud. Cambio Condiciones
+25;Trámite Audiencia Evaluación;0;Trám. Aud. Eval.
+25;Trámite Audiencia - Contrato no formalizado;0;Trám. Aud. - Contrato no formalizado
+25;Trámite Audiencia - Lista Reserva;0;Trám. Aud. - Lista Reserva
+25;Trámite de Audiencia de Inadmisión;0;Trám. Aud. Inadm.
+25;Trámite Audiencia Recurso Alzada;0;Trám. Aud. Rec. Alzada
+10;Requerimiento Cambio Condiciones;0;Req. Cambio Condiciones
+10;Requerimiento Recurso Alzada;0;Req. Rec. Alzada
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación y Revisión de la solicitud;0;Present. Revisión la solicitud

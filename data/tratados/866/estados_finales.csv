@@ -1,0 +1,11 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+205;Notificación a Inspección / SEPE;0;Notif. Inspección / SEPE
+52;Aviso de Caducidad;0;Aviso Caducidad
+51;Archivo del Expediente;0;Archivo Expediente
+50;Aviso de Finalización;0;Aviso Finalización
+50;Aviso Recepción;0;Aviso Recepción
+10;Advertencia de deficiencias;0;Advertencia deficiencias
+10;Advertencia de deficiencias solicitud;0;Advertencia deficiencias solicitud
+1;Presentacion de solicitud fin de ERE;0;Present. solicitud fin ERE
+1;Presentacion de solicitud ERE;0;Present. solicitud ERE

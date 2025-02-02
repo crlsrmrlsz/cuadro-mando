@@ -1,0 +1,25 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+285;Resolución de Procedimiento;0;Res. proc.
+284;Propuesta de Resolución de Procedimiento;0;Prop. Res. proc.
+283;Propuesta Resolución Pérdida de Derecho al Cobro;0;Prop. Res. Pérd. Der. Cob.
+282;Propuesta Resolución de Revisión;0;Prop. Res. Revisión
+281;Resolución de Revisión;0;Res. Revisión
+278;Resolución de Pérdida de Derecho al Cobro;0;Res. Pérd. Der. Cob.
+153;Propuesta Resolución de Renuncia;0;Prop. Res. Renuncia
+152;Propuesta de Resolución de Desisitimiento;0;Prop. Res. Desisitimiento
+82;Pago - Reconocimiento de Obligación (ADO,O);0;Pg. - Reconocimiento Obligación (ADO,O)
+73;Requerimiento Documentación de Justificación;0;Req. Doc. Just.
+70;Justificación de gastos;0;Just. gastos
+53;Resolución de Renuncia;0;Res. Renuncia
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Desfavorable;0;Res. Desfavorable
+50;Resolución de Concesión;0;Res. Conc.
+43;Propuesta Resolución Desfavorable;0;Prop. Res. Desfavorable
+42;Propuesta Resolución de Concesión;0;Prop. Res. Conc.
+30;Calificación y evaluación de solicitud;0;Calificación evaluación solicitud
+25;Trámite de audiencia;0;Trám. audiencia
+21;Presentación de renuncia;0;Present. renuncia
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de Solicitud;0;Present. Sol.

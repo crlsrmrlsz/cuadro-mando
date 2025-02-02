@@ -1,0 +1,14 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+50;Resolución de Concesión;1;Res. Conc.
+293;Informe de Propuesta Desfavorable;0;Inf. Prop. Desfavorable
+293;Informe de Propuesta Favorable ;0;Inf. Prop. Favorable 
+284;Propuesta de Resolución provisional;0;Prop. Res. provisional
+242;Valoración Comisión Técnica;0;Valoración Comisión Técnica
+57;Resolución de archivo;0;Res. archivo
+55;Resolucion Inadmision;0;Res. Inadmision
+52;Resolución desistimiento;0;Res. desistimiento
+42;Propuesta Resolución Definitiva;0;Prop. Res. Def.
+30;Evaluación de solicitud;0;Eval. solicitud
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de la solicitud;0;Present. la solicitud

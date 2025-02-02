@@ -1,0 +1,21 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+82;Primer Pago ordinario;1;Primer Pg. ordinario
+21;Presentación de renuncia;1;Present. renuncia
+286;Presentación solicitud de desistimiento;0;Present. solicitud desistimiento
+242;Valoración de la solicitud;0;Valoración la solicitud
+155;Propuesta de Inadmisión;0;Prop. Inadm.
+82;Pago primer anticipo 35%;0;Pg. primer anticipo 35%
+70;Primera justificacion;0;Primera justificacion
+55;Resolución de Inadmisión;0;Res. Inadm.
+52;Resolución de desistimiento;0;Res. desistimiento
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolución Aprobatoria;0;Res. Aprobatoria
+43;Propuesta Definitiva Denegatoria;0;Prop. Def. Deneg.
+42;Propuesta Definitiva Aprobatoria;0;Prop. Def. Aprobatoria
+41;Propuesta Provisional Denegatoria;0;Prop. Prov. Deneg.
+40;Propuesta Provisional Aprobatoria;0;Prop. Prov. Aprobatoria
+30;Evaluación de la solicitud;0;Eval. la solicitud
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud
+1;Solicitud Primer Anticipo;0;Sol. Primer Anticipo

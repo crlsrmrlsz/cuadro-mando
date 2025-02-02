@@ -1,0 +1,10 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+82;Pago;0;Pg.
+55;Resolución de inadmisión solicitud duplicada;0;Res. inadmisión solicitud duplicada
+55;Resolución de inadmisión solicitud fuera de plazo;0;Res. inadmisión solicitud fuera plazo
+50;Resolución Definitiva;0;Res. Def.
+42;Propuesta de Resolución Definitiva;0;Prop. Res. Def.
+40;Propuesta de Resolución Provisional;0;Prop. Res. Prov.
+10;Requerimiento de Documentación de Solicitud;0;Req. Doc. Sol.
+1;Presentación de Solicitud;0;Present. Sol.

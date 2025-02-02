@@ -1,0 +1,34 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+287;Seguimiento tercer año;0;Seguimiento tercer año
+287;Seguimiento ;0;Seguimiento 
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+156;Inicio de procedimiento de reintegro segundo año;0;Inic. procedimiento reintegro segundo año
+156;Inicio Procedimiento Reintegro;0;Inic. proc. Reintegro
+156;Inicio de procedimiento de reintegro;0;Inic. procedimiento reintegro
+156;Inicio de procedimiento de reintegro tercer año;0;Inic. procedimiento reintegro tercer año
+155;Propuesta Resolución de inadmisión;0;Prop. Res. inadmisión
+82;Pago;0;Pg.
+62;Resolución denegatoria con subrogación;0;Res. denegatoria subrogación
+62;Resolución de admisión de subrogación;0;Res. admisión subrogación
+61;Informe desfavorable de sustitución;0;Inf. desfavorable sustitución
+61;Informe favorable de sustitución;0;Inf. favorable sustitución
+55;Resolución de inadmisión;0;Res. inadmisión
+53;Resolución de Renuncia;0;Res. Renuncia
+52;Resolución de Desistimiento;0;Res. Desist.
+52;Aceptación de Desistimiento;0;Aceptación Desist.
+51;Resolución denegatoria por falta de presupuesto;0;Res. denegatoria falta presupuesto
+51;Resolución denegatoria por incumplimiento requisitos;0;Res. denegatoria incumplimiento requisitos
+50;Resolución concesión;0;Res. concesión
+43;Propuesta Resolución Denegatoria por falta de presupuesto;0;Prop. Res. Deneg. falta presupuesto
+42;Propuesta Resolución de Concesión;0;Prop. Res. Conc.
+30;Evaluación de sustitución;0;Eval. sustitución
+30;Evaluación de subrogación;0;Eval. subrogación
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de audiencia (propuesta denegatoria);0;Trám. audiencia (propuesta denegatoria)
+21;Presentación de Renuncia;0;Present. Renuncia
+12;Presentación de subrogación;0;Present. subrogación
+11;Presentación de sustitución;0;Present. sustitución
+10;Requerimiento documentación (Subrogación);0;Req. documentación (Subrogación)
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

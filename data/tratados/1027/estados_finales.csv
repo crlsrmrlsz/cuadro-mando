@@ -1,0 +1,43 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento y Archivo del expediente;1;Fin procedimiento Archivo expediente
+286;Presentación Renuncia;0;Present. Renuncia
+82;Trámite de Certificado de cumplimiento y Pago al Beneficiario - Abono;0;Trám. Certificado cumplimiento Pg. Beneficiario - Ab.
+82;Trámite de Pago parcial al Beneficiario;0;Trám. Pg. parcial Beneficiario
+82;Trámite de Certificado de cumplimiento y Pago al Beneficiario;0;Trám. Certificado cumplimiento Pg. Beneficiario
+70;Presenta declaración expresa anexo IV antes de 15 días;0;Presenta declaración expresa anexo IV antes 15 días
+70;Presenta declaración expresa anexo IV y anexo I-bis antes de dos meses;0;Presenta declaración expresa anexo IV anexo I-bis antes dos meses
+55;Resolución de Inadmisión;0;Res. Inadm.
+55;Diligencia de duplicidad de expediente;0;Diligencia duplicidad expediente
+52;Resolución Aceptación de Renuncia al Abono;0;Res. Aceptación Renuncia Ab.
+52;Resolución de Pérdida de Subvención.;0;Res. Pérd. Subvención.
+52;Propuesta Resolución Aceptación de Renuncia al Abono;0;Prop. Res. Aceptación Renuncia Ab.
+52;Resolución de desestimiento;0;Res. desestimiento
+52;Resolucion de de Aceptación de Renuncia;0;Res. de Aceptación Renuncia
+51;Resolución Desestimatoria - Incumplimiento de requisitos;0;Res. Desest. - Incumplimiento requisitos
+51;Resolución Desistimatoria Incumplimiento Perdida Total  (abono);0;Res. Desistimatoria Incumplimiento Perdida Total (abono)
+51;Resolución Desestimatoria. Falta de crédito;0;Res. Desest.. Falt. crédito
+51;Resolución Desistimiento - Falta Documentación (abono);0;Res. Desist. - Falt. Doc. (abono)
+50;Resolución de Concesión;0;Res. Conc.
+50;Resolución Concesión en Libros edificio/Proyectos Rehab. Con solo MEMORIA;0;Res. Conc. Libros edificio/Proyectos Rehab. Con solo MEMORIA
+50;Resolución Estimatoria Abono Pérdida Parcial ;0;Res. Est. Ab. Pérd. Parcial 
+50;Resolución sin efecto;0;Res. sin efecto
+43;Propuesta Resolución Desistimatoria Incumplimiento Perdida Total  (abono);0;Prop. Res. Desistimatoria Incumplimiento Perdida Total (abono)
+43;IPR Desestimatorio por incumplimiento de requisitos;0;IPR Desestimatorio incumplimiento requisitos
+43;Propuesta Resolución Desistimiento - Falta Documentación (abono);0;Prop. Res. Desist. - Falt. Doc. (abono)
+43;IPR Desestimatorio por falta de crédito;0;IPR Desestimatorio falta crédito
+42;Propuesta Resolución Estimatoria de Abono;0;Prop. Res. Est. Ab.
+42;Propuesta Resolución Estimatoria Abono Pérdida Parcial;0;Prop. Res. Est. Ab. Pérd. Parcial
+42;IPR Concesión;0;IPR Conc.
+42;IPR Concesión en Libros edificio/Proyectos Rehabilitación. Con solo MEMORIA;0;IPR Conc. Libros edificio/Proyectos Rehabilitación. Con solo MEMORIA
+42;Propuesta Resolución de Pérdida de Subvención.;0;Prop. Res. Pérd. Subvención.
+30;Evaluación Solicitud;0;Eval. Sol.
+30;Evaluación de solicitud (Abono);0;Eval. solicitud (Ab.)
+25;Trámite de Audiencia (abono);0;Trám. Aud. (abono)
+25;Tramite de Audiencia - Inadmisión;0;Tramite Aud. - Inadm.
+25;Tramite de Audiencia;0;Tramite Aud.
+10;Requerimiento de documentación (abono);0;Req. documentación (abono)
+10;Requerimiento de Presentación de Justificación;0;Req. Present. Just.
+10;Requerimiento de Duplicidad;0;Req. Duplicidad
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación y Revisión de la solicitud;0;Present. Revisión la solicitud
+1;Revisión de documentacion de Abono;0;Revisión documentacion Ab.

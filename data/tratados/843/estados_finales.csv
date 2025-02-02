@@ -1,0 +1,18 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin procedimiento;1;Fin procedimiento
+309;Lista de Reserva;0;Lista Reserva
+290;Plaza asignada -Adjudicación Definitiva-;0;Plaza asignada -Adjudicación Def.-
+224;Desestimación al Recurso;0;Desestimación Rec.
+223;Estimación al Recurso;0;Estimación Rec.
+220;Recurso;0;Rec.
+55;Resolución de Inadmisión;0;Res. Inadm.
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria;0;Res. Deneg.
+50;Resolución aprobatoria;0;Res. aprobatoria
+50;Resolución aprobatoria Condicionada;0;Res. aprobatoria Condicionada
+43;Propuesta Definitiva Resolución Denegatoria;0;Prop. Def. Res. Deneg.
+30;Comprobación de Requisitos;0;Comprobación Req.
+21;Presentación de Renuncia Justificada;0;Present. Renuncia Justificada
+21;Presentación de Renuncia;0;Present. Renuncia
+10;Requerimiento Documentación;0;Req. Doc.
+1;Presentación de solicitud;0;Present. solicitud

@@ -1,0 +1,28 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+303;Informe de Cumplimiento de Condiciones de SSPP;0;Inf. Cumplimiento Condiciones SSPP
+302;Visita de Inspección;0;Visita Inspección
+301;Plazo Prórroga de un mes;0;Plazo Prór. un mes
+286;Presentación de solicitud de desistimiento;0;Present. solicitud desistimiento
+278;Resolución de Pérdida de Derecho al Cobro Total;0;Res. Pérd. Der. Cob. Total
+82;Pago-Reconocimiento de Obligación (ADO,O);0;Pg.-Reconocimiento Obligación (ADO,O)
+74;No Justificado-Incumplimiento Total;0;No Justificado-Incumplimiento Total
+73;Requerimiento Documentación Justificativa;0;Req. Doc. Justificativa
+72;Justificación Incompleta-Liquidación Parcial;0;Just. Incompleta-Liq. Parcial
+71;Justificación Completa-Liquidación Total;0;Just. Completa-Liq. Total
+70;Presentación Documentación Justificativa;0;Present. Doc. Justificativa
+53;Resolución de Aceptación de Renuncia;0;Res. Aceptación Renuncia
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Desestimatoria;0;Res. Desest.
+50;Resolución de Concesión;0;Res. Conc.
+43;Propuesta de Resolución Desestimatoria;0;Prop. Res. Desest.
+42;Propuesta de Resolución de Concesión;0;Prop. Res. Conc.
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de audiencia en Propuesta Desestimatoria;0;Trám. audiencia Prop. Desest.
+25;Trámite de Audiencia en Pérdida de Derecho al Cobro;0;Trám. Aud. Pérd. Der. Cob.
+25;Trámite de Audiencia en Pérdido de Derecho al Cobro;0;Trám. Aud. Pérdido Der. Cob.
+25;Trámite de Audiencia en Pérdida de Derecho al Cobro Total;0;Trám. Aud. Pérd. Der. Cob. Total
+21;Presentación de Renuncia;0;Present. Renuncia
+15;Presentación de alegaciones;0;Present. alegaciones
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

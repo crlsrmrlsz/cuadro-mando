@@ -1,0 +1,26 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fín de Procedimiento;1;Fín proc.
+316;Resolución Desestimatoria;0;Res. Desest.
+316;Resolución Estimatoria con Crédito;0;Res. Est. Crédito
+316;Resolución Estimatoria sin Crédito;0;Res. Est. sin Crédito
+181;Abono segundo plazo;0;Ab. segundo plazo
+181;Abono primer plazo;0;Ab. primer plazo
+155;Propuesta de Resolución Inadmisión Solicitud Fuera de Plazo;0;Prop. Res. Inadm. Sol. Fuera Plazo
+153;Propuesta de Resolución por Desistimiento Voluntario;0;Prop. Res. Desist. Voluntario
+152;Propuesta de Resolución Desistimiento Requerimiento Documentación;0;Prop. Res. Desist. Req. Doc.
+55;Resolución Inadmisión Solicitud Fuera de Plazo;0;Res. Inadm. Sol. Fuera Plazo
+54;Resolución Revocación;0;Res. Revocación
+53;Resolución por Desistimiento Voluntario;0;Res. Desist. Voluntario
+52;Resolución Desistimiento Requerimiento Documentación;0;Res. Desist. Req. Doc.
+51;Resolución Desestimatoria Requerimiento Documentación;0;Res. Desest. Req. Doc.
+43;Propuesta de Resolución Desestimatoria Requerimiento Documentación;0;Prop. Res. Desest. Req. Doc.
+43;Propuesta de Resolución Definitiva Desestimatoria;0;Prop. Res. Def. Desest.
+42;Propuesta de Resolución Definitiva Estimatoria sin Crédito;0;Prop. Res. Def. Est. sin Crédito
+42;Propuesta de Resolución Definitiva Estimatoria con Crédito;0;Prop. Res. Def. Est. Crédito
+41;Propuesta de Resolución Provisional Desestimatoria;0;Prop. Res. Prov. Desest.
+40;Propuesta de Resolución Provisional Estimatoria con Crédito;0;Prop. Res. Prov. Est. Crédito
+40;Propuesta de Resolución Provisional Estimatoria sin Crédito;0;Prop. Res. Prov. Est. sin Crédito
+30;Evaluación de alegaciones;0;Eval. alegaciones
+30;Evaluación de solicitud;0;Eval. solicitud
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

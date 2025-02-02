@@ -1,0 +1,30 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+430;Carga manual información AEAT;1;Carga manual información AEAT
+429;Carga Información Recibida AEAT;1;Carga Información Recibida AEAT
+379;Devolución a iniciativa del preceptor;1;Dev. iniciativa preceptor
+156;Inicio Procedimiento Reintegro;1;Inic. proc. Reintegro
+100;Fin de procedimiento;1;Fin procedimiento
+70;Presentación de Justificación;1;Present. Just.
+21;Presentación de renuncia;1;Present. renuncia
+343;Solicitud Información AEAT;0;Sol. Información AEAT
+301;Requerimiento del mes;0;Req. mes
+286;Presentación de solicitud de desistimiento;0;Present. solicitud desistimiento
+155;Propuesta Resolución de Inadmisión;0;Prop. Res. Inadm.
+152;Propuesta Resolución de Desistimiento;0;Prop. Res. Desist.
+90;Presentacion de Recurso de Alzada;0;Present. Rec. Alzada
+90;Presentación Recurso-Revisión expediente;0;Present. Rec.-Revisión expediente
+82;Pago;0;Pg.
+59;Resolución recurso de alzada;0;Res. recurso alzada
+55;Resolución de Inadmisión;0;Res. Inadm.
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución Desfavorable;0;Res. Desfavorable
+50;Resolución Favorable;0;Res. Favorable
+43;Propuesta de Resolución Desfavorable;0;Prop. Res. Desfavorable
+42;Propuesta Definitiva Favorable;0;Prop. Def. Favorable
+41;Propuesta Provisional Desfavorable;0;Prop. Prov. Desfavorable
+30;Evaluación Solicitud;0;Eval. Sol.
+25;Trámite Audiencia;0;Trám. Aud.
+10;Requerimiento documentación;0;Req. documentación
+10;Requerimiento AEAT;0;Req. AEAT
+1;Presentación de solicitud;0;Present. solicitud
+1;Presentación solicitud con datos AEAT;0;Present. solicitud datos AEAT

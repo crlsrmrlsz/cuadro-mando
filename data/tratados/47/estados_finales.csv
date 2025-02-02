@@ -1,0 +1,37 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+294;Informe General de Valoración;0;Inf. General Valoración
+294;Informe General de Valoración tras Alegaciones;0;Inf. General Valoración tras Alegaciones
+293;Informe de Evaluación SSPP;0;Inf. Eval. SSPP
+287;Seguimiento primer semestre;0;Seguimiento primer semestre
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+242;Valoración Solicitud;0;Valoración Sol.
+242;Valoración Solicitud tras Alegaciones;0;Valoración Sol. tras Alegaciones
+156;Inicio de Procedimiento de Reintegro primer semestre;0;Inic. proc. Reintegro primer semestre
+156;Inicio de Procedimiento de Reintegro;0;Inic. proc. Reintegro
+155;Propuesta de Resolución de Inadmisión;0;Prop. Res. Inadm.
+82;Pago;0;Pg.
+61;Resolución aprobatoria de sustitución;0;Res. aprobatoria sustitución
+55;Resolución de Inadmisión;0;Res. Inadm.
+53;Resolución de Renuncia;0;Res. Renuncia
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución Denegatoria Falta de Presupuesto;0;Res. Deneg. Falt. Presupuesto
+51;Resolución Denegatoria Incumplimiento de Requisitos;0;Res. Deneg. Incumplimiento Req.
+50;Resolución Aprobatoria;0;Res. Aprobatoria
+43;Propuesta Definitiva Resolución Denegatoria Falta de Presupuesto;0;Prop. Def. Res. Deneg. Falt. Presupuesto
+43;Propuesta Definitiva Resolución Denegatoria Incumplimiento de Requisitos;0;Prop. Def. Res. Deneg. Incumplimiento Req.
+42;Propuesta Definitiva de Resolución Aprobatoria;0;Prop. Def. Res. Aprobatoria
+41;Propuesta Provisional Resolución Denegatoria Incumplimiento de Requisitos;0;Prop. Prov. Res. Deneg. Incumplimiento Req.
+41;Propuesta Provisional Resolución Denegatoria Falta de Presupuesto;0;Prop. Prov. Res. Deneg. Falt. Presupuesto
+40;Propuesta Provisional de Resolución Aprobatoria;0;Prop. Prov. Res. Aprobatoria
+30;Evaluación de solicitud de sustitución;0;Eval. solicitud sustitución
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite Audiencia Propuesta Provisional Resolución Deneg. Falta Presupuesto;0;Trám. Aud. Prop. Prov. Res. Deneg. Falt. Presupuesto
+25;Trámite Audiencia Propuesta Provisional Resolución Aprobatoria;0;Trám. Aud. Prop. Prov. Res. Aprobatoria
+25;Trámite Audiencia Propuesta Provisional Resolución Deneg. Incump. de Requisitos;0;Trám. Aud. Prop. Prov. Res. Deneg. Incump. Req.
+25;Trámite de Audiencia;0;Trám. Aud.
+25;Trámite de Audiencia de sustitución;0;Trám. Aud. sustitución
+21;Presentación de Renuncia;0;Present. Renuncia
+11;Presentación de sustitución;0;Present. sustitución
+10;Requerimiento Documentación Solicitud;0;Req. Doc. Sol.
+1;Presentación de solicitud;0;Present. solicitud

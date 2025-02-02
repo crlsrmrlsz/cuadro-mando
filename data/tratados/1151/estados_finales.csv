@@ -1,0 +1,25 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+55;Diligencia de duplicidad de expediente;1;Diligencia duplicidad expediente
+52;Resolución de Aceptación de Desistimiento voluntario;1;Res. Aceptación Desist. voluntario
+283;Propuesta Resolución de Pérdida Total - Incuplimiento Total;0;Prop. Res. Pérd. Total - Incuplimiento Total
+283;Propuesta Resolución de Abono Parcial;0;Prop. Res. Ab. Parcial
+278;Resolución de Abono Parcial;0;Res. Ab. Parcial
+278;Resolución de Pérdida Total - Incuplimiento Total;0;Res. Pérd. Total - Incuplimiento Total
+236;Requerimiento de Duplicidad;0;Req. Duplicidad
+82;Certificado de cumplimiento y Pago al beneficiario;0;Certificado cumplimiento Pg. beneficiario
+52;Resolución de desistimiento (Anticipo);0;Res. desistimiento (Anticipo)
+52;Resolución de desistimiento por Duplicidad;0;Res. desistimiento Duplicidad
+52;Resolución de Aceptación de Renuncia;0;Res. Aceptación Renuncia
+50;Resolución de Concesión;0;Res. Conc.
+42;Propuesta Resolución de Abono Total;0;Prop. Res. Ab. Total
+30;Evaluación de solicitud;0;Eval. solicitud
+30;Evaluación de solicitud (Abono);0;Eval. solicitud (Ab.)
+25;Tramite de Audiencia - Inadmisión;0;Tramite Aud. - Inadm.
+25;Tramite de Audiencia (Anticipo);0;Tramite Aud. (Anticipo)
+25;Tramite de Audiencia;0;Tramite Aud.
+25;Trámite de audiencia (Abono);0;Trám. audiencia (Ab.)
+10;Requerimiento de documentación (Abono);0;Req. documentación (Ab.)
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación y Revisión de la solicitud;0;Present. Revisión la solicitud
+1;Presentación de Solicitud de Abono;0;Present. Sol. Ab.

@@ -1,0 +1,25 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+286;Presentación Solicitud Desistimiento;1;Present. Sol. Desist.
+100;Fin de Procedimiento;1;Fin proc.
+294;Informe del Instructor;0;Inf. Instructor
+293;Informe de Calificación;0;Inf. Calificación
+278;Resolución de Pérdida de Derecho al Cobro Parcial;0;Res. Pérd. Der. Cob. Parcial
+278;Resolución de Pérdida de Derecho al Cobro Total;0;Res. Pérd. Der. Cob. Total
+242;Valoración Solicitud;0;Valoración Sol.
+82;Pago 50%;0;Pg. 50%
+82;Pago - Resto 50%;0;Pg. - Resto 50%
+74;No justificación;0;No justif.
+73;Requerimiento de documentación de justificación de gasto;0;Req. documentación justif. gasto
+72;Justificación de gasto Incompleta;0;Just. gasto Incompleta
+71;Justificación de gasto Completa;0;Just. gasto Completa
+70;Justificación de gasto;0;Just. gasto
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución Desestimatoria;0;Res. Desest.
+50;Resolución de Concesión;0;Res. Conc.
+43;Propuesta definitiva Resolución Desestimatoria;0;Prop. definitiva Res. Desest.
+42;Propuesta definitiva de Resolución Concesión;0;Prop. definitiva Res. Conc.
+41;Propuesta Provisional Resolución Desestimatoria;0;Prop. Prov. Res. Desest.
+40;Propuesta Provisional de Resolución Concesión;0;Prop. Prov. Res. Conc.
+30;Evaluación de solicitud;0;Eval. solicitud
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud de Subvención;0;Present. solicitud Subvención

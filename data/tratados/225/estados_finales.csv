@@ -1,0 +1,44 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+90;Presentación de Recurso de Alzada - Razones Humanitarias;1;Present. Rec. Alzada - Razones Humanitarias
+336;Reiteración devolución tarjeta caducada ;0;Reiteración devolución tarjeta caducada 
+329;Revision  del Grado de Discapacidad;0;Revision del Grado Discapacidad
+90;Presentacion de Recurso de Alzada;0;Present. Rec. Alzada
+90;Presentacion de Recurso de Alzada - Transporte Colectivo;0;Present. Rec. Alzada - Transporte Colectivo
+90;Presentacion de Recurso de Alzada - Pensionista;0;Present. Rec. Alzada - Pensionista
+90;Presentación de Recurso de Alzada - Hospital Nacional de Parapléjicos;0;Present. Rec. Alzada - Hospital Nacional Parapléjicos
+54;Resolución de Revocación de R. Denegatoria - Hospital Nacional de Parapléjicos;0;Res. Revocación R. Deneg. - Hospital Nacional Parapléjicos
+54;Resolucion de Revocacion de Resolucion Denegatoria - Transporte colectivo;0;Res. Revocacion Res. Deneg. - Transporte colectivo
+54;Resolucion de Revocacion de Resolucion Denegatoria;0;Res. Revocacion Res. Deneg.
+54;Resolucion de Revocacion de Resolucion Denegatoria - Pensionista;0;Res. Revocacion Res. Deneg. - Pensionista
+54;Resolucion de Revocacion de Resolucion Denegatoria - Razones Humanitarias;0;Res. Revocacion Res. Deneg. - Razones Humanitarias
+52;Resolucion Desistimiento a Persona con Discapacidad;0;Res. Desist. Persona Discapacidad
+52;Resolucion Desistimiento - Pensionista;0;Res. Desist. - Pensionista
+52;Resolución Desistimiento - Hospital Nacional de Parapléjicos;0;Res. Desist. - Hospital Nacional Parapléjicos
+52;Resolucion Desistimiento - Transporte colectivo;0;Res. Desist. - Transporte colectivo
+52;Resolucion Desistimiento - Razones humanitarias;0;Res. Desist. - Razones humanitarias
+51;Resolución Denegatoria - Transporte colectivo;0;Res. Deneg. - Transporte colectivo
+51;Resolución Denegatoria - Pensionista;0;Res. Deneg. - Pensionista
+51;Resolución Denegatoria - Razones Humanitarias;0;Res. Deneg. - Razones Humanitarias
+51;Resolucion Denegatoria a Persona con Discapacidad;0;Res. Deneg. Persona Discapacidad
+51;Resolución Denegatoria - Hospital Nacional de Parapléjicos;0;Res. Deneg. - Hospital Nacional Parapléjicos
+50;Resolución de Concesión - Hospital Nacional de Parapléjicos;0;Res. Conc. - Hospital Nacional Parapléjicos
+50;Resolucion de Renovacion a Persona con Discapacidad;0;Res. Renovacion Persona Discapacidad
+50;Resolución de Renovación - Pensionista;0;Res. Renovación - Pensionista
+50;Resolución de Renovación - Razones Humanitarias;0;Res. Renovación - Razones Humanitarias
+50;Resolución de Renovación - Transporte Colectivo;0;Res. Renovación - Transporte Colectivo
+30;Evaluación de Solicitud - Hospital Nacional de Parapléjicos;0;Eval. Sol. - Hospital Nacional Parapléjicos
+30;EVALUACIÓN de Solicitud - Razones Humanitarias;0;Ev. Sol. - Razones Humanitarias
+30;EVALUACIÓN de Solicitud - Pensionista;0;Ev. Sol. - Pensionista
+30;EVALUACIÓN de Solicitud - Transporte Colectivo;0;Ev. Sol. - Transporte Colectivo
+30;Evaluacion de Solicitud de Persona con Discapacidad;0;Evaluacion Sol. Persona Discapacidad
+10;Requerimiento de Documentacion a Pensionista;0;Req. Documentacion Pensionista
+10;Requerimiento de Documentación - Hospital Nacional de Parapléjicos;0;Req. Doc. - Hospital Nacional Parapléjicos
+10;Requerimiento de Documentacion a Transporte Colectivo;0;Req. Documentacion Transporte Colectivo
+10;Requerimiento de Documentacion a Razones Humanitarias;0;Req. Documentacion Razones Humanitarias
+10;Requerimiento de Documentacion a Persona con Discapacidad;0;Req. Documentacion Persona Discapacidad
+1;Presentación de Solicitud - Transporte Colectivo;0;Present. Sol. - Transporte Colectivo
+1;Presentación de Solicitud - Pensionista;0;Present. Sol. - Pensionista
+1;Presentacion de Solicitud de Persona con Discapacidad;0;Present. Sol. Persona Discapacidad
+1;Presentación de Solicitud - Razones Humanitarias;0;Present. Sol. - Razones Humanitarias
+1;Presentación de Solicitud - Hospital Nacional de Parapléjicos;0;Present. Sol. - Hospital Nacional Parapléjicos

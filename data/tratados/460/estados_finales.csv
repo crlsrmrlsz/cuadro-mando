@@ -1,0 +1,60 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+43;Desestimado y Pendiente de Valoración;1;Desestimado Pend. Valoración
+359;Acuerdo de inicio de Perdida de Derecho al Cobro - Cambio Condiciones;0;Acuerdo inicio Perdida Der. Cob. - Cambio Condiciones
+341;Pendiente informe de evaluación;0;Pend. informe evaluación
+340;Evaluado y Pendiente de Valoración;0;Evaluado Pend. Valoración
+340;Evaluado Definitivamente y Pendiente de Valoración final;0;Evaluado Def.mente Pend. Valoración final
+316;Resolución de Concesión Estimatoria con Crédito;0;Res. Conc. Est. Crédito
+316;Resolución Desestimatoria Mod. Concesión;0;Res. Desest. Mod. Conc.
+316;Resolucion Desestimatoria Incumplimiento Requisitos - Recurso Alzada;0;Res. Desest. Incumplimiento Req. - Rec. Alzada
+316;Resolucion Fin del Procedimiento - Causa sobrevenida;0;Res. Fin proc. - Causa sobrevenida
+316;Resolucion Desestimatoria sin Credito - Recurso Alzada;0;Res. Desest. sin Credito - Rec. Alzada
+316;Resolución Estimatoria Mod. Concesión;0;Res. Est. Mod. Conc.
+316;Resolución de Concesión Desestimatoria;0;Res. Conc. Desest.
+316;Resolucion Estimatoria con Credito - Recurso Alzada;0;Res. Est. Credito - Rec. Alzada
+316;Resolución de Concesión Estimatoria sin Crédito;0;Res. Conc. Est. sin Crédito
+224;Desestimacion Recurso de Alzada;0;Desestimacion Rec. Alzada
+223;Estimacion Recurso Alzada;0;Estimacion Rec. Alzada
+202;ANULADO - Solicitud Creada por Error;0;ANULADO - Sol. Creada Error
+181;Abono;0;Ab.
+155;P.R. de inadmisión solicitud duplicada;0;P.R. inadmisión solicitud duplicada
+155;P.R. de inadmisión solicitud fuera de plazo;0;P.R. inadmisión solicitud fuera plazo
+153;P.R. Desistimiento Voluntario Ayuda;0;P.R. Desist. Voluntario Ayuda
+153;P.R. Desistimiento Voluntario Solicitud;0;P.R. Desist. Voluntario Sol.
+152;P.R. Desistimiento Requerimiento documentación;0;P.R. Desist. Req. documentación
+152;P.R. Desistimiento Requerimiento evaluación;0;P.R. Desist. Req. evaluación
+90;Presentacion de Recurso de Alzada;0;Present. Rec. Alzada
+75;Correcci¿n de Errores detectados en Fase de Abono;0;Correcci¿n Errores detectados Fase Ab.
+60;Cambio de condiciones;0;Cambio condiciones
+55;Resolución de inadmisión solicitud fuera de plazo;0;Res. inadmisión solicitud fuera plazo
+55;Resolución de inadmisión solicitud duplicada;0;Res. inadmisión solicitud duplicada
+53;Resolución Desistimiento Voluntario Solicitud;0;Res. Desist. Voluntario Sol.
+53;Resolución Desistimiento Voluntario Ayuda;0;Res. Desist. Voluntario Ayuda
+52;Resolución Desistimiento Requerimiento documentación;0;Res. Desist. Req. documentación
+52;Resolución Desistimiento evaluación;0;Res. Desist. evaluación
+43;P.R. Definitiva Desestimatoria;0;P.R. Def. Desest.
+43;Propuesta de Resolucion Desestimatoria Incumplimiento Requisitos- Recurso Alzada;0;Prop. Res. Desest. Incumplimiento Req.- Rec. Alzada
+43;P.R. Desestimatoria Mod. Concesión;0;P.R. Desest. Mod. Conc.
+43;Propuesta de Resolucion Desestimatoria sin Credito - Recurso Alzada;0;Prop. Res. Desest. sin Credito - Rec. Alzada
+43;Propuesta Resolucion Fin del Procedimiento - Causa sobrevenida;0;Prop. Res. Fin proc. - Causa sobrevenida
+42;P.R. Estimatoria Mod. Concesión;0;P.R. Est. Mod. Conc.
+42;P.R. Definitiva Estimatoria con Crédito;0;P.R. Def. Est. Crédito
+42;P.R. Definitiva Estimatoria sin Crédito;0;P.R. Def. Est. sin Crédito
+42;Propuesta de Resolucion Estimatoria con Credito - Recurso Alzada;0;Prop. Res. Est. Credito - Rec. Alzada
+41;P.R. Provisional Desestimatoria;0;P.R. Prov. Desest.
+40;P.R. Provisional Estimatoria sin Crédito;0;P.R. Prov. Est. sin Crédito
+40;P.R. Provisional Estimatoria con Crédito;0;P.R. Prov. Est. Crédito
+30;Evaluación de solicitud;0;Eval. solicitud
+30;Evaluación Abono;0;Eval. Ab.
+30;Evaluación de solicitud definitiva;0;Eval. solicitud definitiva
+25;Tramite Audiencia Evaluacion;0;Tramite Aud. Evaluacion
+25;Tramite Audiencia Cambio Condiciones;0;Tramite Aud. Cambio Condiciones
+25;Trámite Audiencia Recurso Alzada;0;Trám. Aud. Rec. Alzada
+15;Presentacion alegaciones;0;Present. alegaciones
+10;Requerimiento Evaluación Provisional;0;Req. Eval. Prov.
+10;Requerimiento Evaluación Abono;0;Req. Eval. Ab.
+10;Requerimiento Cambio Condiciones;0;Req. Cambio Condiciones
+10;Requerimiento Recurso Alzada;0;Req. Rec. Alzada
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

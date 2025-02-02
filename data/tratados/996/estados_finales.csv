@@ -1,0 +1,15 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento.;1;Fin proc..
+519;Resolución favorable tras pérdida;0;Res. favorable tras pérdida
+515;Trámite de baja;0;Trám. baja
+514;Petición Portabilidad.;0;Petición Portabilidad.
+309;Lista de Reserva.;0;Lista Reserva.
+278;Pérdida de derecho al cobro;0;Pérd. derecho cobro
+51;Resolución Denegatoria Falta de Presupuesto.;0;Res. Deneg. Falt. Presupuesto.
+51;Resolución Desfavorable.;0;Res. Desfavorable.
+50;Resolución favorable.;0;Res. favorable.
+43;Propuesta Resolución denegatoria por falta presupuesto.;0;Prop. Res. denegatoria falta presupuesto.
+43;Propuesta Resolución denegatoria por incumplimiento requisitos.;0;Prop. Res. denegatoria incumplimiento requisitos.
+42;Propuesta Resolución aprobatoria.;0;Prop. Res. aprobatoria.
+21;Renuncia voluntaria;0;Renuncia voluntaria
+1;Presentación de solicitud.;0;Present. solicitud.

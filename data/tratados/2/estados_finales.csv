@@ -1,0 +1,21 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+82;Pago anticipo 45% - Reconocimiento de Obligacion (Ado,O);1;Pg. anticipo 45% - Reconocimiento Obligacion (Ado,O)
+253;Comunicación de inicio del Programa;0;Comunicación inicio Programa
+252;Acuerdo de colaboración;0;Acuerdo colaboración
+251;Mesa de empleo con Alegaciones;0;Mesa empleo Alegaciones
+251;Mesa de empleo;0;Mesa empleo
+242;Valorar Solicitud;0;Valorar Sol.
+225;Adenda;0;Adenda
+82;Pago anticipo 70% - Reconocimiento de Obligacion (Ado,O);0;Pg. anticipo 70% - Reconocimiento Obligacion (Ado,O)
+82;Pago anticipo 50% - Reconocimiento de Obligacion (Ado,O);0;Pg. anticipo 50% - Reconocimiento Obligacion (Ado,O)
+60;Modificación Resolución;0;Modificación Res.
+52;Resolución Desistimiento;0;Res. Desist.
+51;Resolución Desfavorable;0;Res. Desfavorable
+50;Resolución Favorable;0;Res. Favorable
+41;Propuesta Resolución Desfavorable Provisional;0;Prop. Res. Desfavorable Prov.
+40;Propuesta Resolución Favorable Provisional;0;Prop. Res. Favorable Prov.
+30;Evaluación Solicitud;0;Eval. Sol.
+25;Trámite de audiencia;0;Trám. audiencia
+10;Requerimiento Documentación Solicitud;0;Req. Doc. Sol.
+1;Presentación de Solicitud;0;Present. Sol.

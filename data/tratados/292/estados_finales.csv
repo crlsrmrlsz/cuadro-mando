@@ -1,0 +1,18 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+152;I.P. Resolucion Desistimiento falta de Documentacion;0;I.P. Res. Desist. falta Documentacion
+152;I.P. Resolución de Desistimiento falta de Firma;0;I.P. Res. Desist. falta Firma
+52;Resolucion Desistimiento falta de Documentacion;0;Res. Desist. falta Documentacion
+52;Resolución de Desistimiento falta de Firma;0;Res. Desist. falta Firma
+51;Resolución Desestimatoria Fuera de Plazo;0;Res. Desest. Fuera Plazo
+51;Resolución Desestimatoria Incumplimiento Requisitos;0;Res. Desest. Incumplimiento Req.
+51;Resolución Desestimatoria Falta de Presupuesto;0;Res. Desest. Falt. Presupuesto
+50;Resolución Estimatoria;0;Res. Est.
+41;I.P. Resolución Desestimatoria Falta de Presupuesto;0;I.P. Res. Desest. Falt. Presupuesto
+41;I.P. Resolución Desestimatoria Fuera de Plazo;0;I.P. Res. Desest. Fuera Plazo
+41;I.P. Resolución Desestimatoria Incumplimiento Requisitos;0;I.P. Res. Desest. Incumplimiento Req.
+40;I.P. Resolución Estimatoria;0;I.P. Res. Est.
+30;Evaluación de solicitud;0;Eval. solicitud
+25;Trámite de Audiencia;0;Trám. Aud.
+10;Requerimiento de Subsanación;0;Req. Subsanación
+1;Presentación de solicitud;0;Present. solicitud

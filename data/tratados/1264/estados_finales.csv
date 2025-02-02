@@ -1,0 +1,14 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+334;Solicitud duplicada;1;Sol. duplicada
+100;Fin de Procedimiento;1;Fin proc.
+51;Resolución denegatoria;1;Res. denegatoria
+50;Resolución aprobatoria;1;Res. aprobatoria
+55;Resolución de inadmisión;0;Res. inadmisión
+43;Propuesta resolución definitiva denegatoria;0;Prop. res. definitiva denegatoria
+42;Propuesta resolución definitiva aprobatoria;0;Prop. res. definitiva aprobatoria
+41;Propuesta resolución provisional denegatoria;0;Prop. res. provisional denegatoria
+40;Propuesta resolución provisional aprobatoria;0;Prop. res. provisional aprobatoria
+30;Evaluación;0;Eval.
+15;Alegaciones;0;Alegaciones
+10;Requerimiento Documentación;0;Req. Doc.
+1;Presentación de solicitud;0;Present. solicitud

@@ -1,0 +1,13 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+52;Resolución desistimiento/archivo solicitud de depósito provisional de cuentas;1;Res. desistimiento/archivo solicitud depósito provisional cuentas
+55;Inadmisión continuidad expediente provisional;0;Inadm. continuidad expediente provisional
+55;Inadmisión por duplicidad;0;Inadm. duplicidad
+53;Resolución Aceptación de Renuncia;0;Res. Aceptación Renuncia
+52;Resolución desistimiento/archivo solicitud de depósito de cuentas;0;Res. desistimiento/archivo solicitud depósito cuentas
+50;Resolución favorable de depósito de cuentas;0;Res. favorable depósito cuentas
+50;Resolución favorable de depósito provisional de cuentas;0;Res. favorable depósito provisional cuentas
+50;Resolución favorable de depósito de cuentas definitivo;0;Res. favorable depósito cuentas definitivo
+10;Requerimiento de documentación/subsanación de depósito provisional de cuentas;0;Req. documentación/subsanación depósito provisional cuentas
+10;Requerimiento de documentación/subsanación de depósito de cuentas;0;Req. documentación/subsanación depósito cuentas
+1;Presentación de solicitud de depósito de cuentas;0;Present. solicitud depósito cuentas

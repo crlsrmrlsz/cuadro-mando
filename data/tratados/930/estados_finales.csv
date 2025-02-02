@@ -1,0 +1,12 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+205;Notificación a SEPE y a TGSS;0;Notif. SEPE a TGSS
+205;Notificación a SEPE y a Inspección para informe;0;Notif. SEPE a Inspección para informe
+122;Aviso recepción a empresa y trabajadores;0;Aviso recepción empresa trabajadores
+122;Aviso finalización periodo de consultas a empresa y trabajadores;0;Aviso finalización periodo consultas empresa trabajadores
+57;Archivo del Expediente;0;Archivo Expediente
+51;Resolución Desestimatoria;0;Res. Desest.
+50;Resolución Estimatoria;0;Res. Est.
+10;Advertencia de deficiencias;0;Advertencia deficiencias
+1;Comunicación del Anexo I;0;Comunicación Anexo I
+1;Anexo II. Presentación de solicitud del fin de periodo de consultas;0;Anexo II. Present. solicitud fin periodo consultas

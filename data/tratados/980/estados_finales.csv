@@ -1,0 +1,17 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+51;Resolucion denegatoria por incumplimiento requisitos;1;Res. denegatoria incumplimiento requisitos
+50;Resolución de Concesión;1;Res. Conc.
+286;Presentacion Solicitud Desistimiento;0;Present. Sol. Desist.
+155;Propuesta Resolucion de inadmision;0;Prop. Res. inadmision
+55;Resolucion de inadmision;0;Res. inadmision
+52;Aceptacion de Desistimiento;0;Aceptacion Desist.
+52;Resolucion de Desistimiento;0;Res. Desist.
+51;Resolucion denegatoria por falta de presupuesto;0;Res. denegatoria falta presupuesto
+43;Propuesta Resolucion Denegatoria por falta de presupuesto;0;Prop. Res. Deneg. falta presupuesto
+42;Propuesta de Concesión;0;Prop. Conc.
+41;Propuesta Provisional de Resolucion Denegatoria por falta de presupuesto;0;Prop. Prov. Res. Deneg. falta presupuesto
+30;Evaluacion de solicitud;0;Evaluacion solicitud
+25;Tramite de audiencia (propuesta denegatoria);0;Tramite audiencia (propuesta denegatoria)
+10;Requerimiento documentacion solicitud;0;Req. documentacion solicitud
+1;Presentacion de solicitud;0;Present. solicitud

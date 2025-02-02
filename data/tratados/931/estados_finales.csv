@@ -1,0 +1,23 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+278;Pérdida de derecho al cobro;1;Pérd. derecho cobro
+100;Fin de procedimiento;1;Fin procedimiento
+82;Pago de la ayuda;1;Pg. la ayuda
+55;Resolución de Inadmisión;1;Res. Inadm.
+51;Resolución desfavorable;1;Res. desfavorable
+293;Informe de Calificación;0;Inf. Calificación
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+242;Valoración de la solicitud;0;Valoración la solicitud
+74;Incumplimiento total- No justificado;0;Incumplimiento total- No justificado
+70;Presentación Documentación Justificativa;0;Present. Doc. Justificativa
+55;Resolución de Inadmisión por duplicidad;0;Res. Inadm. duplicidad
+52;Resolución de Desistimiento;0;Res. Desist.
+50;Resolución de Concesión;0;Res. Conc.
+43;Definitiva desfavorable;0;Def. desfavorable
+42;Propuesta definitiva favorable;0;Prop. definitiva favorable
+41;Propuesta provisional desfavorable;0;Prop. provisional desfavorable
+40;Propuesta Provisional Aprobatoria;0;Prop. Prov. Aprobatoria
+30;Evaluación de justificación;0;Eval. justif.
+25;Trámite de Audiencia;0;Trám. Aud.
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+10;Requerimiento de justificación;0;Req. justif.
+1;Presentación de la solicitud;0;Present. la solicitud

@@ -1,0 +1,49 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+57;Archivo de expediente;1;Archivo expediente
+309;Lista de Reserva;0;Lista Reserva
+283;Propuesta Resolución de Pérdida Total - Incuplimiento Total;0;Prop. Res. Pérd. Total - Incuplimiento Total
+283;Propuesta Resolución de Abono Parcial;0;Prop. Res. Ab. Parcial
+278;Resolución de Pérdida Total - Incuplimiento Total;0;Res. Pérd. Total - Incuplimiento Total
+278;Resolución de Abono Parcial;0;Res. Ab. Parcial
+236;Requerimiento de Duplicidad;0;Req. Duplicidad
+225;Estimación de Recurso de Alzada;0;Estimación Rec. Alzada
+224;Desestimación de Recurso de Alzada;0;Desestimación Rec. Alzada
+100;Fin de procedimiento;0;Fin procedimiento
+90;Presentación de Recurso de Alzada;0;Present. Rec. Alzada
+82;Certificado de cumplimiento y Pago al beneficiario;0;Certificado cumplimiento Pg. beneficiario
+55;Diligencia de duplicidad de expediente;0;Diligencia duplicidad expediente
+55;Resolución de Inadmisión;0;Res. Inadm.
+52;Resolución de desistimiento (Anticipo);0;Res. desistimiento (Anticipo)
+52;Resolución de Aceptación de Desistimiento voluntario;0;Res. Aceptación Desist. voluntario
+52;Resolución de Aceptación de Renuncia;0;Res. Aceptación Renuncia
+52;Resolución de desistimiento;0;Res. desistimiento
+52;Resolución de desistimiento por Duplicidad;0;Res. desistimiento Duplicidad
+51;Resolucion Desestimatoria por incumplimiento de requisitos (Anticipo);0;Res. Desest. incumplimiento requisitos (Anticipo)
+51;Resolucion Desestimatoria por falta de crédito;0;Res. Desest. falta crédito
+51;Resolucion Desestimatoria por incumplimiento de requisitos;0;Res. Desest. incumplimiento requisitos
+50;Resolución de Concesión;0;Res. Conc.
+50;Resolución de Concesión tras Recurso de Alzada;0;Res. Conc. tras Rec. Alzada
+50;Resolución de Concesión  (Anticipo);0;Res. Conc. (Anticipo)
+50;Resolución ampliación de plazo;0;Res. ampliación plazo
+43;Propuesta de Resolucion Desestimatoria por falta de crédito;0;Prop. Res. Desest. falta crédito
+43;Propuesta Resolucion Desestimatoria por incumplimiento de requisitos (Anticipo);0;Prop. Res. Desest. incumplimiento requisitos (Anticipo)
+43;Propuesta de Resolucion Desestimatoria por incumplimiento de requisitos;0;Prop. Res. Desest. incumplimiento requisitos
+42;Propuesta Resolución de Abono Total;0;Prop. Res. Ab. Total
+42;Propuesta Resolución Concesión (Anticipo);0;Prop. Res. Conc. (Anticipo)
+42;Propuesta Resolución ampliación de plazo;0;Prop. Res. ampliación plazo
+42;Propuesta de Resolución de Concesión tras Recurso de Alzada;0;Prop. Res. Conc. tras Rec. Alzada
+42;Propuesta Resolución Concesión;0;Prop. Res. Conc.
+30;Evaluación de solicitud (Abono);0;Eval. solicitud (Ab.)
+30;Evaluación de solicitud;0;Eval. solicitud
+30;Evaluación de solicitud tras Recurso de Alzada;0;Eval. solicitud tras Rec. Alzada
+25;Tramite de Audiencia;0;Tramite Aud.
+25;Tramite de Audiencia - Inadmisión;0;Tramite Aud. - Inadm.
+25;Tramite de Audiencia (Anticipo);0;Tramite Aud. (Anticipo)
+25;Trámite de audiencia (Abono);0;Trám. audiencia (Ab.)
+10;Requerimiento de documentación (Anticipo);0;Req. documentación (Anticipo)
+10;Requerimiento de documentación (Abono);0;Req. documentación (Ab.)
+10;Requerimiento de Justificación de Abono;0;Req. Just. Ab.
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación y Revisión de la solicitud;0;Present. Revisión la solicitud
+1;Solicitud Anticipo;0;Sol. Anticipo
+1;Presentación de Solicitud de Abono;0;Present. Sol. Ab.

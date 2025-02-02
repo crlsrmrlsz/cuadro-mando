@@ -1,0 +1,13 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de Procedimiento;1;Fin proc.
+305;Expedición Certificado Renovación;0;Expedición Certificado Renovación
+304;Solicitud de Confirmación al Ministerio;0;Sol. Confirmación Ministerio
+55;Resolución de Inadmisión Renovación;0;Res. Inadm. Renovación
+52;Resolución Desistimiento Reserva;0;Res. Desist. Reserva
+52;Resolución Desistimiento Renovación;0;Res. Desist. Renovación
+51;Resolución Denegatoria Reserva;0;Res. Deneg. Reserva
+50;Resolución Aprobatoria Reserva;0;Res. Aprobatoria Reserva
+25;Trámite de Audiencia Renovación;0;Trám. Aud. Renovación
+25;Trámite de Audiencia Reserva;0;Trám. Aud. Reserva
+1;Presentación de Solicitud de Renovación;0;Present. Sol. Renovación
+1;Presentación de Solicitud de Reserva;0;Present. Sol. Reserva

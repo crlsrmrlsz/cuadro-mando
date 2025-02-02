@@ -1,0 +1,17 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+100;Fin de procedimiento;1;Fin procedimiento
+285;Resolución de Procedimiento;0;Res. proc.
+284;Propuesta de Resolución de Procedimiento;0;Prop. Res. proc.
+82;Pago 35%;0;Pg. 35%
+82;Pago 25%;0;Pg. 25%
+82;Pago 40%;0;Pg. 40%
+70;Justificación inicio de actividades;0;Just. inicio actividades
+70;Justificación de ejecución y pago de actividades;0;Just. ejecución pago actividades
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución Desfavorable;0;Res. Desfavorable
+50;Resolución de Concesión;0;Res. Conc.
+43;Propuesta Resolución Desfavorable;0;Prop. Res. Desfavorable
+42;Propuesta Resolución de Concesión;0;Prop. Res. Conc.
+30;Calificación y evaluación de solicitud;0;Calificación evaluación solicitud
+10;Requerimiento de documentación;0;Req. documentación
+1;Presentación de solicitud;0;Present. solicitud

@@ -1,0 +1,27 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+156;Inicio Procedimiento Reintegro;1;Inic. proc. Reintegro
+100;Fin de procedimiento;1;Fin procedimiento
+62;Resolución aprobatoria de subrogación (ya pagado);1;Res. aprobatoria subrogación (ya pagado)
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+155;Propuesta Resolución de inadmisión;0;Prop. Res. inadmisión
+152;Propuesta de Resolución de Desistimiento;0;Prop. Res. Desist.
+82;Pago;0;Pg.
+62;Resolución Denegatoria con subrogación;0;Res. Deneg. subrogación
+55;Resolución de inadmisión;0;Res. inadmisión
+53;Resolución de Renuncia;0;Res. Renuncia
+52;Resolución de Desistimiento;0;Res. Desist.
+51;Resolución denegatoria por incumplimiento requisitos;0;Res. denegatoria incumplimiento requisitos
+50;Resolución aprobatoria;0;Res. aprobatoria
+43;Propuesta Definitiva de Resolución Desfavorable;0;Prop. Def. Res. Desfavorable
+42;Propuesta Definitiva de Resolución Favorable;0;Prop. Def. Res. Favorable
+41;Propuesta Provisional de Resolución Desfavorable;0;Prop. Prov. Res. Desfavorable
+40;Propuesta Provisional de Resolución Favorable;0;Prop. Prov. Res. Favorable
+30;Evaluación de solicitud;0;Eval. solicitud
+30;Evaluación de sustitución;0;Eval. sustitución
+30;Evaluación de subrogación;0;Eval. subrogación
+25;Trámite de audiencia (propuesta denegatoria);0;Trám. audiencia (propuesta denegatoria)
+21;Presentación de Renuncia;0;Present. Renuncia
+12;Presentación de subrogación;0;Present. subrogación
+11;Presentación de sustitución;0;Present. sustitución
+10;Requerimiento documentación solicitud;0;Req. documentación solicitud
+1;Presentación de solicitud;0;Present. solicitud

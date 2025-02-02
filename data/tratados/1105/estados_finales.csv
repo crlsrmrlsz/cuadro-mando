@@ -1,0 +1,46 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+202;ANULADO - Solicitud Creada por Error;1;ANULADO - Sol. Creada Error
+100;Fin de Procedimiento;1;Fin proc.
+51;Resolución Desestimatoria Incumplimiento Requisitos - Recurso Alzada;1;Res. Desest. Incumplimiento Req. - Rec. Alzada
+51;Resolución Desestimatoria sin Crédito - Recurso Alzada;1;Res. Desest. sin Crédito - Rec. Alzada
+506;Barrado - Fin de procedimiento;0;Barrado - Fin procedimiento
+223;Estimación Recurso Alzada;0;Estimación Rec. Alzada
+181;Abono;0;Ab.
+90;Presentación de Recurso de Alzada;0;Present. Rec. Alzada
+60;Cambio de Condiciones - Aceptación Expresa;0;Cambio Condiciones - Aceptación Expresa
+60;Cambio de condiciones;0;Cambio condiciones
+55;Resolución de inadmisión;0;Res. inadmisión
+55;Diligencia de duplicidad de expediente;0;Diligencia duplicidad expediente
+53;Resolución Aceptación Desistimiento;0;Res. Aceptación Desist.
+53;Resolución Aceptación Renuncia Ayuda;0;Res. Aceptación Renuncia Ayuda
+52;Resolución de Desistimiento;0;Res. Desist.
+52;Resolución de Desistimiento por Duplicidad;0;Res. Desist. Duplicidad
+52;R. Desistimiento de la resolución  de modificación;0;R. Desist. la res. de modificación
+51;Resolución Desestimatoria por Incumplimiento de Requisitos;0;Res. Desest. Incumplimiento Req.
+51;Resolución Desestimatoria Mod. Concesión;0;Res. Desest. Mod. Conc.
+51;Resolución Desestimatoria por Incumplimiento de Requisitos - Aceptación Expresa;0;Res. Desest. Incumplimiento Req. - Aceptación Expresa
+50;Resolución Estimatoria de Concesión - Aceptación Expresa;0;Res. Est. Conc. - Aceptación Expresa
+50;Resolución Estimatoria con Crédito - Recurso Alzada;0;Res. Est. Crédito - Rec. Alzada
+50;Resolución Estimatoria de Concesión;0;Res. Est. Conc.
+50;Resolución Estimatoria Mod. Concesión;0;Res. Est. Mod. Conc.
+43;P.R. Desestimatoria Mod. Concesión;0;P.R. Desest. Mod. Conc.
+43;Propuesta de Resolución Desestimatoria Incumplimiento Requisitos- Recurso Alzada;0;Prop. Res. Desest. Incumplimiento Req.- Rec. Alzada
+43;IPR Desestimatorio por Incumplimiento de Requisitos;0;IPR Desestimatorio Incumplimiento Req.
+43;IPR Desestimatorio por Incumplimiento de Requisitos - Aceptación Expresa;0;IPR Desestimatorio Incumplimiento Req. - Aceptación Expresa
+43;Propuesta de Resolución Desestimatoria sin Crédito - Recurso Alzada;0;Prop. Res. Desest. sin Crédito - Rec. Alzada
+42;IPR Concesión - Aceptación Expresa;0;IPR Conc. - Aceptación Expresa
+42;P.R. Estimatoria Mod. Concesión;0;P.R. Est. Mod. Conc.
+42;IPR Concesión;0;IPR Conc.
+42;Propuesta de Resolución Estimatoria con Crédito - Recurso Alzada;0;Prop. Res. Est. Crédito - Rec. Alzada
+30;Evaluación Abono;0;Eval. Ab.
+30;Evaluación de solicitud;0;Eval. solicitud
+30;Evaluación - Aceptación Expresa;0;Eval. - Aceptación Expresa
+25;Trámite de Audiencia de Inadmisión;0;Trám. Aud. Inadm.
+25;Tramite Audiencia Evaluación;0;Tramite Aud. Eval.
+25;Tramite Audiencia Evaluación - Aceptación Expresa;0;Tramite Aud. Eval. - Aceptación Expresa
+25;Trámite Audiencia Cambio Condiciones;0;Trám. Aud. Cambio Condiciones
+25;Trámite Audiencia Recurso Alzada;0;Trám. Aud. Rec. Alzada
+10;Requerimiento Recurso Alzada;0;Req. Rec. Alzada
+10;Requerimiento de documentación;0;Req. documentación
+10;Requerimiento Cambio Condiciones;0;Req. Cambio Condiciones
+1;Presentación y Revisión de la solicitud;0;Present. Revisión la solicitud
