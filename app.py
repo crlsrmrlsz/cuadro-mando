@@ -4,94 +4,142 @@ Created on Thu Jan 30 19:06:10 2025
 
 @author: flipe
 """
-import streamlit as st
-from datetime import date
-import pandas as pd
-import os
 
-# Configure page settings
+import streamlit as st
+import pandas as pd
+
+# 1. Set page configuration as early as possible
 st.set_page_config(
     page_title="Análisis de proceso",
     page_icon="📊",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-# Load the list of procedures from the CSV file
-@st.cache_data
-def load_procedures():
-    procedures_df = pd.read_csv("data/codigos_procedimientos.csv", encoding='utf-8')
-    return procedures_df
-
-procedures_df = load_procedures()
-
-# Initialize session state for filters
-if 'fecha_inicio' not in st.session_state:
-    st.session_state.fecha_inicio = date(2023, 1, 1)
-if 'fecha_fin' not in st.session_state:
-    st.session_state.fecha_fin = date.today()
+# 2. Initialize session state using .get() for consistency
+if 'filtered_data' not in st.session_state:
+    st.session_state.filtered_data = None
+if 'final_states' not in st.session_state:
+    st.session_state.final_states = None
+if 'selected_final_states' not in st.session_state:  # note: key name aligned with later usage
+    st.session_state.selected_final_states = []
 if 'selected_procedure' not in st.session_state:
     st.session_state.selected_procedure = None
-if 'dataframe' not in st.session_state:
-    st.session_state.dataframe = None
 
-# Common sidebar with persistent filters
+# 3. Cache functions for loading and filtering data
+@st.cache_data
+def load_process_codes():
+    df = pd.read_csv(
+        "data/codigos_procedimientos.csv",
+        sep=";",
+        usecols=["codigo_procedimiento", "descripcion"]
+    )
+    # Convert the DataFrame into a dictionary mapping code -> description
+    return df.set_index("codigo_procedimiento")["descripcion"].to_dict()
+
+@st.cache_data
+def load_base_data(codigo):
+    base_path = f"data/tratados/{codigo}"
+    return {
+        'expedientes': pd.read_parquet(f"{base_path}/expedientes.parquet"),
+        'tramites': pd.read_parquet(f"{base_path}/tramites.parquet"),
+        'final_states': pd.read_csv(f"{base_path}/estados_finales.csv", sep=";", encoding='utf-8')
+    }
+
+@st.cache_data
+def filter_data(_expedientes, _tramites, date_range):
+    start_date, end_date = date_range
+    mask = (
+        (_expedientes['fecha_registro_exp'].dt.date >= start_date) &
+        (_expedientes['fecha_registro_exp'].dt.date <= end_date)
+    )
+    filtered_exp = _expedientes[mask].copy()
+    expediente_ids = filtered_exp['id_exp'].unique()
+    return {
+        'expedientes': filtered_exp,
+        'tramites': _tramites[_tramites['id_exp'].isin(expediente_ids)]
+    }
+
+# 4. Sidebar: Group all interactive controls
 with st.sidebar:
-    st.title("Filtros Globales")
+    # Process selection
+    processes = load_process_codes()  # returns dict {codigo: descripcion}
+    selected_procedure = st.session_state.get('selected_procedure', None)
+    process_keys = list(processes.keys())
+    default_index = process_keys.index(selected_procedure) if selected_procedure in process_keys else 0
+
+    selected_desc = st.selectbox(
+        "Selecciona Procedimiento",
+        options=list(processes.values()),
+        index=default_index,
+        help="Elige un procedimiento"
+    )
+
+    # Get selected code from the dictionary by matching description
+    selected_codigo = [k for k, v in processes.items() if v == selected_desc][0]
+
+    # Load data for the selected procedure
+    base_data = load_base_data(selected_codigo)
     
-    # Dropdown to select a procedure
-    selected_procedure_name = st.selectbox(
-        "Seleccione un procedimiento",
-        options=procedures_df['nombre_procedimiento'].tolist(),
-        index=0 if st.session_state.selected_procedure is None else procedures_df['nombre_procedimiento'].tolist().index(st.session_state.selected_procedure)
+    # Save base data's final_states and procedure code into session state
+    st.session_state.final_states = base_data['final_states']
+    st.session_state.selected_procedure = selected_codigo
+
+    # Date range selection based on expedientes
+    min_date = base_data['expedientes']['fecha_registro_exp'].min().date()
+    max_date = base_data['expedientes']['fecha_registro_exp'].max().date()
+    selected_dates = st.slider(
+        "Rango de fechas",
+        min_value=min_date,
+        max_value=max_date,
+        value=(min_date, max_date),
+        format="DD-MM-YYYY"
     )
     
-    # Get the corresponding codigo_procedimiento
-    selected_procedure = procedures_df[procedures_df['nombre_procedimiento'] == selected_procedure_name]['codigo_procedimiento'].iloc[0]
-    
-    # Load the corresponding Parquet file if a new procedure is selected
-    if st.session_state.selected_procedure != selected_procedure:
-        st.session_state.selected_procedure = selected_procedure
-        parquet_path = f"data/{selected_procedure}/expedientes.parquet"
-        if os.path.exists(parquet_path):
-            st.session_state.dataframe = pd.read_parquet(parquet_path)
-            min_date = st.session_state.dataframe['fecha'].min().date()
-            max_date = st.session_state.dataframe['fecha'].max().date()
-            st.session_state.fecha_inicio = min_date
-            st.session_state.fecha_fin = max_date
-        else:
-            st.error(f"No se encontró el archivo Parquet para el procedimiento {selected_procedure_name}.")
-            st.session_state.dataframe = None
-    
-    # Display date inputs and slider only if a procedure is selected
-    if st.session_state.selected_procedure is not None and st.session_state.dataframe is not None:
-        st.session_state.fecha_inicio = st.date_input(
-            "Fecha inicio",
-            value=st.session_state.fecha_inicio,
-            min_value=st.session_state.dataframe['fecha'].min().date(),
-            max_value=st.session_state.dataframe['fecha'].max().date()
-        )
-        st.session_state.fecha_fin = st.date_input(
-            "Fecha fin",
-            value=st.session_state.fecha_fin,
-            min_value=st.session_state.dataframe['fecha'].min().date(),
-            max_value=st.session_state.dataframe['fecha'].max().date()
-        )
-        
-        # Date slider
-        selected_range = st.slider(
-            "Seleccione un rango de fechas",
-            min_value=st.session_state.dataframe['fecha'].min().date(),
-            max_value=st.session_state.dataframe['fecha'].max().date(),
-            value=(st.session_state.fecha_inicio, st.session_state.fecha_fin)
-        )
-        st.session_state.fecha_inicio, st.session_state.fecha_fin = selected_range
+    # Filter data based on date range and cache it
+    st.session_state.filtered_data = filter_data(
+        base_data['expedientes'],
+        base_data['tramites'],
+        selected_dates
+    )
 
-# Define navigation with explicit pages
-nav = st.navigation([
-    st.Page("input.py", title="Demanda", icon="📋"),
-    st.Page("bottleneck.py", title="Cuellos de botella", icon="🎯"),
-    st.Page("flows.py", title="Flujos de proceso", icon="🔀"),
-    st.Page("geo.py", title="Comparativa geográfica", icon="🌍")
-])
+    # Multi-select for final states
+    # Filter final_states to only those rows with FINAL == 1
+    df_final_states_1 = base_data['final_states'][base_data['final_states']['FINAL'] == 1]
+    # Build a dictionary mapping from state label to its code using all rows
+    state_options = {
+        row['DENOMINACION_SIMPLE']: row['NUMTRAM']
+        for _, row in base_data['final_states'][['NUMTRAM', 'DENOMINACION_SIMPLE']].drop_duplicates().iterrows()
+    }
+    # Default: only those states with FINAL == 1
+    default_states = df_final_states_1['DENOMINACION_SIMPLE'].unique().tolist()
+    selected_final_states_ms = st.multiselect(
+        "Seleccionar estados finales",
+        options=list(state_options.keys()),
+        default=default_states,
+        help="Selecciona uno o varios estados finales"
+    )
+    # Convert selected state labels to their corresponding codes
+    selected_final_states = [state_options[denom] for denom in selected_final_states_ms]
+    st.session_state.selected_final_states = selected_final_states
 
+# 5. Navigation / Page definitions
+# NOTE: The st.Page and st.navigation APIs are not part of the official Streamlit API.
+# If you are using a custom or experimental navigation solution, ensure you follow its guidelines.
+demanda_temporal = st.Page("input_temporal.py", title="Análisis temporal", icon="📋")
+demanda_geografico = st.Page("input_geografico.py", title="Análisis geográfico", icon="🌍")
+flujo_diagrama = st.Page("flujo_diagrama.py", title="Diagrama", icon="🔀")
+flujo_temporal = st.Page("flujo_temporal.py", title="Análisis temporal", icon="⏳")
+estado_temporal = st.Page("estados_temporal.py", title="Cuellos de botella", icon="🎯")
+estado_acumulado = st.Page("estados_acumulado.py", title="Carga de trabajo", icon="▶️")
+
+nav = st.navigation({
+    "Demanda": [demanda_temporal, demanda_geografico],
+    "Flujo Proceso": [flujo_diagrama, flujo_temporal],
+    "Cuellos de botella": [estado_temporal, estado_acumulado]
+})
 nav.run()
+
+# 6. Main page header and caption
+st.header(f"Análisis para : {selected_desc}")
+st.caption(f"Procedimiento: {selected_codigo} | Rango de fechas: {selected_dates[0]} a {selected_dates[1]}")
