@@ -155,7 +155,3 @@ nav = st.navigation({
     "Cuellos de botella": [estado_temporal, estado_acumulado]
 })
 nav.run()
-
-# 6. Main page header and caption
-st.header(f"Análisis para : {selected_desc}")
-st.caption(f"Procedimiento: {selected_codigo} | Rango de fechas: {selected_dates[0]} a {selected_dates[1]}")
