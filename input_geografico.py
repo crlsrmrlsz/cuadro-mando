@@ -83,47 +83,48 @@ df_prov, df_mun = aggregate_data(st.session_state.filtered_data['expedientes'])
 # ====================
 
 def create_province_barchart(df_prov):
-    """Crea gráfico de barras de provincias con estilo minimalista"""
+    """Crea gráfico de barras vertical de provincias con estilo minimalista"""
     # Ordenar y calcular porcentajes
-    df = df_prov.sort_values('total', ascending=False).copy()
+    df = df_prov.sort_values('total', ascending=False).copy()  
     total_nacional = df['total'].sum()
     df['pct_total'] = (df['total'] / total_nacional * 100).round(1)
-    
-    # Configurar paleta coherente
-    COLOR_PRIMARY = "#1f77b4"  # Azul Plotly estándar (coherente con mapas)
-    
+
+    COLOR_PRIMARY = "#1f77b4"
+
     fig = go.Figure()
     
     fig.add_trace(go.Bar(
-        x=df['provincia'],
-        y=df['total'],
+        y=df['provincia'],  # Swapped x/y
+        x=df['total'],      # Swapped x/y
         marker_color=COLOR_PRIMARY,
-        hovertemplate=(
-            "%{y:,}<extra></extra>"
-        ),
+        hovertemplate="%{x:,}<extra></extra>",
         customdata=df['pct_total'],
         text=df['pct_total'].astype(str) + '%',
-        textposition='outside'
+        textposition='outside',
+        textfont=dict(size=10),
+        orientation='h'  # Added horizontal orientation
     ))
     
     fig.update_layout(
+        #width=600,
         height=500,
-        margin=dict(t=40, b=100),
+        margin=dict(t=80, b=10, l=10, r=10),  # Adjusted margins for labels
         hoverlabel=dict(
             bgcolor="white",
-            font_size=14,
+            font_size=12,
             font_family="Arial"
         ),
-        xaxis=dict(
+        yaxis=dict(  # Now yaxis for categories
             title=None,
-            tickfont=dict(size=12),
-            tickangle=45
+            tickfont=dict(size=11),
+            automargin=True,
+            autorange='reversed'
         ),
-        yaxis=dict(
-            title="Número de expedientes",
-            title_font=dict(size=14),
+        xaxis=dict(  # Now xaxis for values
             showgrid=False,
-            zeroline=False
+            zeroline=False,
+            side = "top",
+            range=[0, df['total'].max() * 1.15]            
         ),
         plot_bgcolor='rgba(0,0,0,0)',
         showlegend=False
@@ -142,18 +143,21 @@ tab1, tab2, tab3 = st.tabs([
 ])
 
 with tab1:
-    st.subheader("Distribución por Provincia")
+    st.subheader("Número de expedientes por Provincia (datos de solicitud)")
     st.markdown("""
-    **Principales tendencias:**
-    - Provincias con mayor carga de trabajo
-    - Distribución geográfica de la demanda
-    - Identificación de patrones regionales
+    Distribución geográfica de la demanda
     """)
-    
-    # Gráfico de barras (now returns modified df)
-    chart, chart_df = create_province_barchart(df_prov)
-    st.plotly_chart(chart, use_container_width=True)
-    
+    col_tab1_1, col_tab1_2 = st.columns([0.7,0.3])
+    with col_tab1_1:
+        st.markdown("""
+        **aqui ira el grafico de provincias
+        """)
+    with col_tab1_2:
+        # Gráfico de barras (now returns modified df)
+        chart, chart_df = create_province_barchart(df_prov)
+        st.plotly_chart(chart, use_container_width=False)
+            
+
     # Análisis textual dinámico (using chart_df)
     top_province = chart_df.iloc[0]  # First row after sorting
     st.markdown(f"""
@@ -163,7 +167,6 @@ with tab1:
         de todos los expedientes a nivel nacional, siendo la provincia con mayor volumen.
     </div>
     """, unsafe_allow_html=True)
-    
     st.divider()
     
     # Sección para el mapa (placeholder)
