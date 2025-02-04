@@ -50,6 +50,10 @@ def aggregate_data(df):
         provincia=('provincia', 'first')  # Add province name
     ).reset_index()
     
+    # Add percentage calculation here
+    total_nacional = df_prov['total'].sum()
+    df_prov['pct_total'] = (df_prov['total'] / total_nacional * 100).round(1)
+
     # Agregación por municipio (manteniendo el nombre)
     df_mun = df.groupby(['codine_provincia', 'codine'], observed=True).agg(
         total=('id_exp', 'count'),
@@ -77,7 +81,7 @@ geo_data = load_geo_data()
 df_prov, df_mun = aggregate_data(st.session_state.filtered_data['expedientes'])
 
 
-
+heigh_tab1 = 500
 # ====================
 # VISUALIZATION FUNCTIONS
 # ====================
@@ -86,8 +90,6 @@ def create_province_barchart(df_prov):
     """Crea gráfico de barras vertical de provincias con estilo minimalista"""
     # Ordenar y calcular porcentajes
     df = df_prov.sort_values('total', ascending=False).copy()  
-    total_nacional = df['total'].sum()
-    df['pct_total'] = (df['total'] / total_nacional * 100).round(1)
 
     COLOR_PRIMARY = "#1f77b4"
 
@@ -106,9 +108,8 @@ def create_province_barchart(df_prov):
     ))
     
     fig.update_layout(
-        #width=600,
-        height=500,
-        margin=dict(t=80, b=10, l=10, r=10),  # Adjusted margins for labels
+        height=heigh_tab1,
+        margin=dict(t=60, b=10, l=10, r=10),  # Adjusted margins for labels
         hoverlabel=dict(
             bgcolor="white",
             font_size=12,
@@ -132,6 +133,42 @@ def create_province_barchart(df_prov):
     
     return fig, df
 
+
+def create_province_map(df_prov, geojson):
+    """Crea mapa coroplético de provincias"""
+    # Asegurar matching de códigos INE
+    df = df_prov.copy()
+    df['codine_provincia'] = df['codine_provincia'].astype(str)
+    
+    COLOR_PRIMARY = "#1f77b4"  # Match bar chart color
+    
+    fig = go.Figure(go.Choropleth(
+        geojson=geojson,
+        locations=df['codine_provincia'],
+        z=df['total'],
+        featureidkey="properties.codine"
+
+    ))
+    
+    fig.update_layout(
+        height=heigh_tab1,
+        margin=dict(t=60, b=0, l=0, r=0),
+        geo=dict(
+            projection_type='mercator',
+            fitbounds="locations",
+        ),
+        coloraxis_colorbar=dict(
+            title="Expedientes",
+            thickness=15,
+            len=0.35,
+            xanchor="left",
+            x=0.05
+        )
+    )
+    
+    return fig
+
+
 # ====================
 # PAGE STRUCTURE
 # ====================
@@ -149,13 +186,13 @@ with tab1:
     """)
     col_tab1_1, col_tab1_2 = st.columns([0.7,0.3])
     with col_tab1_1:
-        st.markdown("""
-        **aqui ira el grafico de provincias
-        """)
+        # Mapa coroplético
+        map_fig = create_province_map(df_prov, geo_data['provincias'])
+        st.plotly_chart(map_fig, use_container_width=True)
     with col_tab1_2:
         # Gráfico de barras (now returns modified df)
         chart, chart_df = create_province_barchart(df_prov)
-        st.plotly_chart(chart, use_container_width=False)
+        st.plotly_chart(chart, use_container_width=True)
             
 
     # Análisis textual dinámico (using chart_df)
@@ -181,3 +218,47 @@ st.caption(f"""
 *Los porcentajes se calculan sobre el total de trámites en cada área geográfica.
 Datos actualizados al {datetime.today().strftime('%d/%m/%Y')}
 """)
+
+
+
+
+# import plotly.graph_objects as go
+# import json 
+
+# # When you pass a GeoDataFrame as the geojson argument in plotly.express.choropleth_mapbox, 
+# # Plotly Express automatically extracts the geometry column, converts it into GeoJSON format, and uses it as input.
+
+# # Unlike plotly.express, plotly.graph_objects does not handle GeoPandas GeoDataFrames directly. 
+# # If you pass a GeoDataFrame to geojson, it won't know how to interpret it, resulting in an error or no map being displayed
+
+# geojson_data = json.loads(merged.to_json())
+
+# # Create a figure using graph_objects
+# fig = go.Figure(
+#     go.Choroplethmapbox(
+#         geojson=geojson_data,  # Geometry data
+#         locations=merged.index,  # Locations from the index
+#         z=merged['total_processes'],  # Data to color by
+#         #text=merged['provincia'],  # Text for hover
+#         hovertemplate="%{customdata[0]}<br>" +
+#                   "<b>Expedientes:</b> %{customdata[1]}<br>" +
+#                   "%{customdata[2]:.2f}%<extra></extra>",
+#         customdata=merged[['provincia', 'total_processes', 'percent_of_total']].values,
+#         colorscale="Blues",  # Color scale
+#         colorbar_title="Núm expedientes",  # Colorbar title
+#         marker_opacity=0.7  # Set transparency
+#     )
+# )
+
+# # Add layout for mapbox
+# fig.update_layout(
+#     title="Expedientes por provincia",
+#     mapbox=dict(
+#         style="open-street-map",  # Use Mapbox style
+#         zoom=4,  # Initial zoom level
+#         center={"lat": 40.0, "lon": -3.5}  # Center of the map (Spain in this case)
+#     ),
+#     margin={"r": 0, "t": 50, "l": 0, "b": 0}  # Reduce map margins
+# )
+
+# fig.show()
