@@ -39,10 +39,11 @@ def aggregate_data(df):
        
     # Agregación por provincia (manteniendo el nombre)
     df_prov = df.groupby('codine_provincia', observed=True).agg(
+        provincia=('provincia', 'first'),
         total=('id_exp', 'count'),
         online=('es_online', 'sum'),
-        empresas=('es_empresa', 'sum'),
-        provincia=('provincia', 'first')  # Add province name
+        empresas=('es_empresa', 'sum')
+  # Add province name
     ).reset_index()
     
     # Add percentage calculation here
@@ -51,11 +52,12 @@ def aggregate_data(df):
 
     # Agregación por municipio (manteniendo el nombre)
     df_mun = df.groupby(['codine_provincia', 'codine'], observed=True).agg(
+        municipio=('municipio', 'first'),  # Add municipality name
+        provincia=('provincia', 'first'),   # Add province name for context
         total=('id_exp', 'count'),
         online=('es_online', 'sum'),
         empresas=('es_empresa', 'sum'),
-        municipio=('municipio', 'first'),  # Add municipality name
-        provincia=('provincia', 'first')   # Add province name for context
+
     ).reset_index()
 
     # Add percentage calculation here
@@ -81,6 +83,13 @@ df_prov, df_mun = aggregate_data(st.session_state.filtered_data['expedientes'])
 
 
 heigh_tab1 = 500
+opacity_data_map = 0.8
+colors_map_prov = "Plasma_r"
+colors_map_mun = "Blues"
+top_m_bar = 60
+left_m_bar = 10
+right_m_bar = 20
+bottom_m_bar = 20
 # ====================
 # VISUALIZATION FUNCTIONS
 # ====================
@@ -88,8 +97,8 @@ heigh_tab1 = 500
 def create_province_barchart(df_prov):
     """Crea gráfico de barras vertical de provincias con estilo minimalista"""
     # Ordenar y calcular porcentajes
-    df = df_prov.sort_values('total', ascending=False).copy()  
-
+    df = df_prov.sort_values('total', ascending=False).nlargest(15, 'total').copy()  
+    
     COLOR_PRIMARY = "#1f77b4"
 
     fig = go.Figure()
@@ -108,7 +117,7 @@ def create_province_barchart(df_prov):
     
     fig.update_layout(
         height=heigh_tab1,
-        margin=dict(t=60, b=10, l=10, r=10),  # Adjusted margins for labels
+        margin=dict(t=top_m_bar, b=bottom_m_bar, l= left_m_bar, r=right_m_bar),  # Adjusted margins for labels
         hoverlabel=dict(
             bgcolor="white",
             font_size=12,
@@ -117,8 +126,11 @@ def create_province_barchart(df_prov):
         yaxis=dict(  # Now yaxis for categories
             title=None,
             tickfont=dict(size=11),
-            automargin=True,
-            autorange='reversed'
+            #automargin=True,
+            autorange='reversed',
+            # anchor="x",
+            # fixedrange=True,
+            # domain=[0, 1]            
         ),
         xaxis=dict(  # Now xaxis for values
             showgrid=False,
@@ -144,19 +156,19 @@ def create_province_map(df_prov, geojson):
         locations=df['codine_provincia'],
         z=df['total'],
         featureidkey="properties.codigo",
-        colorscale="Blues",  # Color scale
+        colorscale= colors_map_prov,  # Color scale
         hovertemplate="%{customdata[0]}<br>" +
                   "<b>Expedientes:</b> %{customdata[1]}<br>" +
                   "%{customdata[2]:.2f}%<extra></extra>",
         customdata=df[['provincia', 'total', 'pct_total']].values,
-        marker_opacity=0.7  # Set transparency
+        marker_opacity= opacity_data_map  # Set transparency
     ))
     
     fig.update_layout(
         height=heigh_tab1,
         margin=dict(t=60, b=0, l=0, r=0),
         mapbox=dict(
-            style="open-street-map",  # Use Mapbox style
+            style="carto-positron",  # Use Mapbox style
             zoom=5,  # Initial zoom level
             center={"lat": 40.0, "lon": -3.5}  # Center of the map (Spain in this case)
         )
@@ -168,7 +180,7 @@ def create_province_map(df_prov, geojson):
 def create_municipios_barchart(df_mun):
     """Crea gráfico de barras vertical de provincias con estilo minimalista"""
     # Ordenar y calcular porcentajes
-    df = df_mun.sort_values('total', ascending=False).copy()  
+    df = df_mun.sort_values('total', ascending=False).nlargest(15,'total').copy()  
 
     COLOR_PRIMARY = "#ff7f0e"
 
@@ -188,7 +200,7 @@ def create_municipios_barchart(df_mun):
     
     fig.update_layout(
         height=heigh_tab1,
-        margin=dict(t=60, b=10, l=10, r=10),  # Adjusted margins for labels
+        margin=dict(t=top_m_bar, b=bottom_m_bar, l= left_m_bar, r=right_m_bar),  # Adjusted margins for labels
         hoverlabel=dict(
             bgcolor="white",
             font_size=12,
@@ -197,8 +209,11 @@ def create_municipios_barchart(df_mun):
         yaxis=dict(  # Now yaxis for categories
             title=None,
             tickfont=dict(size=11),
-            automargin=True,
-            autorange='reversed'
+            #automargin=True,
+            autorange='reversed',
+            # anchor="x",
+            # fixedrange=True,
+            # domain=[0, 1]
         ),
         xaxis=dict(  # Now xaxis for values
             showgrid=False,
@@ -223,19 +238,19 @@ def create_municipio_map(df_mun, geojson):
         locations=df['codine'],
         z=df['total'],
         featureidkey="properties.CODIGOINE",
-        colorscale="Oranges",  # Color scale
+        colorscale=colors_map_mun,  # Color scale
         hovertemplate="%{customdata[0]}<br>" +
                   "<b>Expedientes:</b> %{customdata[1]}<br>" +
                   "%{customdata[2]:.2f}%<extra></extra>",
         customdata=df[['municipio', 'total', 'pct_total']].values,
-        marker_opacity=0.7  # Set transparency
+        marker_opacity= opacity_data_map  # Set transparency
     ))
     
     fig.update_layout(
         height=heigh_tab1,
         margin=dict(t=60, b=0, l=0, r=0),
         mapbox=dict(
-            style="open-street-map",  # Use Mapbox style
+            style="carto-positron",  # Use Mapbox style
             zoom=6,  # Initial zoom level
             center={"lat": 40.0, "lon": -3.5}  # Center of the map (Spain in this case)
         )
