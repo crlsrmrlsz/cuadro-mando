@@ -40,7 +40,8 @@ def load_process_codes():
 @st.cache_data
 def load_base_data(codigo):
     base_path = f"data/tratados/{codigo}"
-    # Lista de columnas a cargar (personaliza con las que necesites)
+    
+    # Lista de columnas a cargar (incluyendo 'nif' para 'es_empresa')
     columnas_expedientes = [
         'id_exp',
         'fecha_registro_exp',
@@ -48,16 +49,24 @@ def load_base_data(codigo):
         'codine',
         'municipio',
         'provincia',
-        'dni',
-        'nif',
-        'es_telematica'
-        
+        'es_telematica',
+        'nif'        
     ]
+
+    expedientes = pd.read_parquet(
+        f"{base_path}/expedientes.parquet",
+        columns=columnas_expedientes  # Filtrado de columnas
+    )
+    
+    # Creación de nuevas columnas
+    expedientes['es_online'] = expedientes['es_telematica'].fillna(False)
+    expedientes['es_empresa'] = expedientes['nif'].notnull()
+    
+    # Eliminar 'nif' del DataFrame
+    expedientes = expedientes.drop(columns=['nif'])
+    
     return {
-        'expedientes': pd.read_parquet(
-            f"{base_path}/expedientes.parquet",
-            columns=columnas_expedientes  # Filtrado de columnas
-        ),
+        'expedientes': expedientes,
         'tramites': pd.read_parquet(f"{base_path}/tramites.parquet"),
         'final_states': pd.read_csv(f"{base_path}/estados_finales.csv", sep=";", encoding='utf-8')
     }

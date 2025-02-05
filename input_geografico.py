@@ -3,19 +3,40 @@ import streamlit as st
 import json
 import plotly.graph_objects as go
 from datetime import datetime
-
+import geopandas as gpd
 # ====================
 # CACHED DATA LOADING
 # ====================
 
+# @st.cache_data
+# def load_geo_data():
+#     """Carga los datos geográficos"""
+#     with open('data/geo/provincias_id_ine.geojson', 'r', encoding='utf-8') as f:
+#         prov_geojson = json.load(f)  # properties.codigo
+    
+#     with open('data/geo/municipios_id_ine_simple.geojson', 'r', encoding='utf-8') as f:
+#         mun_geojson = json.load(f)
+
+#     return {
+#         'provincias': prov_geojson,
+#         'municipios': mun_geojson
+#     }
+
 @st.cache_data
 def load_geo_data():
-    """Carga los datos geográficos"""
-    with open('data/geo/provincias_id_ine.geojson', 'r', encoding='utf-8') as f:
-        prov_geojson = json.load(f)  # properties.codigo
+    """Carga los datos geográficos optimizados"""
     
-    with open('data/geo/municipios_id_ine_simple.geojson', 'r', encoding='utf-8') as f:
-        mun_geojson = json.load(f)
+    # Cargar y simplificar provincias
+    gdf_prov = gpd.read_file('data/geo/provincias_id_ine.geojson')
+    gdf_prov["geometry"] = gdf_prov["geometry"].simplify(tolerance=0.03, preserve_topology=True)
+    gdf_prov = gdf_prov[["codigo", "geometry"]]  # Conservar solo la columna 'codigo'
+    prov_geojson = json.loads(gdf_prov.to_json())
+
+    # Cargar y simplificar municipios
+    gdf_mun = gpd.read_file('data/geo/municipios_id_ine_simple.geojson')
+    gdf_mun["geometry"] = gdf_mun["geometry"].simplify(tolerance=0.003, preserve_topology=True)
+    gdf_mun = gdf_mun[["CODIGOINE", "geometry"]]  # Conservar solo la columna 'CODINE'
+    mun_geojson = json.loads(gdf_mun.to_json())
 
     return {
         'provincias': prov_geojson,
@@ -27,18 +48,14 @@ def aggregate_data(df):
     """Preprocesa y agrega los datos para visualización"""
     # Filtrado de columnas
     df = df[[ 'id_exp', 'codine_provincia', 'codine', 
-              'es_telematica', 'nif', 'dni',
+              'es_telematica', 'es_empresa',
               'provincia', 'municipio' ]].copy()
-    
-    # Limpieza de datos
-    df['es_online'] = df['es_telematica'].fillna(False)
-    df['es_empresa'] = df['nif'].notnull()
-       
+          
     # Agregación por provincia (manteniendo el nombre)
     df_prov = df.groupby('codine_provincia', observed=True).agg(
         provincia=('provincia', 'first'),
         total=('id_exp', 'count'),
-        online=('es_online', 'sum'),
+        online=('es_telematica', 'sum'),
         empresas=('es_empresa', 'sum')
     ).reset_index()
     
@@ -47,7 +64,7 @@ def aggregate_data(df):
         municipio=('municipio', 'first'),
         provincia=('provincia', 'first'),
         total=('id_exp', 'count'),
-        online=('es_online', 'sum'),
+        online=('es_telematica', 'sum'),
         empresas=('es_empresa', 'sum')
     ).reset_index()
 
@@ -333,7 +350,7 @@ with tab4:
     # Get the filtered data from session state
     filtered_exp = st.session_state.filtered_data['expedientes']
     # Select specific columns
-    df_subset = filtered_exp[['id_exp', 'fecha_registro_exp', 'municipio', 'provincia', 'es_telematica', 'nif']]
+    df_subset = filtered_exp[['id_exp', 'fecha_registro_exp', 'municipio', 'provincia', 'es_telematica', 'es_empresa']]
     
     # Rename the columns
     df_subset = df_subset.rename(columns={
@@ -342,7 +359,7 @@ with tab4:
         'municipio': 'Municipio',
         'provincia': 'Provincia',
         'es_telematica': 'Presentación telemática',
-        'nif': 'Persona jurídica'
+        'es_empresa': 'Persona jurídica'
     })
     # Display basic info
     st.markdown(f"""
