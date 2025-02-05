@@ -75,6 +75,7 @@ right_m_bar = 20
 bottom_m_bar = 20
 bar_width = 0.9
 num_bars = 20
+
 # ====================
 # VISUALIZATION FUNCTIONS
 # ====================
@@ -90,7 +91,7 @@ def create_province_barchart(df_prov, value_col, pct_col):
     
     fig.add_trace(go.Bar(
         y=df['provincia'],  # categorías
-        x=df[pct_col],    # valor según columna
+        x=df[value_col],    # valor según columna
         marker_color=COLOR_PRIMARY,
         customdata=df[value_col],
         hovertemplate="%{customdata}<extra></extra>",
@@ -118,7 +119,7 @@ def create_province_barchart(df_prov, value_col, pct_col):
             showgrid=False,
             zeroline=False,
             side="top",
-            range=[0, df[pct_col].max() * 1.15]
+            range=[0, df[value_col].max() * 1.15]
         ),
         plot_bgcolor='rgba(0,0,0,0)',
         showlegend=False
@@ -166,7 +167,7 @@ def create_municipios_barchart(df_mun, value_col, pct_col):
     
     fig.add_trace(go.Bar(
         y=df['municipio'],
-        x=df[pct_col],
+        x=df[value_col],
         marker_color=COLOR_PRIMARY,
         customdata=df[value_col],
         hovertemplate="%{customdata}<extra></extra>",
@@ -194,7 +195,7 @@ def create_municipios_barchart(df_mun, value_col, pct_col):
             showgrid=False,
             zeroline=False,
             side="top",
-            range=[0, df[pct_col].max() * 1.15]
+            range=[0, df[value_col].max() * 1.15]
         ),
         plot_bgcolor='rgba(0,0,0,0)',
         showlegend=False
@@ -216,7 +217,7 @@ def create_municipio_map(df_mun, geojson, value_col, pct_col):
         hovertemplate = "%{customdata[0]}<br>" + "%{customdata[2]:.2f}%<br>" + "num: %{customdata[1]}" + \
                         (" de %{customdata[3]}" if value_col in ['online', 'empresas'] else "") + \
                         "<extra></extra>",
-        customdata=df[['municipio', value_col, pct_col]].values,
+        customdata=df[['municipio', value_col, pct_col, 'total']].values,
         marker_opacity=opacity_data_map
     ))
     
@@ -241,10 +242,11 @@ geo_data = load_geo_data()
 df_prov, df_mun = aggregate_data(st.session_state.filtered_data['expedientes'])
 
 # --- TAB 1: Número de expedientes (usa columna "total" y "%_total") ---
-tab1, tab2, tab3 = st.tabs([
+tab1, tab2, tab3, tab4 = st.tabs([
     "Número de expedientes", 
-    "Digitalización", 
-    "Persona física/Persona jurídica"
+    "% Presentación telemática", 
+    "% Persona física/Persona jurídica",
+    "Tabla de datos"
 ])
 
 with tab1:
@@ -281,9 +283,9 @@ with tab2:
     with col_tab2_prov_1:
         map_fig_prov = create_province_map(df_prov, geo_data['provincias'], value_col='online', pct_col='%_online')
         st.plotly_chart(map_fig_prov, use_container_width=True)
-    with col_tab2_prov_2:
-        chart, chart_df = create_province_barchart(df_prov, value_col='online', pct_col='%_online')
-        st.plotly_chart(chart, use_container_width=True)
+    # with col_tab2_prov_2:
+    #     chart, chart_df = create_province_barchart(df_prov, value_col='online', pct_col='%_online')
+    #     st.plotly_chart(chart, use_container_width=True)
     
     st.divider()
     
@@ -292,9 +294,9 @@ with tab2:
     with col_tab2_mun_1:
         map_fig_mun = create_municipio_map(df_mun, geo_data['municipios'], value_col='online', pct_col='%_online')
         st.plotly_chart(map_fig_mun, use_container_width=True)
-    with col_tab2_mun_2:
-        chart_mun, chart_df_mun = create_municipios_barchart(df_mun, value_col='online', pct_col='%_online')
-        st.plotly_chart(chart_mun, use_container_width=True)
+    # with col_tab2_mun_2:
+    #     chart_mun, chart_df_mun = create_municipios_barchart(df_mun, value_col='online', pct_col='%_online')
+    #     st.plotly_chart(chart_mun, use_container_width=True)
     
     st.caption(f"*Los porcentajes se calculan sobre el total de trámites en cada área geográfica. Datos actualizados al {datetime.today().strftime('%d/%m/%Y')}*")
 
@@ -307,9 +309,9 @@ with tab3:
     with col_tab3_prov_1:
         map_fig_prov = create_province_map(df_prov, geo_data['provincias'], value_col='empresas', pct_col='%_empresas')
         st.plotly_chart(map_fig_prov, use_container_width=True)
-    with col_tab3_prov_2:
-        chart, chart_df = create_province_barchart(df_prov, value_col='empresas', pct_col='%_empresas')
-        st.plotly_chart(chart, use_container_width=True)
+    # with col_tab3_prov_2:
+    #     chart, chart_df = create_province_barchart(df_prov, value_col='empresas', pct_col='%_empresas')
+    #     st.plotly_chart(chart, use_container_width=True)
     
     st.divider()
     
@@ -318,8 +320,50 @@ with tab3:
     with col_tab3_mun_1:
         map_fig_mun = create_municipio_map(df_mun, geo_data['municipios'], value_col='empresas', pct_col='%_empresas')
         st.plotly_chart(map_fig_mun, use_container_width=True)
-    with col_tab3_mun_2:
-        chart_mun, chart_df_mun = create_municipios_barchart(df_mun, value_col='empresas', pct_col='%_empresas')
-        st.plotly_chart(chart_mun, use_container_width=True)
+    # with col_tab3_mun_2:
+    #     chart_mun, chart_df_mun = create_municipios_barchart(df_mun, value_col='empresas', pct_col='%_empresas')
+    #     st.plotly_chart(chart_mun, use_container_width=True)
     
     st.caption(f"*Los porcentajes se calculan sobre el total de trámites en cada área geográfica. Datos actualizados al {datetime.today().strftime('%d/%m/%Y')}*")
+
+
+with tab4:
+    st.subheader("Datos completos de expedientes filtrados")
+    
+    # Get the filtered data from session state
+    filtered_exp = st.session_state.filtered_data['expedientes']
+    # Select specific columns
+    df_subset = filtered_exp[['id_exp', 'fecha_registro_exp', 'municipio', 'provincia', 'es_telematica', 'nif']]
+    
+    # Rename the columns
+    df_subset = df_subset.rename(columns={
+        'id_exp': 'ID Expediente',
+        'fecha_registro_exp': 'Fecha de Registro',
+        'municipio': 'Municipio',
+        'provincia': 'Provincia',
+        'es_telematica': 'Presentación telemática',
+        'nif': 'Persona jurídica'
+    })
+    # Display basic info
+    st.markdown(f"""
+    **Número total de expedientes:** {len(filtered_exp):,}  
+    **Rango de fechas:** {filtered_exp['fecha_registro_exp'].min().strftime('%d/%m/%Y')} - {filtered_exp['fecha_registro_exp'].max().strftime('%d/%m/%Y')}
+    """)
+    
+    # Display the dataframe with full width
+    st.dataframe(
+        filtered_exp,
+        use_container_width=True,
+        height=600,
+        hide_index=True,
+        column_config={
+            "Fecha de Registro": st.column_config.DatetimeColumn(format="DD/MM/YYYY"),
+            "Persona jurídica": st.column_config.CheckboxColumn(
+                "Telemático",
+                help="Indica si el expediente fue presentado telemáticamente"
+            )
+        }
+    )
+    
+    
+    st.caption("Nota: La descarga incluirá todos los expedientes que cumplen con los filtros aplicados")    

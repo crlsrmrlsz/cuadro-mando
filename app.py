@@ -19,8 +19,8 @@ st.set_page_config(
 # 2. Initialize session state using .get() for consistency
 if 'filtered_data' not in st.session_state:
     st.session_state.filtered_data = None
-if 'final_states' not in st.session_state:
-    st.session_state.final_states = None
+# if 'final_states' not in st.session_state:
+#     st.session_state.final_states = None
 if 'selected_final_states' not in st.session_state:  # note: key name aligned with later usage
     st.session_state.selected_final_states = []
 if 'selected_procedure' not in st.session_state:
@@ -78,28 +78,36 @@ def filter_data(_expedientes, _tramites, date_range):
 
 # 4. Sidebar: Group all interactive controls
 with st.sidebar:
-    # Process selection
-    processes = load_process_codes()  # returns dict {codigo: descripcion}
-    selected_procedure = st.session_state.get('selected_procedure', None)
-    process_keys = list(processes.keys())
-    default_index = process_keys.index(selected_procedure) if selected_procedure in process_keys else 0
 
+    
+    def process_selector_callback():
+        st.session_state.filtered_data = None
+        st.session_state.selected_final_states = []
+        st.session_state.selected_procedure = st.session_state.process_selector
+
+    # carga los procedimientos activados en data/codigos_procedimientos.csv
+    processes = load_process_codes()  # returns dict {codigo: descripcion}
+    
+    process_keys = list(processes.keys())
+    process_descs = [processes[k] for k in process_keys]
+    
+    selected_procedure = st.session_state.get('selected_procedure', None)
+    default_index = process_keys.index(selected_procedure) if selected_procedure in process_keys else 0
+    
     selected_desc = st.selectbox(
         "Selecciona Procedimiento",
-        options=list(processes.values()),
+        options=process_descs,
         index=default_index,
+        key="process_selector",
+        on_change=process_selector_callback,
         help="Elige un procedimiento"
     )
 
-    # Get selected code from the dictionary by matching description
+    # Map the selected description back to its code
     selected_codigo = [k for k, v in processes.items() if v == selected_desc][0]
 
     # Load data for the selected procedure
     base_data = load_base_data(selected_codigo)
-    
-    # Save base data's final_states and procedure code into session state
-    st.session_state.final_states = base_data['final_states']
-    st.session_state.selected_procedure = selected_codigo
 
     # Date range selection based on expedientes
     min_date = base_data['expedientes']['fecha_registro_exp'].min().date()
@@ -111,23 +119,13 @@ with st.sidebar:
         value=(min_date, max_date),
         format="DD-MM-YYYY"
     )
-    
-    # Filter data based on date range and cache it
-    st.session_state.filtered_data = filter_data(
-        base_data['expedientes'],
-        base_data['tramites'],
-        selected_dates
-    )
 
     # Multi-select for final states
-    # Filter final_states to only those rows with FINAL == 1
     df_final_states_1 = base_data['final_states'][base_data['final_states']['FINAL'] == 1]
-    # Build a dictionary mapping from state label to its code using all rows
     state_options = {
         row['DENOMINACION_SIMPLE']: row['NUMTRAM']
         for _, row in base_data['final_states'][['NUMTRAM', 'DENOMINACION_SIMPLE']].drop_duplicates().iterrows()
     }
-    # Default: only those states with FINAL == 1
     default_states = df_final_states_1['DENOMINACION_SIMPLE'].unique().tolist()
     selected_final_states_ms = st.multiselect(
         "Seleccionar estados finales",
@@ -135,9 +133,17 @@ with st.sidebar:
         default=default_states,
         help="Selecciona uno o varios estados finales"
     )
-    # Convert selected state labels to their corresponding codes
     selected_final_states = [state_options[denom] for denom in selected_final_states_ms]
+
+    # Update session state with new values
+    st.session_state.filtered_data = filter_data(
+        base_data['expedientes'],
+        base_data['tramites'],
+        selected_dates
+    )
     st.session_state.selected_final_states = selected_final_states
+
+
 
 # 5. Navigation / Page definitions
 # NOTE: The st.Page and st.navigation APIs are not part of the official Streamlit API.
