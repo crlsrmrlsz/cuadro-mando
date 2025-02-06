@@ -19,21 +19,37 @@ expedientes = st.session_state.filtered_data['expedientes']
 # Ensure datetime type
 expedientes['fecha_registro_exp'] = pd.to_datetime(expedientes['fecha_registro_exp'])
 
-# Create weekly aggregation
-df_weekly = expedientes.set_index('fecha_registro_exp').resample('W-MON').agg(
+# Add time frequency selector
+freq = st.radio("Frecuencia de agrupación", 
+                    options=['Diaria', 'Semanal', 'Mensual'],
+                    index=1,
+                    horizontal = True)
+
+# Map to pandas frequency codes
+freq_map = {
+    'Diaria': 'D',
+    'Semanal': 'W-MON',
+    'Mensual': 'MS'
+}
+
+
+# Update resampling in df_weekly
+df_agregado = expedientes.set_index('fecha_registro_exp').resample(freq_map[freq]).agg(
     total_exp=('id_exp', 'count')
 ).reset_index()
 
+
+
+
 # Create the plot
-fig = px.bar(df_weekly,
+fig = px.bar(df_agregado,
              x='fecha_registro_exp',
-             y='total_exp',
-             title='Expedientes Registrados por Semana')
+             y='total_exp')
 
 # Customize layout
 fig.update_layout(
     xaxis_title="Fecha",
-    yaxis_title="Número de Expedientes",
+    yaxis_title="Número de Solicitudes",
     template="plotly_white",
     hovermode="x unified"
 )
