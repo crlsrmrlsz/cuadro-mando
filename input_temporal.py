@@ -39,22 +39,26 @@ df_agregado = expedientes.set_index('fecha_registro_exp').resample(freq_map[freq
 ).reset_index()
 
 
-
-
 # Create the plot
 fig = px.bar(df_agregado,
              x='fecha_registro_exp',
              y='total_exp')
 
-# Customize layout
-fig.update_layout(
-    xaxis_title="Fecha",
-    yaxis_title="Número de Solicitudes",
-    template="plotly_white",
-    hovermode="x unified"
-)
+# # Customize layout
+# fig.update_layout(
+#     xaxis=dict(
+#         title= "Fecha",
+#         tickmode="linear",  # Ensures evenly spaced ticks
+#         dtick="M2",  # One tick per month (use "M3" for every 3 months, etc.)
+#         tickformat="%b %Y"  # Format as "Jan 2024"
+#     ),
+#     yaxis_title="Número de Solicitudes",
+#     template="plotly_white",
+#     hovermode="x unified"
+# )
+
+# fig.update_traces(hovertemplate="%{y}<extra></extra>")
+
 
 # Display plot
 st.plotly_chart(fig, use_container_width=True)
-
-
