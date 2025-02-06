@@ -28,13 +28,13 @@ def load_geo_data():
     
     # Cargar y simplificar provincias
     gdf_prov = gpd.read_file('data/geo/provincias_id_ine.geojson')
-    gdf_prov["geometry"] = gdf_prov["geometry"].simplify(tolerance=0.03, preserve_topology=True)
+    gdf_prov["geometry"] = gdf_prov["geometry"].simplify(tolerance=0.05, preserve_topology=True)
     gdf_prov = gdf_prov[["codigo", "geometry"]]  # Conservar solo la columna 'codigo'
     prov_geojson = json.loads(gdf_prov.to_json())
 
     # Cargar y simplificar municipios
     gdf_mun = gpd.read_file('data/geo/municipios_id_ine_simple.geojson')
-    gdf_mun["geometry"] = gdf_mun["geometry"].simplify(tolerance=0.003, preserve_topology=True)
+    gdf_mun["geometry"] = gdf_mun["geometry"].simplify(tolerance=0.005, preserve_topology=True)
     gdf_mun = gdf_mun[["CODIGOINE", "geometry"]]  # Conservar solo la columna 'CODINE'
     mun_geojson = json.loads(gdf_mun.to_json())
 
@@ -267,8 +267,8 @@ tab1, tab2, tab3, tab4 = st.tabs([
 ])
 
 with tab1:
-    st.subheader("Número de expedientes por Provincia (datos de solicitud)")
-    st.markdown("Distribución geográfica de la demanda")
+    st.subheader("Número de solicitudes por Provincia")
+    st.markdown("Distribución geográfica de la demanda, identifica provincias con más solicitudes, en qué areas se reciben menos solicitudes electrónicas o el porcentaje de peronas jurídicas")
     
     col_tab1_prov_1, col_tab1_prov_2 = st.columns([0.7, 0.3])
     with col_tab1_prov_1:
@@ -369,16 +369,13 @@ with tab4:
     
     # Display the dataframe with full width
     st.dataframe(
-        filtered_exp,
-        use_container_width=True,
+        df_subset,
+        #use_container_width=True,
         height=600,
         hide_index=True,
         column_config={
-            "Fecha de Registro": st.column_config.DatetimeColumn(format="DD/MM/YYYY"),
-            "Persona jurídica": st.column_config.CheckboxColumn(
-                "Telemático",
-                help="Indica si el expediente fue presentado telemáticamente"
-            )
+            "ID Expediente": st.column_config.TextColumn(),
+            "Fecha de Registro": st.column_config.DatetimeColumn(format="DD/MM/YYYY")
         }
     )
     
