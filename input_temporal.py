@@ -9,6 +9,8 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import datetime 
+import numpy as np
 
 ##########################
 # CARGA DE DATOS DE SESSION STATE
@@ -152,28 +154,43 @@ with tab2:
 # Tab 3: heatmap
 # ----------------------------
 with tab3:
-    st.subheader("Mapa de calor con demanda semanal a lo largo de año")
-    st.markdown("permite visualizar posibles patrones que se repiten anualmente")
- 
-    # Aggregate data by week (using Monday as the start of the week)
-    df_week = expedientes.set_index('fecha_registro_exp').resample('W-MON').agg(total_exp=('id_exp', 'count'))
+    st.subheader("Mapa de calor con demanda semanal a lo largo del año")
+    st.markdown("Permite visualizar posibles patrones que se repiten anualmente")
+
+    # Aggregate data by week (starting on Monday)
+    df_week = expedientes.set_index('fecha_registro_exp').resample('W-MON').agg(
+        total_exp=('id_exp', 'count')
+    )
     
-    # Extract year and week number from the index
-    df_week['year'] = df_week.index.year.astype(int)
-    df_week['week'] = df_week.index.isocalendar().week.astype(int)
+    # Extract year, week number, start date, and month name
+    df_week['year'] = df_week.index.year
+    df_week['week'] = df_week.index.isocalendar().week
+    df_week['start_date'] = df_week.index.strftime('%Y-%m-%d')
+    df_week['month'] = df_week.index.strftime('%B')  # Full month name
     
-    # Pivot the DataFrame to create a matrix: rows = year, columns = week number
+    # Pivot the data
     heatmap_data = df_week.pivot(index='year', columns='week', values='total_exp')
+    custom_data = np.dstack([
+        df_week.pivot(index='year', columns='week', values='start_date').values,
+        df_week.pivot(index='year', columns='week', values='month').values
+    ])
     
-    # Create the heatmap
+    # Create heatmap
     fig_heatmap = go.Figure(data=go.Heatmap(
-        x=heatmap_data.columns,  # Week numbers
-        y=heatmap_data.index,    # Years
+        x=heatmap_data.columns,
+        y=heatmap_data.index,
         z=heatmap_data.values,
+        customdata=custom_data,
+        hovertemplate=(
+            "Año: %{y}<br>"
+            "Semana: %{x}<br>"
+            "Inicio semana: %{customdata[0]}<br>"
+            "Mes: %{customdata[1]}<br>"
+            "Solicitudes: %{z}<extra></extra>"
+        ),
         colorscale='Viridis'
     ))
     
-
     # Customize layout
     fig_heatmap.update_layout(
         xaxis_title="Semana del año",
@@ -183,3 +200,27 @@ with tab3:
     )
     
     st.plotly_chart(fig_heatmap, use_container_width=True)
+
+with tab4:
+    st.subheader("Datos completos agrupados por mes y provincia")
+    
+    # Select specific columns
+    df_subset = df_provincia[['fecha_registro_exp', 'provincia', 'total_exp']]
+    
+    # Rename the columns
+    df_subset = df_subset.rename(columns={
+        'fecha_registro_exp': 'Fecha inicio mes',
+        'provincia': 'Provincia',
+        'total_exp': 'Número Solicitudes'
+    })    
+    
+    # Display the dataframe with full width
+    st.dataframe(
+        df_subset,
+        #use_container_width=True,
+        height=600,
+        hide_index=True,
+        column_config={
+            "Fecha inicio mes": st.column_config.DatetimeColumn(format="DD/MM/YYYY")
+        }
+    )    
