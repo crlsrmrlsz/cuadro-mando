@@ -7,6 +7,7 @@ Created on Thu Jan 30 19:06:10 2025
 
 import streamlit as st
 import pandas as pd
+import datetime
 
 # 1. Set page configuration as early as possible
 st.set_page_config(
@@ -119,8 +120,12 @@ with st.sidebar:
     base_data = load_base_data(selected_codigo)
 
     # Date range selection based on expedientes
-    min_date = base_data['expedientes']['fecha_registro_exp'].min().date()
-    max_date = base_data['expedientes']['fecha_registro_exp'].max().date()
+  
+    original_start = base_data['expedientes']['fecha_registro_exp'].min().date()
+    original_end = base_data['expedientes']['fecha_registro_exp'].max().date()
+    min_date = max(original_start, datetime.date(2010, 1, 1))
+    max_date = min(original_end, datetime.date.today())
+    
     selected_dates = st.slider(
         "Rango de fechas",
         min_value=min_date,
@@ -157,16 +162,16 @@ with st.sidebar:
 # 5. Navigation / Page definitions
 # NOTE: The st.Page and st.navigation APIs are not part of the official Streamlit API.
 # If you are using a custom or experimental navigation solution, ensure you follow its guidelines.
-demanda_temporal = st.Page("input_temporal.py", title="Análisis temporal", icon="📋")
-demanda_geografico = st.Page("input_geografico.py", title="Análisis geográfico", icon="🌍")
 flujo_diagrama = st.Page("flujo_diagrama.py", title="Diagrama", icon="🔀")
 flujo_temporal = st.Page("flujo_temporal.py", title="Análisis temporal", icon="⏳")
+demanda_temporal = st.Page("input_temporal.py", title="Temporal", icon="📋")
+demanda_geografico = st.Page("input_geografico.py", title="Geográfico", icon="🌍")
 estado_temporal = st.Page("estados_temporal.py", title="Cuellos de botella", icon="🎯")
 estado_acumulado = st.Page("estados_acumulado.py", title="Carga de trabajo", icon="▶️")
 
 nav = st.navigation({
-    "Demanda": [demanda_temporal, demanda_geografico],
-    "Flujo Proceso": [flujo_diagrama, flujo_temporal],
+    "Visión general Proceso": [flujo_diagrama, flujo_temporal],
+    "Análisis de la demanda": [demanda_temporal, demanda_geografico],
     "Cuellos de botella": [estado_temporal, estado_acumulado]
 })
 nav.run()
