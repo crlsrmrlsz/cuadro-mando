@@ -24,6 +24,8 @@ if 'selected_final_states' not in st.session_state:  # note: key name aligned wi
     st.session_state.selected_final_states = []
 if 'selected_procedure' not in st.session_state:
     st.session_state.selected_procedure = None
+if 'estados' not in st.session_state:
+    st.session_state.estados = None
 
 # 3. Cache functions for loading and filtering data
 @st.cache_data
@@ -40,6 +42,8 @@ def load_process_codes():
 def load_base_data(codigo):
     base_path = f"data/tratados/{codigo}"
     
+    # EXPEDIENTES
+    #############
     # Lista de columnas a cargar (incluyendo 'nif' para 'es_empresa')
     columnas_expedientes = [
         'id_exp',
@@ -60,14 +64,40 @@ def load_base_data(codigo):
     # Creación de nuevas columnas
     expedientes['es_online'] = expedientes['es_telematica'].fillna(False)
     expedientes['es_empresa'] = expedientes['nif'].notnull()
-    
     # Eliminar 'nif' del DataFrame
     expedientes = expedientes.drop(columns=['nif'])
     
+    # TRAMITES
+    ###########
+    columnas_tramites = [
+        'id_exp',
+        'es_telematica',
+        'nif',
+        'unidad_tramitadora',
+        'denominacion',
+        'descripcion',
+        'consejeria',
+        'org_instructor',
+        'municipio',
+        'provincia',
+        'fecha_tramite',
+        'num_tramite' 
+    ]   
+    tramites = pd.read_parquet(
+        f"{base_path}/tramites.parquet",
+        columns=columnas_tramites  # Filtrado de columnas
+    )
+    
+    # Creación de nuevas columnas
+    tramites['es_online'] = tramites['es_telematica'].fillna(False)
+    tramites['es_empresa'] = tramites['nif'].notnull()  
+    # Eliminar 'nif' del DataFrame
+    tramites = tramites.drop(columns=['nif'])
+     
     return {
         'expedientes': expedientes,
-        'tramites': pd.read_parquet(f"{base_path}/tramites.parquet"),
-        'final_states': pd.read_csv(f"{base_path}/estados_finales.csv", sep=";", encoding='utf-8')
+        'tramites': tramites,
+        'estados': pd.read_csv(f"{base_path}/estados_finales.csv", sep=";", encoding='utf-8')
     }
 
 @st.cache_data
@@ -117,6 +147,22 @@ with st.sidebar:
     # Load data for the selected procedure
     base_data = load_base_data(selected_codigo)
 
+    # Store estados in session state
+    st.session_state.estados = base_data['estados'] 
+
+    # Check if the stored texts do not exist or the selected procedure has changed.
+    if ("tramites_texts" not in st.session_state) or (st.session_state.get("selected_procedure") != selected_codigo):
+        # Extract the values (assuming all rows have the same values, so we take the first row)
+        tramites_texts = base_data["tramites"][["denominacion", "descripcion", "consejeria", "org_instructor"]].iloc[0].to_dict()
+        # Store them in session state for reuse on other pages
+        st.session_state.tramites_texts = tramites_texts
+    
+        # Remove these columns from the 'tramites' DataFrame to save memory
+        base_data["tramites"] = base_data["tramites"].drop(columns=["denominacion", "descripcion", "consejeria", "org_instructor"])
+    
+    # Optionally, update the selected procedure in session state for later comparisons
+    st.session_state.selected_procedure = selected_codigo
+
     # Date range selection based on expedientes
   
     original_start = base_data['expedientes']['fecha_registro_exp'].min().date()
@@ -133,10 +179,10 @@ with st.sidebar:
     )
 
     # Multi-select for final states
-    df_final_states_1 = base_data['final_states'][base_data['final_states']['FINAL'] == 1]
+    df_final_states_1 = base_data['estados'][base_data['estados']['FINAL'] == 1]
     state_options = {
         row['DENOMINACION_SIMPLE']: row['NUMTRAM']
-        for _, row in base_data['final_states'][['NUMTRAM', 'DENOMINACION_SIMPLE']].drop_duplicates().iterrows()
+        for _, row in base_data['estados'][['NUMTRAM', 'DENOMINACION_SIMPLE']].drop_duplicates().iterrows()
     }
     default_states = df_final_states_1['DENOMINACION_SIMPLE'].unique().tolist()
     selected_final_states_ms = st.multiselect(
