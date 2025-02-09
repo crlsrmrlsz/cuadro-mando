@@ -20,8 +20,6 @@ st.set_page_config(
 # 2. Initialize session state using .get() for consistency
 if 'filtered_data' not in st.session_state:
     st.session_state.filtered_data = None
-# if 'final_states' not in st.session_state:
-#     st.session_state.final_states = None
 if 'selected_final_states' not in st.session_state:  # note: key name aligned with later usage
     st.session_state.selected_final_states = []
 if 'selected_procedure' not in st.session_state:

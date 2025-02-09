@@ -8,20 +8,6 @@ import geopandas as gpd
 # CACHED DATA LOADING
 # ====================
 
-# @st.cache_data
-# def load_geo_data():
-#     """Carga los datos geográficos"""
-#     with open('data/geo/provincias_id_ine.geojson', 'r', encoding='utf-8') as f:
-#         prov_geojson = json.load(f)  # properties.codigo
-    
-#     with open('data/geo/municipios_id_ine_simple.geojson', 'r', encoding='utf-8') as f:
-#         mun_geojson = json.load(f)
-
-#     return {
-#         'provincias': prov_geojson,
-#         'municipios': mun_geojson
-#     }
-
 @st.cache_data
 def load_geo_data():
     """Carga los datos geográficos optimizados"""
@@ -256,7 +242,10 @@ def create_municipio_map(df_mun, geojson, value_col, pct_col):
 
 # Carga de datos
 geo_data = load_geo_data()
-df_prov, df_mun = aggregate_data(st.session_state.filtered_data['expedientes'])
+if 'aggregated_data' not in st.session_state:
+    st.session_state.aggregated_data = aggregate_data(st.session_state.filtered_data['expedientes'])
+df_prov, df_mun = st.session_state.aggregated_data
+
 
 # --- TAB 1: Número de expedientes (usa columna "total" y "%_total") ---
 tab1, tab2, tab3, tab4 = st.tabs([

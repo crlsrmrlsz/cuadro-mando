@@ -20,7 +20,55 @@ expedientes = st.session_state.filtered_data['expedientes']
 # Ensure datetime type
 expedientes['fecha_registro_exp'] = pd.to_datetime(expedientes['fecha_registro_exp'])
 
-# --- TAB 1: Número de expedientes (usa columna "total" y "%_total") ---
+##########################
+# FUNCIONES CACHEADAS
+##########################
+@st.cache_data
+def compute_agregado(_expedientes, freq):
+    """Compute aggregated data for Tab1"""
+    freq_map = {'Diaria': 'D', 'Semanal': 'W-MON', 'Mensual': 'MS'}
+    return _expedientes.set_index('fecha_registro_exp').resample(freq_map[freq]).agg(
+        total_exp=('id_exp', 'count')
+    ).reset_index()
+
+@st.cache_data
+def compute_provincia(_expedientes, freq):
+    """Compute province data for Tab2 and Tab4"""
+    freq_map = {'Diaria': 'D', 'Semanal': 'W-MON', 'Mensual': 'MS'}
+    df = _expedientes.groupby(
+        [pd.Grouper(key='fecha_registro_exp', freq=freq_map[freq]), 'provincia']
+    ).agg(total_exp=('id_exp', 'count')).reset_index()
+    
+    province_totals = df.groupby('provincia')['total_exp'].sum().sort_values(ascending=False)
+    df['provincia'] = pd.Categorical(
+        df['provincia'],
+        categories=province_totals.index.tolist(),
+        ordered=True
+    )
+    return df
+
+@st.cache_data
+def compute_heatmap_data(_expedientes):
+    """Compute heatmap data for Tab3"""
+    df_week = _expedientes.set_index('fecha_registro_exp').resample('W-MON').agg(
+        total_exp=('id_exp', 'count')
+    )
+    df_week['year'] = df_week.index.year
+    df_week['week'] = df_week.index.isocalendar().week
+    df_week['start_date'] = df_week.index.strftime('%Y-%m-%d')
+    df_week['month'] = df_week.index.strftime('%B')
+    
+    heatmap_data = df_week.pivot(index='year', columns='week', values='total_exp')
+    custom_data = np.dstack([
+        df_week.pivot(index='year', columns='week', values='start_date').values,
+        df_week.pivot(index='year', columns='week', values='month').values
+    ])
+    
+    return df_week, heatmap_data, custom_data
+
+##########################
+# INTERFAZ DE USUARIO
+##########################
 tab1, tab2, tab3, tab4 = st.tabs([
     "Totales", 
     "Por provincia", 
@@ -34,25 +82,8 @@ with tab1:
     st.subheader("Evolución mensual de la recepción de solicitudes")
     st.markdown("Identica periodos con mayor o menor recepción de solicitudes")
     
-    # # Add time frequency selector
-    # freq = st.radio("Frecuencia de agrupación", 
-    #                     options=['Diaria', 'Semanal', 'Mensual'],
-    #                     index=1,
-    #                     horizontal = True)
-    
-    # # Map to pandas frequency codes
-    freq_map = {
-        'Diaria': 'D',
-        'Semanal': 'W-MON',
-        'Mensual': 'MS'
-    }
-    
-    # Update resampling 
     freq = 'Mensual'
-    df_agregado = expedientes.set_index('fecha_registro_exp').resample(freq_map[freq]).agg(
-        total_exp=('id_exp', 'count')
-    ).reset_index()
-    
+    df_agregado = compute_agregado(expedientes, freq)
     
     # Dynamic labels and ticks
     if freq == 'Diaria':
@@ -61,121 +92,63 @@ with tab1:
     elif freq == 'Semanal':
         df_agregado['label'] = df_agregado['fecha_registro_exp'].dt.strftime('Week %U, %Y')
         tick_format = 'Week %U, %Y'
-    elif freq == 'Mensual':
+    else:  # Mensual
         df_agregado['label'] = df_agregado['fecha_registro_exp'].dt.strftime('%b %Y')
         tick_format = '%b %Y'
-    
-        
-    
-    # Create the plot
+
     fig = px.bar(df_agregado,
                  x='fecha_registro_exp',
                  y='total_exp',
-                 labels={'fecha_registro_exp': 'Fecha', 'total_exp': 'Solicitudes'}
-                 )
-
-    # Adjust x-axis ticks
-    fig.update_xaxes(
-        tickformat=tick_format
-    )
-    # Set the bars to stack and adjust the gap between bars
-    fig.update_layout(
-        height=plot_height
-    )
+                 labels={'fecha_registro_exp': 'Fecha', 'total_exp': 'Solicitudes'})
+    
+    fig.update_xaxes(tickformat=tick_format)
+    fig.update_layout(height=plot_height)
     st.plotly_chart(fig, use_container_width=True)
 
-# ----------------------------
-# Tab 2: Stacked Bar Chart by Province
-# ----------------------------
 with tab2:
     st.subheader("Evolución mensual por provincia")
     st.markdown("Bar chart apilado mostrando la distribución de solicitudes por provincia a lo largo del tiempo")
     
     freq = 'Mensual'
-    
-    # Group by month and province; count the number of expedientes per group
-    df_provincia = expedientes.groupby(
-        [pd.Grouper(key='fecha_registro_exp', freq=freq_map[freq]), 'provincia']
-    ).agg(total_exp=('id_exp', 'count')).reset_index()
+    df_provincia = compute_provincia(expedientes, freq)
     
     # Create dynamic labels for the x-axis
-    if freq == 'Mensual':
-        df_provincia['label'] = df_provincia['fecha_registro_exp'].dt.strftime('%b %Y')
-        tick_format = '%b %Y'
+    tick_format = '%b %Y' if freq == 'Mensual' else '%Y-%m-%d'
     
-    # Compute overall totals for each province (over the entire period)
-    province_totals = df_provincia.groupby('provincia')['total_exp'].sum().sort_values(ascending=False)
-    ordered_provinces = province_totals.index.tolist()
-    
-    # Set 'provincia' as a categorical variable with the desired descending order
-    df_provincia['provincia'] = pd.Categorical(
-        df_provincia['provincia'],
-        categories=ordered_provinces,
-        ordered=True
-    )
-    
-    # Create the stacked bar chart
     fig_prov = px.bar(
         df_provincia,
         x='fecha_registro_exp',
         y='total_exp',
         color='provincia',
-        labels={
-            'fecha_registro_exp': 'Fecha',
-            'total_exp': 'Solicitudes',
-            'provincia': 'Provincia'
-        }
+        labels={'fecha_registro_exp': 'Fecha', 'total_exp': 'Solicitudes', 'provincia': 'Provincia'}
     )
     
-    # Set the bars to stack and adjust the gap between bars
     fig_prov.update_layout(
         barmode='stack',
         height=plot_height,
         legend=dict(
             orientation="h",
             yanchor="top",
-            y=-0.2,  # Adjust vertical position as needed
+            y=-0.2,
             xanchor="center",
             x=0.5
         )
     )
     fig_prov.update_xaxes(tickformat=tick_format)
     
-    # Reorder the traces so that both the stack order and legend follow descending totals.
-    # Each trace's name corresponds to a province.
+    # Reorder traces
+    ordered_provinces = df_provincia['provincia'].cat.categories.tolist()
     sorted_traces = sorted(fig_prov.data, key=lambda trace: ordered_provinces.index(trace.name))
-    # In Plotly, the first trace in the list is drawn at the bottom of the stack.
     fig_prov.data = tuple(sorted_traces)
     
     st.plotly_chart(fig_prov, use_container_width=True)
-    
-    
-# ----------------------------
-# Tab 3: heatmap
-# ----------------------------
+
 with tab3:
     st.subheader("Mapa de calor con demanda semanal a lo largo del año")
     st.markdown("Permite visualizar posibles patrones que se repiten anualmente")
 
-    # Aggregate data by week (starting on Monday)
-    df_week = expedientes.set_index('fecha_registro_exp').resample('W-MON').agg(
-        total_exp=('id_exp', 'count')
-    )
+    df_week, heatmap_data, custom_data = compute_heatmap_data(expedientes)
     
-    # Extract year, week number, start date, and month name
-    df_week['year'] = df_week.index.year
-    df_week['week'] = df_week.index.isocalendar().week
-    df_week['start_date'] = df_week.index.strftime('%Y-%m-%d')
-    df_week['month'] = df_week.index.strftime('%B')  # Full month name
-    
-    # Pivot the data
-    heatmap_data = df_week.pivot(index='year', columns='week', values='total_exp')
-    custom_data = np.dstack([
-        df_week.pivot(index='year', columns='week', values='start_date').values,
-        df_week.pivot(index='year', columns='week', values='month').values
-    ])
-    
-    # Create heatmap
     fig_heatmap = go.Figure(data=go.Heatmap(
         x=heatmap_data.columns,
         y=heatmap_data.index,
@@ -191,7 +164,6 @@ with tab3:
         colorscale='Viridis'
     ))
     
-    # Customize layout
     fig_heatmap.update_layout(
         xaxis_title="Semana del año",
         yaxis_title="Año",
@@ -204,23 +176,19 @@ with tab3:
 with tab4:
     st.subheader("Datos completos agrupados por mes y provincia")
     
-    # Select specific columns
-    df_subset = df_provincia[['fecha_registro_exp', 'provincia', 'total_exp']]
+    # Usamos los datos cacheados de tab2
+    freq = 'Mensual'
+    df_provincia = compute_provincia(expedientes, freq)
     
-    # Rename the columns
-    df_subset = df_subset.rename(columns={
+    df_subset = df_provincia[['fecha_registro_exp', 'provincia', 'total_exp']].rename(columns={
         'fecha_registro_exp': 'Fecha inicio mes',
         'provincia': 'Provincia',
         'total_exp': 'Número Solicitudes'
     })    
     
-    # Display the dataframe with full width
     st.dataframe(
         df_subset,
-        #use_container_width=True,
         height=600,
         hide_index=True,
-        column_config={
-            "Fecha inicio mes": st.column_config.DatetimeColumn(format="DD/MM/YYYY")
-        }
-    )    
+        column_config={"Fecha inicio mes": st.column_config.DatetimeColumn(format="DD/MM/YYYY")}
+    )
