@@ -18,6 +18,8 @@ st.set_page_config(
 )
 
 # 2. Initialize session state using .get() for consistency
+if 'base_data' not in st.session_state:
+    st.session_state.base_data = None
 if 'filtered_data' not in st.session_state:
     st.session_state.filtered_data = None
 if 'selected_final_states' not in st.session_state:  # note: key name aligned with later usage
@@ -65,7 +67,7 @@ def load_base_data(codigo):
     expedientes['es_online'] = expedientes['es_telematica'].fillna(False)
     expedientes['es_empresa'] = expedientes['nif'].notnull()
     # Eliminar 'nif' del DataFrame
-    expedientes = expedientes.drop(columns=['nif'])
+    expedientes = expedientes.drop(columns=['nif','es_telematica'])
     
     # TRAMITES
     ###########
@@ -92,7 +94,7 @@ def load_base_data(codigo):
     tramites['es_online'] = tramites['es_telematica'].fillna(False)
     tramites['es_empresa'] = tramites['nif'].notnull()  
     # Eliminar 'nif' del DataFrame
-    tramites = tramites.drop(columns=['nif'])
+    tramites = tramites.drop(columns=['nif','es_telematica'])
      
     return {
         'expedientes': expedientes,
@@ -116,7 +118,6 @@ def filter_data(_expedientes, _tramites, date_range):
 
 # 4. Sidebar: Group all interactive controls
 with st.sidebar:
-
     
     def process_selector_callback():
         st.session_state.filtered_data = None
@@ -157,28 +158,34 @@ with st.sidebar:
         # Store them in session state for reuse on other pages
         st.session_state.tramites_texts = tramites_texts
     
-        # Remove these columns from the 'tramites' DataFrame to save memory
-        base_data["tramites"] = base_data["tramites"].drop(columns=["denominacion", "descripcion", "consejeria", "org_instructor"])
+    # Remove these columns from the 'tramites' DataFrame to save memory
+    base_data["tramites"] = base_data["tramites"].drop(columns=["denominacion", "descripcion", "consejeria", "org_instructor"])
+    
+    # In main page after loading base_data:
+    st.session_state.base_data = base_data
+    
     
     # Optionally, update the selected procedure in session state for later comparisons
     st.session_state.selected_procedure = selected_codigo
 
     # Date range selection based on expedientes
-  
+    ##############################################
     original_start = base_data['expedientes']['fecha_registro_exp'].min().date()
     original_end = base_data['expedientes']['fecha_registro_exp'].max().date()
     min_date = max(original_start, datetime.date(2010, 1, 1))
     max_date = min(original_end, datetime.date.today())
     
     selected_dates = st.slider(
-        "Rango de fechas",
+        "Fecha inicio expediente",
         min_value=min_date,
         max_value=max_date,
         value=(min_date, max_date),
         format="DD-MM-YYYY"
     )
-
+    st.session_state.selected_dates = selected_dates 
+    
     # Multi-select for final states
+    #################################
     df_final_states_1 = base_data['estados'][base_data['estados']['FINAL'] == 1]
     state_options = {
         row['DENOMINACION_SIMPLE']: row['NUMTRAM']
@@ -194,6 +201,7 @@ with st.sidebar:
     selected_final_states = [state_options[denom] for denom in selected_final_states_ms]
 
     # Update session state with new values
+    ######################################
     st.session_state.filtered_data = filter_data(
         base_data['expedientes'],
         base_data['tramites'],
