@@ -30,18 +30,18 @@ def load_geo_data():
     }
 
 @st.cache_data
-def aggregate_data(df):
+def aggregate_data(df, selected_dates):
     """Preprocesa y agrega los datos para visualización"""
     # Filtrado de columnas
     df = df[[ 'id_exp', 'codine_provincia', 'codine', 
-              'es_telematica', 'es_empresa',
+              'es_online', 'es_empresa',
               'provincia', 'municipio' ]].copy()
           
     # Agregación por provincia (manteniendo el nombre)
     df_prov = df.groupby('codine_provincia', observed=True).agg(
         provincia=('provincia', 'first'),
         total=('id_exp', 'count'),
-        online=('es_telematica', 'sum'),
+        online=('es_online', 'sum'),
         empresas=('es_empresa', 'sum')
     ).reset_index()
     
@@ -50,7 +50,7 @@ def aggregate_data(df):
         municipio=('municipio', 'first'),
         provincia=('provincia', 'first'),
         total=('id_exp', 'count'),
-        online=('es_telematica', 'sum'),
+        online=('es_online', 'sum'),
         empresas=('es_empresa', 'sum')
     ).reset_index()
 
@@ -242,9 +242,11 @@ def create_municipio_map(df_mun, geojson, value_col, pct_col):
 
 # Carga de datos
 geo_data = load_geo_data()
-if 'aggregated_data' not in st.session_state:
-    st.session_state.aggregated_data = aggregate_data(st.session_state.filtered_data['expedientes'])
-df_prov, df_mun = st.session_state.aggregated_data
+
+selected_dates = st.session_state.get('selected_dates', (None, None))
+
+df_prov, df_mun = aggregate_data(st.session_state.filtered_data['expedientes'],
+                                                  selected_dates)
 
 
 # --- TAB 1: Número de expedientes (usa columna "total" y "%_total") ---
@@ -339,7 +341,7 @@ with tab4:
     # Get the filtered data from session state
     filtered_exp = st.session_state.filtered_data['expedientes']
     # Select specific columns
-    df_subset = filtered_exp[['id_exp', 'fecha_registro_exp', 'municipio', 'provincia', 'es_telematica', 'es_empresa']]
+    df_subset = filtered_exp[['id_exp', 'fecha_registro_exp', 'municipio', 'provincia', 'es_online', 'es_empresa']]
     
     # Rename the columns
     df_subset = df_subset.rename(columns={
@@ -347,7 +349,7 @@ with tab4:
         'fecha_registro_exp': 'Fecha de Registro',
         'municipio': 'Municipio',
         'provincia': 'Provincia',
-        'es_telematica': 'Presentación telemática',
+        'es_online': 'Presentación telemática',
         'es_empresa': 'Persona jurídica'
     })
     # Display basic info
