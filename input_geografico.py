@@ -30,7 +30,7 @@ def load_geo_data():
     }
 
 @st.cache_data
-def aggregate_data(df, selected_dates):
+def aggregate_data(df, selected_dates, selected_procedure):
     """Preprocesa y agrega los datos para visualización"""
     # Filtrado de columnas
     df = df[[ 'id_exp', 'codine_provincia', 'codine', 
@@ -244,9 +244,11 @@ def create_municipio_map(df_mun, geojson, value_col, pct_col):
 geo_data = load_geo_data()
 
 selected_dates = st.session_state.get('selected_dates', (None, None))
+selected_procedure = st.session_state.selected_procedure
 
 df_prov, df_mun = aggregate_data(st.session_state.filtered_data['expedientes'],
-                                                  selected_dates)
+                                                  selected_dates,
+                                                  selected_procedure)
 
 
 # --- TAB 1: Número de expedientes (usa columna "total" y "%_total") ---

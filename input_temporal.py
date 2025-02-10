@@ -24,7 +24,7 @@ expedientes['fecha_registro_exp'] = pd.to_datetime(expedientes['fecha_registro_e
 # FUNCIONES CACHEADAS
 ##########################
 @st.cache_data
-def compute_agregado(_expedientes, freq, date_range):
+def compute_agregado(_expedientes, freq, date_range, selected_procedure):
     """Compute aggregated data for Tab1"""
     freq_map = {'Diaria': 'D', 'Semanal': 'W-MON', 'Mensual': 'MS'}
     return _expedientes.set_index('fecha_registro_exp').resample(freq_map[freq]).agg(
@@ -32,7 +32,7 @@ def compute_agregado(_expedientes, freq, date_range):
     ).reset_index()
 
 @st.cache_data
-def compute_provincia(_expedientes, freq, date_range):
+def compute_provincia(_expedientes, freq, date_range, selected_procedure):
     """Compute province data for Tab2 and Tab4"""
     freq_map = {'Diaria': 'D', 'Semanal': 'W-MON', 'Mensual': 'MS'}
     df = _expedientes.groupby(
@@ -48,7 +48,7 @@ def compute_provincia(_expedientes, freq, date_range):
     return df
 
 @st.cache_data
-def compute_heatmap_data(_expedientes, date_range):
+def compute_heatmap_data(_expedientes, date_range, selected_procedure):
     """Compute heatmap data for Tab3"""
     df_week = _expedientes.set_index('fecha_registro_exp').resample('W-MON').agg(
         total_exp=('id_exp', 'count')
@@ -79,13 +79,14 @@ tab1, tab2, tab3, tab4 = st.tabs([
 plot_height = 650
 
 selected_dates = st.session_state.get('selected_dates', (None, None))
+selected_procedure = st.session_state.selected_procedure
 
 with tab1:
     st.subheader("Evolución mensual de la recepción de solicitudes")
     st.markdown("Identica periodos con mayor o menor recepción de solicitudes")
     
     freq = 'Mensual'
-    df_agregado = compute_agregado(expedientes, freq, selected_dates)
+    df_agregado = compute_agregado(expedientes, freq, selected_dates, selected_procedure)
     
     # Dynamic labels and ticks
     if freq == 'Diaria':
@@ -112,7 +113,7 @@ with tab2:
     st.markdown("Bar chart apilado mostrando la distribución de solicitudes por provincia a lo largo del tiempo")
     
     freq = 'Mensual'
-    df_provincia = compute_provincia(expedientes, freq, selected_dates)
+    df_provincia = compute_provincia(expedientes, freq, selected_dates, selected_procedure)
     
     # Create dynamic labels for the x-axis
     tick_format = '%b %Y' if freq == 'Mensual' else '%Y-%m-%d'
@@ -149,7 +150,7 @@ with tab3:
     st.subheader("Mapa de calor con demanda semanal a lo largo del año")
     st.markdown("Permite visualizar posibles patrones que se repiten anualmente")
 
-    df_week, heatmap_data, custom_data = compute_heatmap_data(expedientes, selected_dates)
+    df_week, heatmap_data, custom_data = compute_heatmap_data(expedientes, selected_dates, selected_procedure)
     
     fig_heatmap = go.Figure(data=go.Heatmap(
         x=heatmap_data.columns,
