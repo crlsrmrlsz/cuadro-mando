@@ -214,15 +214,15 @@ with st.sidebar:
 # 5. Navigation / Page definitions
 # NOTE: The st.Page and st.navigation APIs are not part of the official Streamlit API.
 # If you are using a custom or experimental navigation solution, ensure you follow its guidelines.
-flujo_diagrama = st.Page("flujo_diagrama.py", title="Flujo de proceso", icon="🔀")
-flujo_temporal = st.Page("flujo_temporal.py", title="Análisis temporal", icon="⏳")
+flujo_diagrama = st.Page("flujo_basico.py", title="Datos básicos", icon="🔀")
+flujo_temporal = st.Page("flujo_temporal.py", title="Flujos de ejecución", icon="⏳")
 demanda_temporal = st.Page("input_temporal.py", title="Temporal", icon="📋")
 demanda_geografico = st.Page("input_geografico.py", title="Geográfico", icon="🌍")
 estado_temporal = st.Page("estados_temporal.py", title="Cuellos de botella", icon="🎯")
 estado_acumulado = st.Page("estados_acumulado.py", title="Carga de trabajo", icon="▶️")
 
 nav = st.navigation({
-    "Visión general": [flujo_diagrama, flujo_temporal],
+    "Análisis proceso": [flujo_diagrama, flujo_temporal],
     "Análisis de la demanda": [demanda_temporal, demanda_geografico],
     "Cuellos de botella": [estado_temporal, estado_acumulado]
 })
