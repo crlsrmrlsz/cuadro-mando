@@ -112,7 +112,7 @@ with tab1:
 
         col_gen1, col_gen2, col_gen3 = st.columns(3)
         with col_gen1:
-            st.metric("Expedientes totales", f"{total_processes:,}", border = True)
+            st.metric("Total Expedientes iniciados", f"{total_processes:,}", border = True)
         with col_gen2:
             st.metric("Finalizados", f"{finalized_percent:.1f}%", border = True)
         with col_gen3:
@@ -151,7 +151,7 @@ with tab1:
         if compare:
             
             selected_min_date, selected_max_date = selected_dates
-            st.markdown(f"Datos para expedientes iniciados entre {selected_min_date} y  {selected_max_date}")
+            st.markdown(f":red[Datos para expedientes iniciados entre **{selected_min_date}** y  **{selected_max_date}**]")
             # Filtered metrics
             filtered_total = len(filtered_processed)
             filtered_finalized = filtered_processed['contains_selected'].sum()
@@ -182,15 +182,22 @@ with tab1:
                 # Create columns with deltas
                 cols = st.columns([1,1, 1, 1, 2], vertical_alignment="bottom")
                 cols[0].success(f"**{state_name}**")
-                cols[2].metric("Número", state_count_filtered, 
-                              delta=state_count_filtered - state_count_base)
-                cols[3].metric("% Total", f"{state_percent_filtered:.1f}%", 
-                              delta=f"{state_percent_filtered - state_percent_base:.1f}%")
+                
+                # Delta for "Número"
+                delta_num = state_count_filtered - state_count_base
+                delta_num_param = delta_num if delta_num != 0 else None
+                cols[2].metric("Número", state_count_filtered, delta=delta_num_param)
+                
+                # Delta for "% Total"
+                delta_percent = state_percent_filtered - state_percent_base
+                delta_percent_param = f"{delta_percent:.1f}%" if delta_percent != 0 else None
+                cols[3].metric("% Total", f"{state_percent_filtered:.1f}%", delta=delta_percent_param)
+                
+                # Delta for "Tiempo Medio"
                 value = f"{state_mean_filtered:.0f} días" if not pd.isna(state_mean_filtered) else "N/A"
-                delta = int(state_mean_filtered - state_mean_base) if not pd.isna(state_mean_filtered) else None
-                cols[4].metric("Tiempo Medio", value, 
-                              delta=f"{delta:.0f} días" if delta is not None else None,
-                              delta_color="inverse")
+                delta_mean = int(state_mean_filtered - state_mean_base) if not pd.isna(state_mean_filtered) else None
+                delta_mean_param = f"{delta_mean:.0f} días" if delta_mean not in (0, None) else None
+                cols[4].metric("Tiempo Medio", value, delta=delta_mean_param, delta_color="inverse")
                      
 
 # You can later fill in tab2, tab3, and tab4 with additional content.
