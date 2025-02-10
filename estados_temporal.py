@@ -12,15 +12,11 @@ import numpy as np
 import plotly.express as px
 from streamlit_plotly_events import plotly_events
 
-# Cache expensive computations
 @st.cache_data
 def preprocess_visualization_data(state_groups):
     """Preprocess data for all visualizations with caching"""
-    # Bubble Chart Data
     bubble_data = []
-    # Heatmap Data
     heatmap_data = []
-    # Flow Legend
     flow_legend = []
     
     for group_idx, group in enumerate(state_groups):
@@ -31,6 +27,12 @@ def preprocess_visualization_data(state_groups):
             total_duration = sum(seq['state_durations']) if seq['state_durations'] else 0
             num_steps = len(seq['state_names'])
             
+            # Add metadata for flow lookup
+            flow_metadata = {
+                'group_idx': group_idx,
+                'seq_idx': seq_idx
+            }
+            
             # Bubble Chart Data
             bubble_data.append({
                 'Flow': flow_code,
@@ -38,12 +40,11 @@ def preprocess_visualization_data(state_groups):
                 'Total Duration': total_duration,
                 'Steps': num_steps,
                 'Final State': group['state_name'],
-                'Group': group_idx,
-                'Sequence': seq_idx
+                **flow_metadata
             })
             
             # Heatmap Data
-            heat_row = {'Flow': flow_code, 'Final State': group['state_name']}
+            heat_row = {'Flow': flow_code, 'Final State': group['state_name'], **flow_metadata}
             for step_idx, (state, duration) in enumerate(zip(seq['state_names'], seq['state_durations'])):
                 heat_row[f'Step {step_idx+1}'] = duration
             heatmap_data.append(heat_row)
@@ -54,47 +55,54 @@ def preprocess_visualization_data(state_groups):
                 'Flow': " → ".join(seq['state_names']),
                 'Final State': group['state_name'],
                 'Avg. Days': total_duration,
-                'Steps': num_steps
+                'Steps': num_steps,
+                **flow_metadata
             })
     
     return pd.DataFrame(bubble_data), pd.DataFrame(heatmap_data), pd.DataFrame(flow_legend)
 
 def show_flow_details(selected_flow, flow_legend_df, state_groups):
     """Display detailed breakdown for a selected flow"""
-    flow_info = flow_legend_df[flow_legend_df['Code'] == selected_flow].iloc[0]
-    group = state_groups[flow_info['Group']]
-    seq = group['sequences'][flow_info['Sequence']]
+    try:
+        flow_info = flow_legend_df[flow_legend_df['Code'] == selected_flow].iloc[0]
+        group_idx = flow_info['group_idx']
+        seq_idx = flow_info['seq_idx']
+        
+        group = state_groups[group_idx]
+        seq = group['sequences'][seq_idx]
+        
+        with st.expander(f"🔍 Detailed Analysis: {selected_flow}", expanded=True):
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                # Waterfall Chart
+                if seq['state_durations']:
+                    fig_steps = px.bar(
+                        x=seq['state_names'][:-1],
+                        y=seq['state_durations'],
+                        labels={'x': 'Process Step', 'y': 'Days'},
+                        title='Step Durations'
+                    )
+                    st.plotly_chart(fig_steps, use_container_width=True)
+            
+            with col2:
+                # Timeline Visualization
+                if seq['state_durations']:
+                    cumulative = np.cumsum([0] + seq['state_durations'])
+                    fig_time = px.line(
+                        x=range(len(cumulative)),
+                        y=cumulative,
+                        markers=True,
+                        labels={'x': 'Step Number', 'y': 'Cumulative Days'},
+                        title='Cumulative Timeline'
+                    )
+                    st.plotly_chart(fig_time, use_container_width=True)
+            
+            st.markdown(f"**Full Flow Path:** {flow_info['Flow']}")
+            st.markdown(f"**Total Processes:** {seq['count']} | **Average Total Duration:** {flow_info['Avg. Days']:.1f} days")
     
-    with st.expander(f"🔍 Detailed Analysis: {selected_flow}", expanded=True):
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            # Waterfall Chart
-            if seq['state_durations']:
-                fig_steps = px.bar(
-                    x=seq['state_names'][:-1],
-                    y=seq['state_durations'],
-                    labels={'x': 'Process Step', 'y': 'Days'},
-                    title='Step Durations'
-                )
-                st.plotly_chart(fig_steps, use_container_width=True)
-        
-        with col2:
-            # Timeline Visualization
-            if seq['state_durations']:
-                cumulative = np.cumsum([0] + seq['state_durations'])
-                fig_time = px.line(
-                    x=range(len(cumulative)),
-                    y=cumulative,
-                    markers=True,
-                    labels={'x': 'Step Number', 'y': 'Cumulative Days'},
-                    title='Cumulative Timeline'
-                )
-                st.plotly_chart(fig_time, use_container_width=True)
-        
-        st.markdown(f"**Full Flow Path:** {flow_info['Flow']}")
-        st.markdown(f"**Total Processes:** {seq['count']} | **Average Total Duration:** {flow_info['Avg. Days']:.1f} days")
-
+    except Exception as e:
+        st.error(f"Error displaying flow details: {str(e)}")
 
 
 # Load processed data from previous steps
@@ -133,11 +141,14 @@ with tab1:
     
     st.plotly_chart(fig_bubble, use_container_width=True)
     
-    # Flow selection and details
+    # In the main function, modify the bubble chart section:
     selected_point = plotly_events(fig_bubble, click_event=True)
     if selected_point:
-        selected_flow = bubble_df.iloc[selected_point[0]['pointIndex']]['Flow']
-        show_flow_details(selected_flow, legend_df, state_groups)
+        try:
+            selected_flow = bubble_df.iloc[selected_point[0]['pointIndex']]['Flow']
+            show_flow_details(selected_flow, legend_df, state_groups)
+        except Exception as e:
+            st.error(f"Error processing selection: {str(e)}")
 
 with tab2:
     # Heatmap Visualization
