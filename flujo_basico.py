@@ -150,7 +150,7 @@ if "filtered_data" in st.session_state and "base_data" in st.session_state:
         
         selected_min_date, selected_max_date = selected_dates
         st.subheader(f"Datos para el rango de fechas seleccionado {selected_min_date} - {selected_max_date}") 
-        #st.markdown(f":red[Datos para expedientes iniciados entre **{selected_min_date}** y  **{selected_max_date}**]")
+        st.markdown(f":red[Datos para expedientes iniciados entre **{selected_min_date}** y  **{selected_max_date}**]")
         # Filtered metrics
         filtered_total = len(filtered_processed)
         filtered_finalized = filtered_processed['contains_selected'].sum()
