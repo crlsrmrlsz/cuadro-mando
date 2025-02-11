@@ -168,6 +168,11 @@ with tab1:
     # We use drop_duplicates('Flow') to have one bar per flow.
     df_perc = viz_df.drop_duplicates('Flow')
     
+    # Create a dictionary mapping Code -> Sequence from legend_df
+    sequence_mapping = legend_df.set_index('Code')['Sequence'].to_dict()
+    total_mapping = legend_df.set_index('Code')['Total'].to_dict()
+    avg_duration_mapping = legend_df.set_index('Code')['Avg Duration'].to_dict()
+
     fig_perc = go.Figure()
     fig_perc.add_trace(go.Bar(
         x=df_perc['Percentage'],
@@ -175,7 +180,10 @@ with tab1:
         orientation='h',
         text=df_perc['Percentage'].apply(lambda x: f"{x:.1f}%"),
         textposition='outside',
-        hovertemplate="%{x:.1f}%<extra></extra>",  # Custom hover text
+        customdata=df_perc['Flow'].apply(
+            lambda x: [total_mapping.get(x, ''), avg_duration_mapping.get(x, '')]
+        ).tolist(),
+        hovertemplate="<b>Total expedientes:</b> %{customdata[0]}<br><b>Duración media:</b> %{customdata[1]}<extra></extra>",
         marker_color='#1f77b4'  # Change the color as desired
     ))
     
@@ -255,3 +263,4 @@ with tab1:
         hide_index=True,
         use_container_width=True
     )
+    st.dataframe(viz_df)

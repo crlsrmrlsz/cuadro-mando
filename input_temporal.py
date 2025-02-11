@@ -181,7 +181,7 @@ with tab4:
     
     # Usamos los datos cacheados de tab2
     freq = 'Mensual'
-    df_provincia = compute_provincia(expedientes, freq, selected_dates)
+    df_provincia = compute_provincia(expedientes, freq, selected_dates, selected_procedure)
     
     df_subset = df_provincia[['fecha_registro_exp', 'provincia', 'total_exp']].rename(columns={
         'fecha_registro_exp': 'Fecha inicio mes',
