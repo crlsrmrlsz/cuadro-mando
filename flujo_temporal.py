@@ -8,9 +8,10 @@ Created on Thu Jan 30 19:19:18 2025
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import numpy as np
 
-max_percetage_show = 3
+max_percetage_show = 2
 
 # Cache critical data processing with relevant parameters
 @st.cache_data
@@ -108,7 +109,7 @@ def create_visualizations(flow_data, state_names):
             'Sequence': " → ".join(states),
             'Percentage': f"{flow['percentage']}%",
             'Total': flow['count'],
-            'Avg Duration': f"{sum(flow['durations']):.1f} days"
+            'Avg Duration': f"{sum(flow['durations']):.0f} días"
         })
         
         # Add visualization data for each transition
@@ -123,81 +124,134 @@ def create_visualizations(flow_data, state_names):
     return pd.DataFrame(legend_data), pd.DataFrame(viz_data)
 
 
-
-st.subheader("Análisis de Flujos Principales")
-
-# Validate session state
-if "filtered_data" not in st.session_state:
-    st.error("Cargue los datos desde la página principal primero.")
-
-
-# Get required data
-state_names = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
-selected_states = [int(s) for s in st.session_state.selected_final_states]
-
-# Process data with caching
-flow_data, total = process_flows(
-    st.session_state.filtered_data['tramites'],
-    selected_states,
-    st.session_state.selected_procedure,
-    st.session_state.selected_dates
-)
-
-if not flow_data:
-    st.warning("No hay flujos que cumplan el criterio del 3%")
+##########################
+# INTERFAZ DE USUARIO
+##########################
+tab1, tab2, tab3 = st.tabs([
+    "Flujos principales", 
+    "Diagrama de flujo", 
+    "Complejidad"
+])
 
 
-# Create visualizations
-legend_df, viz_df = create_visualizations(flow_data, state_names)
-
-# Create percentage chart
-fig_perc = px.bar(
-    viz_df.drop_duplicates('Flow'),
-    x='Percentage',
-    y='Flow',
-    orientation='h',
-    text='Percentage',
-    labels={'Percentage': '% de Procesos'},
-    height=400
-)
-fig_perc.update_traces(texttemplate='%{x:.1f}%', textposition='inside')
-fig_perc.update_layout(xaxis_range=[0, 100], margin=dict(r=20))
-
-#transition_order = viz_df['Transition'].unique().tolist()
-transition_order = viz_df['Transition'].tolist()
-
-# Create duration chart
-fig_dur = px.bar(
-    viz_df,
-    x='Duration',
-    y='Flow',
-    color='Transition',
-    orientation='h',
-    labels={'Duration': 'Días Promedio'},
-    height=400,
-    category_orders={'Transition': transition_order}  # Enforce chronological order
-)
-fig_dur.update_layout(barmode='stack', margin=dict(l=20))
-
-# Display charts
-col1, col2 = st.columns([1, 2])
-with col1:
-    st.plotly_chart(fig_perc, use_container_width=True)
-with col2:
-    st.plotly_chart(fig_dur, use_container_width=True)
-
-# Show legend
-st.divider()
-st.write("**Leyenda de Flujos:**")
-st.dataframe(
-    legend_df[['Code', 'Sequence', 'Percentage', 'Total', 'Avg Duration']],
-    column_config={
-        'Code': 'Código',
-        'Sequence': 'Secuencia completa',
-        'Percentage': '% Procesos',
-        'Total': 'Total',
-        'Avg Duration': 'Duración total'
-    },
-    hide_index=True,
-    use_container_width=True
-)
+with tab1:
+    st.subheader("Análisis de Flujos Principales")
+    st.markdown(f"Se muestran los flujos que representan más del {max_percetage_show}% de los procesos finalizados, de acuerdo a los estados finales seleccionados y en el rango de fechas seleccionado")
+    
+    # Validate session state
+    if "filtered_data" not in st.session_state:
+        st.error("Cargue los datos desde la página principal primero.")
+    
+    
+    # Get required data
+    state_names = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
+    selected_states = [int(s) for s in st.session_state.selected_final_states]
+    
+    # Process data with caching
+    flow_data, total = process_flows(
+        st.session_state.filtered_data['tramites'],
+        selected_states,
+        st.session_state.selected_procedure,
+        st.session_state.selected_dates
+    )
+    
+    if not flow_data:
+        st.warning("No hay flujos que cumplan el criterio del 3%")
+    
+    
+    # Create visualizations
+    legend_df, viz_df = create_visualizations(flow_data, state_names)
+    
+    
+    # ------------------------------------------------------
+    # Build the left chart: Percentage chart (using Graph Objects)
+    # We use drop_duplicates('Flow') to have one bar per flow.
+    df_perc = viz_df.drop_duplicates('Flow')
+    
+    fig_perc = go.Figure()
+    fig_perc.add_trace(go.Bar(
+        x=df_perc['Percentage'],
+        y=df_perc['Flow'],
+        orientation='h',
+        text=df_perc['Percentage'].apply(lambda x: f"{x:.1f}%"),
+        textposition='outside',
+        hovertemplate="%{x:.1f}%<extra></extra>",  # Custom hover text
+        marker_color='#1f77b4'  # Change the color as desired
+    ))
+    
+    max_perc = df_perc['Percentage'].max()  # assuming df_perc holds your per-flow percentage values
+    # Hide the x-axis (only show the y-axis and its label) to save space.
+    fig_perc.update_layout(
+        height=400,
+        template='plotly_white',
+        margin=dict(l=20, r=10, t=20, b=20),
+        xaxis_title="% de Procesos",
+        yaxis=dict(title='% de Procesos', autorange="reversed"),
+        xaxis_range=[0, max_perc * 1.2]
+    )
+    
+    # ------------------------------------------------------
+    # Build the right chart: Duration chart with manual stacking
+    
+    # Generate a fixed color map for transitions
+    transition_colors = {}  
+    color_palette = px.colors.qualitative.Set3  
+    color_index = 0
+    
+    # Assign colors to each unique transition
+    for transition in viz_df['Transition'].unique():
+        transition_colors[transition] = color_palette[color_index % len(color_palette)]
+        color_index += 1
+    
+    fig_dur = go.Figure()
+    
+    # Group by 'Flow' while maintaining order
+    for flow, group in viz_df.groupby('Flow', sort=False):
+        cumulative = 0  
+    
+        for _, row in group.iterrows():
+            fig_dur.add_trace(go.Bar(
+                x=[row['Duration']],
+                y=[flow],
+                base=cumulative,
+                orientation='h',
+                hovertemplate=f"{row['Transition']}: {row['Duration']:.0f} días<extra></extra>",
+                marker=dict(color=transition_colors[row['Transition']])  # Assign consistent color
+            ))
+            cumulative += row['Duration']
+    
+    fig_dur.update_layout(
+        height=400,
+        template='plotly_white',
+        xaxis_title="Días Promedio",
+        margin=dict(l=10, r=20, t=20, b=20),
+        barmode='overlay',  
+        yaxis=dict(categoryorder="array", 
+                   visible=False, 
+                   autorange="reversed"),  
+        showlegend=False  # Completely remove the legend
+    )
+    
+    # ------------------------------------------------------
+    # Display the charts side-by-side using Streamlit columns.
+    col1, col2 = st.columns([1, 3])
+    with col1:
+        st.plotly_chart(fig_perc, use_container_width=True)
+    with col2:
+        st.plotly_chart(fig_dur, use_container_width=True)
+    
+    # Show legend
+    st.divider()
+    st.write("**Leyenda de Flujos:**")
+    st.dataframe(
+        legend_df[['Code', 'Sequence', 'Percentage', 'Total', 'Avg Duration']],
+        column_config={
+            'Code': 'Código',
+            'Sequence': 'Secuencia completa',
+            'Percentage': '% Procesos',
+            'Total': 'Total',
+            'Avg Duration': 'Duración total'
+        },
+        hide_index=True,
+        use_container_width=True
+    )
