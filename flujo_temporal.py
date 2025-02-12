@@ -93,7 +93,7 @@ def process_flows(_tramites, selected_states, selected_procedure, selected_dates
             'durations': avg_durations
         })
     
-    return flow_data, total_processes    
+    return flow_data, total_processes, filtered_processes    
 
 
 def create_visualizations(flow_data, state_names):
@@ -143,8 +143,8 @@ if "filtered_data" not in st.session_state:
 state_names = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
 selected_states = [int(s) for s in st.session_state.selected_final_states]
 
-# Process data with caching
-flow_data, total = process_flows(
+# Process data with caching (MODIFIED to capture filtered_processes)
+flow_data, total, filtered_processes = process_flows(  # Changed to receive 3 values
     st.session_state.filtered_data['tramites'],
     selected_states,
     st.session_state.selected_procedure,
@@ -159,14 +159,14 @@ if not flow_data:
 # -------------------------------
 with tab1:
     st.subheader("Análisis de Flujos Principales")
-    st.markdown(
-        f"Se muestran los flujos que representan más del {MIN_PERCENTAGE_SHOW}% de los procesos finalizados, "
-        "de acuerdo a los estados finales seleccionados y en el rango de fechas seleccionado."
-    )
-    
+    st.info(f"""Identifica los flujos más comunes y el tiempo medio que se dedica a cada transición de estados.
+                   Sólo se muestran los flujos que representan más del {MIN_PERCENTAGE_SHOW}% del total""",  icon="🕵️‍♂️")
     # Create visualizations
     legend_df, viz_df = create_visualizations(flow_data, state_names)
     
+    # Parameter: desired bar thickness in pixels (for horizontal bars)
+    BAR_PIXEL_HEIGHT = 50
+
     # --- Left Chart: Percentage Bar Chart ---
     df_perc = viz_df.drop_duplicates('Flow')
     
@@ -190,8 +190,12 @@ with tab1:
     ))
     
     max_perc = df_perc['Percentage'].max()
+    
+    # Compute height: one row per bar plus top and bottom margins (20 each)
+    height_perc = int(len(df_perc) * BAR_PIXEL_HEIGHT + 20 + 20)
+    
     fig_perc.update_layout(
-        height=400,
+        height=height_perc,
         template='plotly_white',
         margin=dict(l=20, r=10, t=20, b=20),
         xaxis_title="% de Procesos",
@@ -221,7 +225,7 @@ with tab1:
             cumulative += row['Duration']
     
     fig_dur.update_layout(
-        height=400,
+        height=height_perc,
         template='plotly_white',
         xaxis_title="Días Promedio",
         margin=dict(l=10, r=20, t=20, b=20),
@@ -263,18 +267,19 @@ with tab1:
             values=[df[col] for col in df.columns],
             fill_color='whitesmoke',
             font=dict(color='black', size=12),
-            align='center'
+            align='center',
+            height=30
         ),
-        columnwidth=[80, 400, 80, 80, 80]
+        columnwidth=[30, 400, 50, 30, 60]
     )])
     fig.update_layout(
         margin=dict(l=20, r=20, t=0, b=20)
     )
     # Display the Plotly table in Streamlit with container width
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=False)
 
 # -------------------------------
-# TAB 2: Complejidad (Placeholder)
+# TAB 2: Diagrama de flujo
 # -------------------------------
 with tab2:
     st.subheader("Diagrama de Flujo")
@@ -291,6 +296,10 @@ with tab2:
     if not selected_flows_gv:
         st.warning("Seleccione al menos un flujo para visualizar")
         st.stop()
+    
+    
+    st.markdown("")
+    st.markdown("")
     
     # Aggregate transitions from the selected flows (similar to the Sankey tab)
     nodes_set = set()
@@ -337,9 +346,48 @@ with tab2:
     dot_str = "\n".join(dot_lines)
     
     # Render the Graphviz diagram in Streamlit.
-    col_graphviz_1, col_graphviz_2, col_graphviz_3 = st.columns([1,6,1])
+    col_graphviz_1, col_graphviz_2, col_graphviz_3 = st.columns([1,1,1])
     with col_graphviz_2:
         st.graphviz_chart(dot_str)
+
+    # New checkbox and dataframe display
+    if st.checkbox("Mostrar trámites de los flujos seleccionados", key="show_tramites_df"):
+        # Get selected sequences
+        selected_sequences = [tuple(flow['sequence']) for flow in selected_flows_gv]
+        
+        # Find matching expeditions
+        mask = filtered_processes['all_states'].apply(tuple).isin(selected_sequences)
+        matching_ids = filtered_processes[mask]['id_exp'].unique()
+        
+        # Filter and display tramites
+        tramites_df = st.session_state.filtered_data['tramites']
+        filtered_tramites = tramites_df[tramites_df['id_exp'].isin(matching_ids)]
+        
+        # Add state names using the dictionary mapping
+        filtered_tramites['Estado'] = filtered_tramites['num_tramite'].apply(
+            lambda x: state_names.get(x, f"S-{x}")  # Handle missing states
+        )
+        
+        # Select specific columns to show
+        filtered_tramites = filtered_tramites[[
+            'id_exp',
+            'Estado',          # Our new column with state names
+            'fecha_tramite',   # Keep original date
+            'unidad_tramitadora' 
+        ]]
+        
+        st.write(f"**Trámites para {len(matching_ids)} expedientes seleccionados:**")
+        st.dataframe(
+            filtered_tramites,
+            column_config={
+                "id_exp": "Expediente",
+                "Estado": "Estado del trámite",
+                "fecha_tramite": "Fecha del trámite",
+                "unidad_tramitadora":  "Unidad Tramitadora"                
+            },
+            hide_index=True,
+            use_container_width=False
+        )
 
 
 with tab3:
