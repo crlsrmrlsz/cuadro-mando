@@ -11,9 +11,28 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 
-max_percetage_show = 2
+# Global constant for the minimum percentage to show a flow
+MIN_PERCENTAGE_SHOW = 2
 
-# Cache critical data processing with relevant parameters
+# ------------------------------------------
+# Helper Functions
+# ------------------------------------------
+def generate_flow_info(flow, idx, state_names):
+    """
+    Given a flow record, its index, and the mapping of state names,
+    return a tuple containing:
+      - code (e.g. "F01"),
+      - list of state names,
+      - full sequence as a string,
+      - label string for display.
+    """
+    code = f"F{idx:02d}"
+    states = [str(state_names.get(s, f"S-{s}")) for s in flow['sequence']]
+    full_sequence = " → ".join(states)
+    label = f"{code}: ({flow['percentage']}%) {full_sequence} "
+    return code, states, full_sequence, label
+
+
 @st.cache_data
 def process_flows(_tramites, selected_states, selected_procedure, selected_dates):
     # Process tramites data
@@ -22,8 +41,9 @@ def process_flows(_tramites, selected_states, selected_procedure, selected_dates
     # Calculate step durations
     tramites_sorted['next_fecha'] = tramites_sorted.groupby('id_exp')['fecha_tramite'].shift(-1)
     tramites_sorted['duration'] = (
-        (tramites_sorted['next_fecha'] - tramites_sorted['fecha_tramite']).dt.total_seconds() / 86400
-    ).fillna(0)  # Explicitly handle last step duration
+        (tramites_sorted['next_fecha'] - tramites_sorted['fecha_tramite'])
+        .dt.total_seconds() / 86400
+    ).fillna(0)  # Explicitly handle the last step duration
     
     # Group by expedition
     process_states = tramites_sorted.groupby('id_exp').agg(
@@ -31,34 +51,26 @@ def process_flows(_tramites, selected_states, selected_procedure, selected_dates
         durations=('duration', list)
     ).reset_index()
     
-    # Filter processes containing selected states
+    # Filter processes that contain at least one of the selected states
     contains_mask = process_states['all_states'].apply(
         lambda x: any(s in selected_states for s in x)
     )
     filtered_processes = process_states[contains_mask]
     
-    # Calculate total processes for percentage calculation
+    # Total processes (for percentage calculation)
     total_processes = len(filtered_processes)
     
-
-    # Lists in Python are mutable and cannot be used as keys in dictionaries or elements in a value_counts() operation 
-    # because they are unhashable. Tuples, being immutable and hashable, can be used for counting unique occurrences.
-    # .value_counts() After converting each sequence to a tuple, .value_counts() counts how many times each unique tuple appears in the column.
-    # reset_index() : This converts the Series into a DataFrame by turning the index (the sequences) into a normal column and the counts into another column.
-    # Count sequence frequencies with length validation
+    # Count sequence frequencies (convert lists to tuples to make them hashable)
     seq_counts = filtered_processes['all_states'].apply(tuple).value_counts().reset_index()
     seq_counts.columns = ['sequence', 'count']
     seq_counts['percentage'] = (seq_counts['count'] / total_processes * 100).round(1)
-    major_seqs = seq_counts[seq_counts['percentage'] >= max_percetage_show].sort_values('count', ascending=False)
     
-
+    # Select only those sequences that meet the minimum percentage threshold
+    major_seqs = seq_counts[seq_counts['percentage'] >= MIN_PERCENTAGE_SHOW].sort_values('count', ascending=False)
+    
     # Calculate accurate per-transition averages
     flow_data = []
     for seq_tuple in major_seqs['sequence']:
-        # Although the sequence is originally a tuple (which is hashable and convenient for comparisons), 
-        # converting it to a list (seq_str) makes it easier to work with later—especially if you want to display or format it
-        # tuple ('A', 'B', 'C', 'D')
-        # 
         seq = list(seq_tuple)
         seq_len = len(seq)
         
@@ -66,54 +78,44 @@ def process_flows(_tramites, selected_states, selected_procedure, selected_dates
         seq_mask = filtered_processes['all_states'].apply(tuple) == seq_tuple
         seq_durations = filtered_processes[seq_mask]['durations']
         
-        # Validate and align durations
-        aligned_durations = []
-        # For a sequence with n states, there should be n-1 transition durations (the time taken from one state to the next).
-        # So, for our example with 4 states ('A', 'B', 'C', 'D'), we want only 3 durations.
-        for dur_list in seq_durations:
-            # Trim durations to match sequence transitions (n-1 durations for n states)
-            aligned_durations.append(dur_list[:seq_len-1])
+        # Align durations (only consider n-1 durations for a sequence of n states)
+        aligned_durations = [dur_list[:seq_len - 1] for dur_list in seq_durations]
         
-        # Calculate averages for each transition position
-        if aligned_durations:
-            avg_durations = np.nanmean(aligned_durations, axis=0).tolist()
-            # np.nanmean calculates the mean (average) along the specified axis while ignoring any NaN (Not a Number) values.
-            # axis=0 means it computes the mean for each column
-        else:
-            avg_durations = []
+        # Calculate averages for each transition (ignoring NaN)
+        avg_durations = np.nanmean(aligned_durations, axis=0).tolist() if aligned_durations else []
         
+        # Retrieve count and percentage from major_seqs
+        matching_row = major_seqs[major_seqs['sequence'] == seq_tuple].iloc[0]
         flow_data.append({
             'sequence': seq,
-            'count': major_seqs[major_seqs['sequence'] == seq_tuple]['count'].iloc[0],
-            'percentage': major_seqs[major_seqs['sequence'] == seq_tuple]['percentage'].iloc[0],
+            'count': matching_row['count'],
+            'percentage': matching_row['percentage'],
             'durations': avg_durations
         })
     
     return flow_data, total_processes    
 
 
-
 def create_visualizations(flow_data, state_names):
-    # Generate flow codes and legend
+    """
+    Build legend and visualization data frames using the helper function.
+    """
     legend_data = []
     viz_data = []
     
     for idx, flow in enumerate(flow_data, 1):
-        code = f"F{idx:02d}"
-        states = [str(state_names.get(s, f"S-{s}")) for s in flow['sequence']]
-        transitions = [f"{states[i]} → {states[i+1]}" for i in range(len(states)-1)]
+        code, states, full_sequence, _ = generate_flow_info(flow, idx, state_names)
+        transitions = [f"{states[i]} → {states[i+1]}" for i in range(len(states) - 1)]
         
-        # Add legend entry
         legend_data.append({
             'Code': code,
-            'Sequence': " → ".join(states),
+            'Sequence': full_sequence,
             'Percentage': f"{flow['percentage']}%",
             'Total': flow['count'],
             'Avg Duration': f"{sum(flow['durations']):.0f} días"
         })
         
-        # Add visualization data for each transition
-        for step_idx, (transition, duration) in enumerate(zip(transitions, flow['durations'])):
+        for transition, duration in zip(transitions, flow['durations']):
             viz_data.append({
                 'Flow': code,
                 'Transition': transition,
@@ -123,56 +125,54 @@ def create_visualizations(flow_data, state_names):
     
     return pd.DataFrame(legend_data), pd.DataFrame(viz_data)
 
-
-##########################
-# INTERFAZ DE USUARIO
-##########################
+# ------------------------------------------
+# INTERFACE / USER INTERFACE
+# ------------------------------------------
 tab1, tab2, tab3 = st.tabs([
     "Flujos principales", 
     "Diagrama de flujo", 
     "Complejidad"
 ])
 
+# Validate session state
+if "filtered_data" not in st.session_state:
+    st.error("Cargue los datos desde la página principal primero.")
 
+# Get required data from session state
+state_names = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
+selected_states = [int(s) for s in st.session_state.selected_final_states]
+
+# Process data with caching
+flow_data, total = process_flows(
+    st.session_state.filtered_data['tramites'],
+    selected_states,
+    st.session_state.selected_procedure,
+    st.session_state.selected_dates
+)
+
+if not flow_data:
+    st.warning(f"No hay flujos que cumplan el criterio del {MIN_PERCENTAGE_SHOW}%")
+
+# -------------------------------
+# TAB 1: Flow Analysis & Charts
+# -------------------------------
 with tab1:
     st.subheader("Análisis de Flujos Principales")
-    st.markdown(f"Se muestran los flujos que representan más del {max_percetage_show}% de los procesos finalizados, de acuerdo a los estados finales seleccionados y en el rango de fechas seleccionado")
-    
-    # Validate session state
-    if "filtered_data" not in st.session_state:
-        st.error("Cargue los datos desde la página principal primero.")
-    
-    
-    # Get required data
-    state_names = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
-    selected_states = [int(s) for s in st.session_state.selected_final_states]
-    
-    # Process data with caching
-    flow_data, total = process_flows(
-        st.session_state.filtered_data['tramites'],
-        selected_states,
-        st.session_state.selected_procedure,
-        st.session_state.selected_dates
+    st.markdown(
+        f"Se muestran los flujos que representan más del {MIN_PERCENTAGE_SHOW}% de los procesos finalizados, "
+        "de acuerdo a los estados finales seleccionados y en el rango de fechas seleccionado."
     )
-    
-    if not flow_data:
-        st.warning("No hay flujos que cumplan el criterio del 3%")
-    
     
     # Create visualizations
     legend_df, viz_df = create_visualizations(flow_data, state_names)
     
-    
-    # ------------------------------------------------------
-    # Build the left chart: Percentage chart (using Graph Objects)
-    # We use drop_duplicates('Flow') to have one bar per flow.
+    # --- Left Chart: Percentage Bar Chart ---
     df_perc = viz_df.drop_duplicates('Flow')
     
-    # Create a dictionary mapping Code -> Sequence from legend_df
-    sequence_mapping = legend_df.set_index('Code')['Sequence'].to_dict()
+    # Build mapping dictionaries for hover information
     total_mapping = legend_df.set_index('Code')['Total'].to_dict()
     avg_duration_mapping = legend_df.set_index('Code')['Avg Duration'].to_dict()
-
+    
     fig_perc = go.Figure()
     fig_perc.add_trace(go.Bar(
         x=df_perc['Percentage'],
@@ -183,12 +183,12 @@ with tab1:
         customdata=df_perc['Flow'].apply(
             lambda x: [total_mapping.get(x, ''), avg_duration_mapping.get(x, '')]
         ).tolist(),
-        hovertemplate="<b>Total expedientes:</b> %{customdata[0]}<br><b>Duración media:</b> %{customdata[1]}<extra></extra>",
-        marker_color='#1f77b4'  # Change the color as desired
+        hovertemplate="<b>Total expedientes:</b> %{customdata[0]}<br>"
+                      "<b>Duración media:</b> %{customdata[1]}<extra></extra>",
+        marker_color='#1f77b4'
     ))
     
-    max_perc = df_perc['Percentage'].max()  # assuming df_perc holds your per-flow percentage values
-    # Hide the x-axis (only show the y-axis and its label) to save space.
+    max_perc = df_perc['Percentage'].max()
     fig_perc.update_layout(
         height=400,
         template='plotly_white',
@@ -198,25 +198,16 @@ with tab1:
         xaxis_range=[0, max_perc * 1.2]
     )
     
-    # ------------------------------------------------------
-    # Build the right chart: Duration chart with manual stacking
-    
-    # Generate a fixed color map for transitions
-    transition_colors = {}  
-    color_palette = px.colors.qualitative.Set3  
-    color_index = 0
-    
-    # Assign colors to each unique transition
-    for transition in viz_df['Transition'].unique():
-        transition_colors[transition] = color_palette[color_index % len(color_palette)]
-        color_index += 1
+    # --- Right Chart: Duration Stacked Bar Chart ---
+    # Create a fixed color map for transitions
+    transition_colors = {}
+    color_palette = px.colors.qualitative.Set3
+    for i, transition in enumerate(viz_df['Transition'].unique()):
+        transition_colors[transition] = color_palette[i % len(color_palette)]
     
     fig_dur = go.Figure()
-    
-    # Group by 'Flow' while maintaining order
     for flow, group in viz_df.groupby('Flow', sort=False):
         cumulative = 0  
-    
         for _, row in group.iterrows():
             fig_dur.add_trace(go.Bar(
                 x=[row['Duration']],
@@ -224,7 +215,7 @@ with tab1:
                 base=cumulative,
                 orientation='h',
                 hovertemplate=f"{row['Transition']}: {row['Duration']:.0f} días<extra></extra>",
-                marker=dict(color=transition_colors[row['Transition']])  # Assign consistent color
+                marker=dict(color=transition_colors[row['Transition']])
             ))
             cumulative += row['Duration']
     
@@ -233,22 +224,19 @@ with tab1:
         template='plotly_white',
         xaxis_title="Días Promedio",
         margin=dict(l=10, r=20, t=20, b=20),
-        barmode='overlay',  
-        yaxis=dict(categoryorder="array", 
-                   visible=False, 
-                   autorange="reversed"),  
-        showlegend=False  # Completely remove the legend
+        barmode='overlay',
+        yaxis=dict(categoryorder="array", visible=False, autorange="reversed"),
+        showlegend=False
     )
     
-    # ------------------------------------------------------
-    # Display the charts side-by-side using Streamlit columns.
+    # Display the two charts side-by-side
     col1, col2 = st.columns([1, 3])
     with col1:
         st.plotly_chart(fig_perc, use_container_width=True)
     with col2:
         st.plotly_chart(fig_dur, use_container_width=True)
     
-    # Show legend
+    # Display the legend table
     st.divider()
     st.write("**Leyenda de Flujos:**")
     st.dataframe(
@@ -263,4 +251,103 @@ with tab1:
         hide_index=True,
         use_container_width=True
     )
-    st.dataframe(viz_df)
+
+# -------------------------------
+# TAB 2: Sankey Diagram (Vertical)
+# -------------------------------
+with tab2:
+    st.subheader("Diagrama de Flujo")
+    st.markdown(f"**Flujos principales (> {MIN_PERCENTAGE_SHOW}%):** Seleccione flujos para analizar transiciones")
+    
+    # Generate checkboxes for flow selection using the helper function
+    selected_flows = []
+    for idx, flow in enumerate(flow_data, 1):
+        code, _, _, label = generate_flow_info(flow, idx, state_names)
+        if st.checkbox(label, value=(idx == 1), key=f"flow_{code}"):
+            selected_flows.append(flow)
+    
+    if not selected_flows:
+        st.warning("Seleccione al menos un flujo para visualizar")
+        st.stop()
+    
+    # Build Sankey data by aggregating transitions
+    nodes_set = set()
+    link_counts = {}
+    link_durations = {}
+    
+    for flow in selected_flows:
+        seq = flow['sequence']
+        count = flow['count']
+        for i in range(len(seq) - 1):
+            source = seq[i]
+            target = seq[i + 1]
+            duration = flow['durations'][i] if i < len(flow['durations']) else 0
+            
+            nodes_set.update([source, target])
+            key = (source, target)
+            link_counts[key] = link_counts.get(key, 0) + count
+            link_durations[key] = link_durations.get(key, 0) + (count * duration)
+    
+    # Create node index mapping (sorted order)
+    nodes = sorted(nodes_set)
+    node_indices = {node: idx for idx, node in enumerate(nodes)}
+    
+    # Prepare Sankey links
+    links = []
+    for (source, target), count in link_counts.items():
+        avg_duration = link_durations[(source, target)] / count
+        links.append({
+            'source': node_indices[source],
+            'target': node_indices[target],
+            'value': count,
+            'customdata': [avg_duration]
+        })
+    
+    # Build the vertical Sankey diagram
+    fig_sankey = go.Figure(go.Sankey(
+        orientation='v',  # Attempt to set vertical orientation
+        node=dict(
+            #pad=300,         # Padding between nodes
+            thickness=25,   # Node thickness
+            label=[state_names.get(n, f"S-{n}") for n in nodes],
+            line=dict(color="black", width=0.5),
+            hovertemplate = "%{label}<extra></extra>"
+        ),
+        link=dict(
+            source=[l['source'] for l in links],
+            target=[l['target'] for l in links],
+            value=[l['value'] for l in links],
+            customdata=[l['customdata'] for l in links],
+            arrowlen=15,  # Set link arrow length
+            hovertemplate=(
+                "%{source.label} → %{target.label}<br>"
+                "Expedientes: %{value}<br>"
+                "Duración media: %{customdata[0]:.1f} días"
+                "<extra></extra>"
+            )
+        )
+    ))
+    
+    fig_sankey.update_layout(
+        height=800,
+        margin=dict(l=50, r=50, b=50, t=50),
+        font_size=10
+    )
+    fig_sankey.update_layout(
+        height=1200,
+        #width=800,
+        #autosize=True,
+        margin=dict(l=300, r=300, b=200, t=20),
+        font_size=10,
+        
+    )
+    # col_sankey_1, col_sankey_2, col_sankey_3 = st.columns([1, 6, 1])
+    # with col_sankey_2:
+    st.plotly_chart(fig_sankey, use_container_width=False)
+
+# -------------------------------
+# TAB 3: Complejidad (Placeholder)
+# -------------------------------
+with tab3:
+    st.subheader("Complejidad")
+    st.info("Contenido pendiente para esta sección.")
