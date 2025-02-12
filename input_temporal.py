@@ -173,7 +173,12 @@ with tab3:
         template="plotly_white",
         height=500
     )
-    
+    # Force y-axis ticks to show only integer years
+    fig_heatmap.update_yaxes(
+        tickmode='array',
+        tickvals=heatmap_data.index,
+        ticktext=[str(int(year)) for year in heatmap_data.index]
+    )
     st.plotly_chart(fig_heatmap, use_container_width=True)
 
 with tab4:
