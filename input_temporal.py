@@ -83,7 +83,7 @@ selected_procedure = st.session_state.selected_procedure
 
 with tab1:
     st.subheader("Evolución mensual de la recepción de solicitudes")
-    st.markdown("Identica periodos con mayor o menor recepción de solicitudes")
+    st.info("Identifica patrones de mayor entrada de solicitudes y posibles relaciones con eventos relacionados con el procedimiento",  icon="🕵️‍♂️")
     
     freq = 'Mensual'
     df_agregado = compute_agregado(expedientes, freq, selected_dates, selected_procedure)
@@ -110,7 +110,8 @@ with tab1:
 
 with tab2:
     st.subheader("Evolución mensual por provincia")
-    st.markdown("Bar chart apilado mostrando la distribución de solicitudes por provincia a lo largo del tiempo")
+    st.info("¿hay diferencias entre provincias en los tiempos de presentación de solicitudes?. Haz doble click en una provincia para aislar esos datos",  icon="🕵️‍♂️")
+
     
     freq = 'Mensual'
     df_provincia = compute_provincia(expedientes, freq, selected_dates, selected_procedure)
@@ -148,7 +149,8 @@ with tab2:
 
 with tab3:
     st.subheader("Mapa de calor con demanda semanal a lo largo del año")
-    st.markdown("Permite visualizar posibles patrones que se repiten anualmente")
+    st.info("El mapa de calor permite visualizar posibles semanas o periodos anuales en que se presentan más solicitudes",  icon="🕵️‍♂️")
+
 
     df_week, heatmap_data, custom_data = compute_heatmap_data(expedientes, selected_dates, selected_procedure)
     

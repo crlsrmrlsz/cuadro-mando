@@ -402,12 +402,8 @@ with tab2:
 
 with tab3:
     st.subheader("Análisis de complejidad")
-    st.markdown(
-        """
-        Este gráfico muestra la relación entre la complejidad del flujo (número de pasos) y la 
-        duración total promedio, con el tamaño de la burbuja representando la cantidad de procesos que siguen cada flujo.
-        """
-    )
+    st.info(f"""Mayor númeo de pasos suele implicar mayor tiempo. Visualiza el vollumen de procesos que tiene más pasos y tardan más.
+                   Sólo se muestran los flujos que representan más del {MIN_PERCENTAGE_SHOW}% del total""",  icon="🕵️‍♂️")
     
     # Prepare data for the bubble scatter plot using generate_flow_info for consistency.
     bubble_data = []

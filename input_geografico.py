@@ -261,7 +261,7 @@ tab1, tab2, tab3, tab4 = st.tabs([
 
 with tab1:
     st.subheader("Número de solicitudes por Provincia")
-    st.markdown("Distribución geográfica de la demanda, identifica provincias con más solicitudes, en qué areas se reciben menos solicitudes electrónicas o el porcentaje de peronas jurídicas")
+    st.info("¿En qué provincias se presentan más solicitudes? identifica zonas, a nivel municipio que presentan más o que no lo utilizan",  icon="🕵️‍♂️") 
     
     col_tab1_prov_1, col_tab1_prov_2 = st.columns([0.7, 0.3])
     with col_tab1_prov_1:
@@ -287,7 +287,8 @@ with tab1:
 # --- TAB 2: Digitalización (usa columna "online" y "%_online") ---
 with tab2:
     st.subheader("Porcentaje de expedientes solicitados de manera telemática")
-    st.markdown("Identifica las áreas que más utilizan la administración electrónica")
+    st.info("El uso de la presentación telemática puede reflejar patrones de digitalización en el sector",  icon="🕵️‍♂️") 
+
     
     col_tab2_prov_1, col_tab2_prov_2 = st.columns([0.7, 0.3])
     with col_tab2_prov_1:
