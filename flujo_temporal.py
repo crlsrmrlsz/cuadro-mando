@@ -238,20 +238,40 @@ with tab1:
         st.plotly_chart(fig_dur, use_container_width=True)
     
     # Display the legend table
-    st.divider()
-    st.write("**Leyenda de Flujos:**")
-    st.dataframe(
-        legend_df[['Code', 'Sequence', 'Percentage', 'Total', 'Avg Duration']],
-        column_config={
+    #st.divider()
+    st.markdown("**Leyenda de Flujos:**")
+
+    df = legend_df[['Code', 'Sequence', 'Percentage', 'Total', 'Avg Duration']].rename(
+        columns={
             'Code': 'Código',
             'Sequence': 'Secuencia completa',
             'Percentage': '% Procesos',
             'Total': 'Total',
             'Avg Duration': 'Duración total'
-        },
-        hide_index=True,
-        use_container_width=True
+        }
+    ).reset_index(drop=True)
+    
+    # Create a Plotly table figure with custom styling
+    fig = go.Figure(data=[go.Table(
+        header=dict(
+            values=list(df.columns),
+            fill_color='aliceblue',
+            font=dict(color='black', size=14),
+            align='center'
+        ),
+        cells=dict(
+            values=[df[col] for col in df.columns],
+            fill_color='whitesmoke',
+            font=dict(color='black', size=12),
+            align='center'
+        ),
+        columnwidth=[80, 400, 80, 80, 80]
+    )])
+    fig.update_layout(
+        margin=dict(l=20, r=20, t=0, b=20)
     )
+    # Display the Plotly table in Streamlit with container width
+    st.plotly_chart(fig, use_container_width=True)
 
 # -------------------------------
 # TAB 2: Complejidad (Placeholder)
