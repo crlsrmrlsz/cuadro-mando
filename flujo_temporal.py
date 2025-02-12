@@ -17,6 +17,45 @@ MIN_PERCENTAGE_SHOW = 2
 # ------------------------------------------
 # Helper Functions
 # ------------------------------------------
+
+def plot_legend_table(legend_df, unique_key):
+    """
+    Render a Plotly table with the legend information.
+    """
+    # Prepare the DataFrame for the table
+    table_df = legend_df[['Code', 'Sequence', 'Percentage', 'Total', 'Avg Duration']].rename(
+        columns={
+            'Code': 'Código',
+            'Sequence': 'Secuencia completa',
+            'Percentage': '% Procesos',
+            'Total': 'Total',
+            'Avg Duration': 'Duración total'
+        }
+    ).reset_index(drop=True)
+    
+    # Create a Plotly table figure with custom styling
+    fig = go.Figure(data=[go.Table(
+        header=dict(
+            values=list(table_df.columns),
+            fill_color='aliceblue',
+            font=dict(color='black', size=14),
+            align='center'
+        ),
+        cells=dict(
+            values=[table_df[col] for col in table_df.columns],
+            fill_color='whitesmoke',
+            font=dict(color='black', size=12),
+            align='center',
+            height=30
+        ),
+        columnwidth=[30, 400, 50, 30, 60]
+    )])
+    fig.update_layout(
+        margin=dict(l=20, r=20, t=0, b=20)
+    )
+    st.plotly_chart(fig, use_container_width=False, key=unique_key)
+
+
 def generate_flow_info(flow, idx, state_names):
     """
     Given a flow record, its index, and the mapping of state names,
@@ -245,38 +284,9 @@ with tab1:
     #st.divider()
     st.markdown("**Leyenda de Flujos:**")
 
-    df = legend_df[['Code', 'Sequence', 'Percentage', 'Total', 'Avg Duration']].rename(
-        columns={
-            'Code': 'Código',
-            'Sequence': 'Secuencia completa',
-            'Percentage': '% Procesos',
-            'Total': 'Total',
-            'Avg Duration': 'Duración total'
-        }
-    ).reset_index(drop=True)
-    
-    # Create a Plotly table figure with custom styling
-    fig = go.Figure(data=[go.Table(
-        header=dict(
-            values=list(df.columns),
-            fill_color='aliceblue',
-            font=dict(color='black', size=14),
-            align='center'
-        ),
-        cells=dict(
-            values=[df[col] for col in df.columns],
-            fill_color='whitesmoke',
-            font=dict(color='black', size=12),
-            align='center',
-            height=30
-        ),
-        columnwidth=[30, 400, 50, 30, 60]
-    )])
-    fig.update_layout(
-        margin=dict(l=20, r=20, t=0, b=20)
-    )
-    # Display the Plotly table in Streamlit with container width
-    st.plotly_chart(fig, use_container_width=False)
+    # Now show the legend table below the bubble plot.
+    st.markdown("**Leyenda de Flujos:**")
+    plot_legend_table(legend_df , unique_key="legend_table_tab1")
 
 # -------------------------------
 # TAB 2: Diagrama de flujo
@@ -392,7 +402,80 @@ with tab2:
 
 with tab3:
     st.subheader("Análisis de complejidad")
-    st.markdown("")
+    st.markdown(
+        """
+        Este gráfico muestra la relación entre la complejidad del flujo (número de pasos) y la 
+        duración total promedio, con el tamaño de la burbuja representando la cantidad de procesos que siguen cada flujo.
+        """
+    )
+    
+    # Prepare data for the bubble scatter plot using generate_flow_info for consistency.
+    bubble_data = []
+    for idx, flow in enumerate(flow_data, 1):
+        # Use the helper function to obtain coherent information.
+        code, states, full_sequence, label = generate_flow_info(flow, idx, state_names)
+        # Define complexity as the number of states (or pasos) in the flow.
+        complexity = len(states)
+        # Calculate total duration (in days) as an integer (rounding if necessary).
+        total_duration = int(round(sum(flow['durations'])))
+        # Number of processes following this flow.
+        count = flow['count']
+        # Percentage of total processes for this flow (optional information).
+        percentage = flow['percentage']
+        
+        bubble_data.append({
+            'Flow': code,
+            'Complejidad': complexity,
+            'Duración Total (días)': total_duration,
+            'Procesos': count,
+            '% Procesos': percentage,
+            'Secuencia': full_sequence
+        })
+    
+    df_bubble = pd.DataFrame(bubble_data)
+    
+    # Create the bubble scatter plot using Plotly Express.
+    #   - x-axis: Complejidad (número de pasos), shown as integer ticks.
+    #   - y-axis: Duración Total (días) as an integer.
+    #   - size: Procesos (number of processes following the flow).
+    #   - color: Flow (to distinguish between different flows).
+    #   - hover_name: Flow (this will appear as the title in the hover popup).
+    #   - hover_data: Additional details, excluding Flow (since it’s already shown).
+    fig_bubble = px.scatter(
+        df_bubble,
+        x='Complejidad',
+        y='Duración Total (días)',
+        size='Procesos',
+        color='Flow',
+        hover_name='Flow',
+        hover_data={
+            'Flow': False,  # Remove redundant flow code from hover data.
+            'Complejidad': True, 
+            'Duración Total (días)': True, 
+            'Procesos': True, 
+            '% Procesos': True,
+            'Secuencia': True
+        },
+        size_max=60,
+        title="Relación entre Complejidad y Duración"
+    )
+    
+    # Update layout for a cleaner presentation.
+    fig_bubble.update_layout(
+        template='plotly_white',
+        xaxis_title="Complejidad (número de pasos)",
+        yaxis_title="Duración Total (días)",
+        xaxis=dict(tickmode='linear', dtick=1),  # Ensure x-axis ticks are integers.
+        margin=dict(l=40, r=40, t=60, b=40),
+    )
+    
+    # Display the bubble chart in the Streamlit app.
+    st.plotly_chart(fig_bubble, use_container_width=True)
+    
+    # Now show the legend table below the bubble plot.
+    st.markdown("**Leyenda de Flujos:**")
+    plot_legend_table(legend_df, unique_key="legend_table_tab3")
+
 # -------------------------------
 # TAB X: Sankey Diagram (Vertical)
 # -------------------------------
