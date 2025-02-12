@@ -219,11 +219,10 @@ flujo_temporal = st.Page("flujo_temporal.py", title="Flujos de ejecución", icon
 demanda_temporal = st.Page("input_temporal.py", title="Temporal", icon="📋")
 demanda_geografico = st.Page("input_geografico.py", title="Geográfico", icon="🌍")
 estado_temporal = st.Page("estados_temporal.py", title="Cuellos de botella", icon="🎯")
-estado_acumulado = st.Page("estados_acumulado.py", title="Carga de trabajo", icon="▶️")
+
 
 nav = st.navigation({
-    "Análisis proceso": [flujo_diagrama, flujo_temporal],
+    "Análisis proceso": [flujo_diagrama, flujo_temporal, estado_temporal],
     "Análisis de la demanda": [demanda_temporal, demanda_geografico],
-    "Cuellos de botella": [estado_temporal, estado_acumulado]
 })
 nav.run()

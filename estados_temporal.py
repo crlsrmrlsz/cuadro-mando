@@ -1,201 +1,129 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jan 30 19:19:18 2025
-
-@author: flipe
-"""
-
-# -*- coding: utf-8 -*-
 import streamlit as st
 import pandas as pd
-import numpy as np
 import plotly.express as px
-from streamlit_plotly_events import plotly_events
+import plotly.graph_objects as go
+
+# Verificar session_state
+if "filtered_data" not in st.session_state:
+    st.error("Cargue los datos desde la página principal primero.")
+    st.stop()
+
+# Diccionario con nombres de estados y la lista de estados seleccionados
+state_names = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
+selected_states = [int(s) for s in st.session_state.selected_final_states]
 
 @st.cache_data
-def preprocess_visualization_data(state_groups):
-    """Preprocess data for all visualizations with caching"""
-    bubble_data = []
-    heatmap_data = []
-    flow_legend = []
+def process_flows_for_transitions(tramites, selected_states):
+    # Ordenar trámites y calcular la duración entre ellos
+    tramites_sorted = tramites.sort_values(['id_exp', 'fecha_tramite'])
+    tramites_sorted['next_fecha'] = tramites_sorted.groupby('id_exp')['fecha_tramite'].shift(-1)
+    tramites_sorted['duration'] = (
+        (tramites_sorted['next_fecha'] - tramites_sorted['fecha_tramite'])
+        .dt.total_seconds() / 86400
+    ).fillna(0)
     
-    for group_idx, group in enumerate(state_groups):
-        state_code = group['state_name'][:3].upper()
-        
-        for seq_idx, seq in enumerate(group['sequences']):
-            flow_code = f"{state_code}-{seq_idx+1:02d}"
-            total_duration = sum(seq['state_durations']) if seq['state_durations'] else 0
-            num_steps = len(seq['state_names'])
-            
-            # Add metadata for flow lookup
-            flow_metadata = {
-                'group_idx': group_idx,
-                'seq_idx': seq_idx
-            }
-            
-            # Bubble Chart Data
-            bubble_data.append({
-                'Flow': flow_code,
-                'Frequency': seq['count'],
-                'Total Duration': total_duration,
-                'Steps': num_steps,
-                'Final State': group['state_name'],
-                **flow_metadata
-            })
-            
-            # Heatmap Data
-            heat_row = {'Flow': flow_code, 'Final State': group['state_name'], **flow_metadata}
-            for step_idx, (state, duration) in enumerate(zip(seq['state_names'], seq['state_durations'])):
-                heat_row[f'Step {step_idx+1}'] = duration
-            heatmap_data.append(heat_row)
-            
-            # Flow Legend
-            flow_legend.append({
-                'Code': flow_code,
-                'Flow': " → ".join(seq['state_names']),
-                'Final State': group['state_name'],
-                'Avg. Days': total_duration,
-                'Steps': num_steps,
-                **flow_metadata
-            })
+    # Agrupar por expediente para obtener la secuencia de estados y sus duraciones
+    process_states = tramites_sorted.groupby('id_exp').agg(
+        all_states=('num_tramite', lambda x: list(x.astype(int))),
+        durations=('duration', list)
+    ).reset_index()
     
-    return pd.DataFrame(bubble_data), pd.DataFrame(heatmap_data), pd.DataFrame(flow_legend)
+    # Filtrar expedientes que contengan al menos uno de los estados seleccionados
+    return process_states[process_states['all_states'].apply(lambda x: any(s in selected_states for s in x))]
 
-def show_flow_details(selected_flow, flow_legend_df, state_groups):
-    """Display detailed breakdown for a selected flow"""
-    try:
-        flow_info = flow_legend_df[flow_legend_df['Code'] == selected_flow].iloc[0]
-        group_idx = flow_info['group_idx']
-        seq_idx = flow_info['seq_idx']
-        
-        group = state_groups[group_idx]
-        seq = group['sequences'][seq_idx]
-        
-        with st.expander(f"🔍 Detailed Analysis: {selected_flow}", expanded=True):
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                # Waterfall Chart
-                if seq['state_durations']:
-                    fig_steps = px.bar(
-                        x=seq['state_names'][:-1],
-                        y=seq['state_durations'],
-                        labels={'x': 'Process Step', 'y': 'Days'},
-                        title='Step Durations'
-                    )
-                    st.plotly_chart(fig_steps, use_container_width=True)
-            
-            with col2:
-                # Timeline Visualization
-                if seq['state_durations']:
-                    cumulative = np.cumsum([0] + seq['state_durations'])
-                    fig_time = px.line(
-                        x=range(len(cumulative)),
-                        y=cumulative,
-                        markers=True,
-                        labels={'x': 'Step Number', 'y': 'Cumulative Days'},
-                        title='Cumulative Timeline'
-                    )
-                    st.plotly_chart(fig_time, use_container_width=True)
-            
-            st.markdown(f"**Full Flow Path:** {flow_info['Flow']}")
-            st.markdown(f"**Total Processes:** {seq['count']} | **Average Total Duration:** {flow_info['Avg. Days']:.1f} days")
-    
-    except Exception as e:
-        st.error(f"Error displaying flow details: {str(e)}")
+# Procesar los trámites
+filtered_processes = process_flows_for_transitions(
+    st.session_state.filtered_data['tramites'], selected_states
+)
 
+# Calcular estadísticas de transición
+transition_stats = {}
+for _, row in filtered_processes.iterrows():
+    exp_id = row['id_exp']
+    states = row['all_states']
+    durations = row['durations']
+    for i in range(len(states) - 1):
+        transition = (states[i], states[i+1])
+        duration = durations[i]
+        if transition not in transition_stats:
+            transition_stats[transition] = {'sum_duration': 0.0, 'count': 0, 'process_ids': set()}
+        transition_stats[transition]['sum_duration'] += duration
+        transition_stats[transition]['count'] += 1
+        transition_stats[transition]['process_ids'].add(exp_id)
 
-# Load processed data from previous steps
-state_groups = st.session_state.get('state_groups', [])
+# Convertir la información en un DataFrame
+data = []
+for (src, tgt), stats in transition_stats.items():
+    count = stats['count']
+    unique_processes = len(stats['process_ids'])
+    avg_duration = stats['sum_duration'] / count if count > 0 else 0
+    src_label = state_names.get(src, f"S-{src}")
+    tgt_label = state_names.get(tgt, f"S-{tgt}")
+    data.append({
+        'Transition': f"{src_label} → {tgt_label}",
+        'Count': count,
+        'Unique Processes': unique_processes,
+        'Mean Duration': avg_duration
+    })
 
-# Preprocess data for visualizations
-bubble_df, heatmap_df, legend_df = preprocess_visualization_data(state_groups)
+df_transitions = pd.DataFrame(data)
 
-# Create tab layout
-tab1, tab2, tab3 = st.tabs(["Flow Matrix", "Step Patterns", "Flow Legend"])
+# Crear dos pestañas: una para la gráfica de barras y otra para la de dispersión
+tab_bar, tab_scatter = st.tabs(["Gráfica de Barras", "Gráfica de Dispersión"])
 
-with tab1:
-    # Interactive Bubble Chart
-    st.header("Process Flow Matrix Analysis")
-    
-    fig_bubble = px.scatter(
-        bubble_df,
-        x='Frequency',
-        y='Total Duration',
-        size='Steps',
-        color='Final State',
-        hover_name='Flow',
-        log_x=True,
-        title='Flow Characteristics: Frequency vs Duration vs Complexity'
+with tab_bar:
+    st.subheader("Gráfica de Barras Horizontal")
+    df_bar = df_transitions.sort_values("Mean Duration", ascending=True)
+    fig_bar = go.Figure(go.Bar(
+        x=df_bar["Mean Duration"],
+        y=df_bar["Transition"],
+        orientation="h",
+        text=df_bar["Mean Duration"].apply(lambda x: f"{int(round(x))} días"),
+        textposition="outside",
+        marker_color="indianred"
+    ))
+    fig_bar.update_layout(
+        template="plotly_white",
+        title="Transiciones ordenadas por Duración Media",
+        xaxis_title="Duración Media (días)",
+        yaxis_title="Transición",
+        margin=dict(l=120, r=20, t=40, b=20)
     )
-    
-    # Add trend line for reference
-    fig_bubble.add_shape(
-        type='line',
-        x0=0.9*bubble_df['Frequency'].min(),
-        y0=bubble_df['Total Duration'].median(),
-        x1=1.1*bubble_df['Frequency'].max(),
-        y1=bubble_df['Total Duration'].median(),
-        line=dict(color='gray', dash='dash')
-    )
-    
-    st.plotly_chart(fig_bubble, use_container_width=True)
-    
-    # In the main function, modify the bubble chart section:
-    selected_point = plotly_events(fig_bubble, click_event=True)
-    if selected_point:
-        try:
-            selected_flow = bubble_df.iloc[selected_point[0]['pointIndex']]['Flow']
-            show_flow_details(selected_flow, legend_df, state_groups)
-        except Exception as e:
-            st.error(f"Error processing selection: {str(e)}")
+    st.plotly_chart(fig_bar, use_container_width=True)
 
-with tab2:
-    # Heatmap Visualization
-    st.header("Step Duration Patterns")
+with tab_scatter:
+    st.subheader("Gráfica de Dispersión (Bubble Chart)")
+    # Asignar un color único a cada transición
+    transitions_list = df_transitions["Transition"].tolist()
+    color_palette = px.colors.qualitative.Plotly
+    transition_color = {
+        tran: color_palette[i % len(color_palette)] for i, tran in enumerate(transitions_list)
+    }
     
-    # Prepare heatmap data
-    heatmap_fig = px.imshow(
-        heatmap_df.set_index('Flow'),
-        aspect='auto',
-        labels=dict(x="Process Step", y="Flow", color="Days"),
-        color_continuous_scale='Viridis'
+    fig_scatter = go.Figure()
+    for _, row in df_transitions.iterrows():
+        fig_scatter.add_trace(go.Scatter(
+            x=[row["Count"]],
+            y=[row["Mean Duration"]],
+            mode="markers",
+            marker=dict(
+                size=row["Unique Processes"] * 1.5,
+                color=transition_color.get(row["Transition"], "#1f77b4"),
+                opacity=0.8
+            ),
+            name=row["Transition"],
+            hovertemplate=(
+                f"<b>{row['Transition']}</b><br>Número de casos: {row['Count']}<br>"
+                f"Duración media: {int(round(row['Mean Duration']))} días<br>"
+                f"Procesos únicos: {row['Unique Processes']}<extra></extra>"
+            )
+        ))
+    fig_scatter.update_layout(
+        template="plotly_white",
+        title="Transiciones: Número de Casos vs Duración Media",
+        xaxis_title="Número de Casos",
+        yaxis_title="Duración Media (días)",
+        legend_title="Transición",
+        margin=dict(l=40, r=40, t=60, b=40)
     )
-    
-    # Improve heatmap readability
-    heatmap_fig.update_layout(
-        xaxis_title="Process Step Number",
-        yaxis_title="Flow Code",
-        coloraxis_colorbar=dict(title="Days")
-    )
-    st.plotly_chart(heatmap_fig, use_container_width=True)
-
-with tab3:
-    # Interactive Legend Table
-    st.header("Flow Code Legend")
-    
-    # Search functionality
-    search_col1, search_col2 = st.columns(2)
-    with search_col1:
-        search_term = st.text_input("Search flows:")
-    with search_col2:
-        min_steps = st.slider("Minimum steps:", 1, 20, 1)
-    
-    # Filter legend
-    filtered_legend = legend_df[
-        (legend_df['Flow'].str.contains(search_term, case=False)) &
-        (legend_df['Steps'] >= min_steps)
-    ]
-    
-    # Display interactive table
-    st.dataframe(
-        filtered_legend,
-        column_config={
-            "Code": "Flow ID",
-            "Flow": st.column_config.TextColumn(width="large"),
-            "Avg. Days": st.column_config.NumberColumn(format="%.1f"),
-            "Steps": "Step Count"
-        },
-        height=600,
-        use_container_width=True
-    )
+    st.plotly_chart(fig_scatter, use_container_width=True)
