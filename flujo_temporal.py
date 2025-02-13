@@ -570,6 +570,7 @@ with tab1:
 # TAB 2: Diagrama de flujo
 # -------------------------------
 with tab2:
+    GRAPHVIZ_HEIGHT = 900
     st.subheader("Diagrama del flujo de tramitación")
     st.markdown(f"Selecciona uno o varios flujos de tramitación para visualizarlos en el diagrama. Solo se representan los flujos que representan más del {MIN_PERCENTAGE_SHOW}%) del total de los expedientes finalizados")
     
@@ -635,9 +636,9 @@ with tab2:
     dot_str = "\n".join(dot_lines)
     
     # Render the Graphviz diagram in Streamlit.
-    col_graphviz_1, col_graphviz_2, col_graphviz_3 = st.columns([1,1,1])
+    col_graphviz_1, col_graphviz_2, col_graphviz_3 = st.columns([1,4,1])
     with col_graphviz_2:
-        st.graphviz_chart(dot_str)
+        st.graphviz_chart(dot_str)      
 
     # New checkbox and dataframe display
     if st.checkbox("Mostrar trámites de los flujos seleccionados", key="show_tramites_df"):
@@ -707,7 +708,7 @@ with tab2:
                     st.info("No hay procesos para esta combinación en esta unidad.")
                 else:
                     dot_str_office_1 = build_dot_for_office(office_df1, state_names)
-                    col_order_1_1, col_order_1_2, col_order_1_3 = st.columns(3)
+                    col_order_1_1, col_order_1_2, col_order_1_3 = st.columns([1,5,1])
                     with col_order_1_2:
                         st.graphviz_chart(dot_str_office_1)
             
@@ -724,7 +725,7 @@ with tab2:
                     st.info("No hay procesos para esta combinación en esta unidad.")
                 else:
                     dot_str_office_2 = build_dot_for_office(office_df2, state_names)
-                    col_order_2_1, col_order_2_2, col_order_2_3 = st.columns(3)
+                    col_order_2_1, col_order_2_2, col_order_2_3 = st.columns([1,5,1])
                     with col_order_2_2:
                         st.graphviz_chart(dot_str_office_2)
 
