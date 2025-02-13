@@ -7,7 +7,7 @@ Created on Thu Jan 30 19:19:20 2025
 
 import streamlit as st
 import pandas as pd
-
+import numpy as np
 
 @st.cache_data
 def get_state_names(estados_df, selected_procedure):
@@ -23,7 +23,8 @@ def process_tramites_final(_tramites, selected_states, date_range, selected_proc
     process_states = _tramites_sorted.groupby('id_exp').agg(
         first_date=('fecha_tramite', 'min'),
         last_date=('fecha_tramite', 'max'),
-        all_states=('num_tramite', lambda x: x.astype('int16').tolist())
+        all_states=('num_tramite', lambda x: x.astype('int16').tolist()),
+        unidad_tramitadora=('unidad_tramitadora', 'first')
     ).reset_index()
     
     process_states['duration_days'] = (
@@ -35,8 +36,6 @@ def process_tramites_final(_tramites, selected_states, date_range, selected_proc
     )
     
     return process_states
-
-
 
 # Page initialization
 if "filtered_data" not in st.session_state:
@@ -59,144 +58,108 @@ state_names = get_state_names(st.session_state.estados, selected_procedure)
 selected_states = [int(s) for s in st.session_state.selected_final_states]
 tramites_texts = st.session_state.tramites_texts
 
-# Process data with date range awareness
+# Process filtered data
 filtered_processed = process_tramites_final(
     st.session_state.filtered_data['tramites'],
     selected_states,
-    selected_dates,  # Critical cache key element
+    selected_dates,
     selected_procedure
 )
 
-base_processed = process_tramites_final(
-    st.session_state.base_data['tramites'],
-    selected_states,
-    ("base_data",),  # Static identifier for base data
-    selected_procedure
-)
- 
-
-# Use the cached texts for the title and description
+# Header section
 st.header(f"{tramites_texts['descripcion']}")
 st.markdown(
     f"**Consejería:** {tramites_texts['consejeria']}  \n"
     f"**Organismo Instructor:** {tramites_texts['org_instructor']}"
 )
 
+# General Metrics for filtered data
+st.subheader("Datos generales")
 
-if "filtered_data" in st.session_state and "base_data" in st.session_state:
+total_processes = len(filtered_processed)
+finalized_count = filtered_processed['contains_selected'].sum()
+finalized_percent = (finalized_count / total_processes * 100) if total_processes > 0 else 0
+mean_duration = filtered_processed[filtered_processed['contains_selected']]['duration_days'].mean()
+
+col_gen1, col_gen2, col_gen3 = st.columns(3)
+with col_gen1:
+    st.metric("Total Expedientes iniciados", f"{total_processes:,}", border=True)
+with col_gen2:
+    st.metric("Finalizados", f"{finalized_percent:.1f}%", border=True)
+with col_gen3:
+    value = f"{mean_duration:.0f} días" if not pd.isna(mean_duration) else "N/A"
+    st.metric("Tiempo medio", value, border=True)
+
+# State-wise metrics for filtered data
+st.subheader("Datos para cada estado final")
+st.caption("Volumen y tiempos de expedientes que pasan por los estados seleccionados como finales. Si el estado seleccionado no es el último, los datos representan el tiempo hasta finalizar por completo esos expedientes")
+
+for state_num in selected_states:
+    state_name = state_names.get(state_num, f"State {state_num}")
     
-    st.subheader("Datos generales") 
+    mask = filtered_processed['all_states'].apply(lambda x: state_num in x)
+    state_count = mask.sum()
+    state_percent = (state_count / total_processes * 100) if total_processes > 0 else 0
+    state_mean = filtered_processed[mask]['duration_days'].mean()
     
-    base_expedientes = st.session_state.base_data['expedientes']
-    base_processed = process_tramites_final(
-        st.session_state.base_data['tramites'],
-        selected_states,
-        ("base_data",),
-        selected_procedure
-    )
-    filtered_processed = process_tramites_final(
-        st.session_state.filtered_data['tramites'],
-        selected_states,
-        selected_dates,
-        selected_procedure
-    )
+    cols = st.columns([1, 1, 1, 2])
+    cols[0].success(f"**{state_name}**")
+    cols[1].metric("Expedientes", state_count)
+    cols[2].metric("% del Total", f"{state_percent:.1f}%")
+    value = f"{state_mean:.0f} días" if not pd.isna(state_mean) else "N/A"
+    cols[3].metric("Tiempo Medio", value)
 
-    # --- General Metrics ---
-    total_processes = len(base_processed)
-    finalized_count = base_processed['contains_selected'].sum()
-    finalized_percent = (finalized_count / total_processes * 100) if total_processes > 0 else 0
-    mean_duration = base_processed[base_processed['contains_selected']]['duration_days'].mean()
-
-    col_gen1, col_gen2, col_gen3 = st.columns(3)
-    with col_gen1:
-        st.metric("Total Expedientes iniciados", f"{total_processes:,}", border = True)
-    with col_gen2:
-        st.metric("Finalizados", f"{finalized_percent:.1f}%", border = True)
-    with col_gen3:
-        value = f"{mean_duration:.0f} días" if not pd.isna(mean_duration) else "N/A"
-        st.metric("Tiempo medio", value, border = True)
-
-    #se muestra info por esado final si hay más de uno seleccionado
-    if (len(selected_states)>1):
-        #st.divider()
-
-        st.subheader("Datos para cada estado final")        
-        st.caption("Volumen y tiempos de expedientes que pasan por los estados seleccionados como finales. Si el estado seleccionado no es el último, los datos representan el tiempo hasta finalizar por completo esos expedientes")
-        # --- State-wise Metrics ---
-        state_names = get_state_names(st.session_state.estados, selected_procedure)
-        for state_num in selected_states:
-            state_name = state_names.get(state_num, f"State {state_num}")
-            
-            # Base metrics
-            mask = base_processed['all_states'].apply(lambda x: state_num in x)
-            state_count_base = mask.sum()
-            state_percent_base = (state_count_base / total_processes * 100) if total_processes > 0 else 0
-            state_mean_base = base_processed[mask]['duration_days'].mean()
-
-            # Create columns
-            cols = st.columns([1,1, 1, 1, 2], vertical_alignment="bottom")
-            #cols[0].markdown("Expedientes que pasan por")
-            cols[0].success(f"**{state_name}**")
-            cols[2].metric("Expedientes", state_count_base)
-            cols[3].metric("Sobre Total", f"{state_percent_base:.1f}%")
-            value = f"{state_mean_base:.0f} días" if not pd.isna(state_mean_base) else "N/A"
-            cols[4].metric("Tiempo Medio", value)
-
-    st.divider()
-    
-    # --- Comparison Section ---
-    compare = st.checkbox("Comparar datos para el rango de fechas seleccionado ")
-    if compare:
+# Unidad Tramitadora comparison
+if 'unidad_tramitadora' in filtered_processed.columns:
+    n_unidades = filtered_processed['unidad_tramitadora'].nunique(dropna=False)
+    if n_unidades > 1:
+        st.subheader("Comparación por Unidad Tramitadora")
+        st.caption("Métricas comparativas de cada unidad respecto al total general")
         
-        selected_min_date, selected_max_date = selected_dates
-        st.subheader(f"Datos para el rango de fechas seleccionado {selected_min_date} - {selected_max_date}") 
-        st.markdown(f":red[Datos para expedientes iniciados entre **{selected_min_date}** y  **{selected_max_date}**]")
-        # Filtered metrics
-        filtered_total = len(filtered_processed)
-        filtered_finalized = filtered_processed['contains_selected'].sum()
-        filtered_percent = (filtered_finalized / filtered_total * 100) if filtered_total > 0 else 0
-        filtered_duration = filtered_processed[filtered_processed['contains_selected']]['duration_days'].mean()
-    
-        cols = st.columns(3)
-        cols[0].metric("Expedientes en rango", filtered_total, border = True)
-        cols[1].metric("Finalizados", f"{filtered_percent:.1f}%", border = True)
-        value = f"{filtered_duration:.0f} días" if not pd.isna(filtered_duration) else "N/A"
-        cols[2].metric("Tiempo medio", value, border = True)
-    
-        for state_num in selected_states:
-            state_name = state_names.get(state_num, f"State {state_num}")
+        # Calculate overall metrics
+        total_filtered = len(filtered_processed)
+        finalized_filtered = filtered_processed['contains_selected'].sum()
+        finalized_percent_filtered = (finalized_filtered / total_filtered * 100) if total_filtered > 0 else 0
+        mean_duration_filtered = filtered_processed[filtered_processed['contains_selected']]['duration_days'].mean()
+        
+        # Process each unidad
+        unidades = filtered_processed['unidad_tramitadora'].unique()
+        for unidad in unidades:
+            unidad_name = unidad if pd.notna(unidad) else "No especificada"
+            mask = filtered_processed['unidad_tramitadora'] == unidad
+            unidad_data = filtered_processed[mask]
             
-            # Filtered metrics
-            mask = filtered_processed['all_states'].apply(lambda x: state_num in x)
-            state_count_filtered = int(mask.sum())
-            state_percent_filtered = int((state_count_filtered / filtered_total * 100)) if filtered_total > 0 else 0
-            state_mean_filtered = int(filtered_processed[mask]['duration_days'].mean())
-    
-            # Base metrics for comparison
-            mask_base = base_processed['all_states'].apply(lambda x: state_num in x)
-            state_count_base = int(mask_base.sum())
-            state_percent_base = int((state_count_base / total_processes * 100)) if total_processes > 0 else 0
-            state_mean_base = int(base_processed[mask_base]['duration_days'].mean())
-    
-            # Create columns with deltas
-            cols = st.columns([1,1, 1, 1, 2], vertical_alignment="bottom")
-            cols[0].success(f"**{state_name}**")
+            total_unidad = len(unidad_data)
+            finalized_unidad = unidad_data['contains_selected'].sum()
+            finalized_percent_unidad = (finalized_unidad / total_unidad * 100) if total_unidad > 0 else 0
+            mean_duration_unidad = unidad_data[unidad_data['contains_selected']]['duration_days'].mean()
             
-            # Delta for "Número"
-            delta_num = state_count_filtered - state_count_base
-            delta_num_param = delta_num if delta_num != 0 else None
-            cols[2].metric("Número", state_count_filtered, delta=delta_num_param)
+            # Calculate deltas
+            delta_percent = finalized_percent_unidad - finalized_percent_filtered
+            delta_mean = mean_duration_unidad - mean_duration_filtered if not pd.isna(mean_duration_unidad) else np.nan
             
-            # Delta for "% Total"
-            delta_percent = state_percent_filtered - state_percent_base
-            delta_percent_param = f"{delta_percent:.1f}%" if delta_percent != 0 else None
-            cols[3].metric("% Total", f"{state_percent_filtered:.1f}%", delta=delta_percent_param)
+            # Display metrics
+            cols = st.columns([2, 1, 1, 1])
+            cols[0].markdown(f"**{unidad_name}**")
+            cols[1].metric("Expedientes", total_unidad)
             
-            # Delta for "Tiempo Medio"
-            value = f"{state_mean_filtered:.0f} días" if not pd.isna(state_mean_filtered) else "N/A"
-            delta_mean = int(state_mean_filtered - state_mean_base) if not pd.isna(state_mean_filtered) else None
-            delta_mean_param = f"{delta_mean:.0f} días" if delta_mean not in (0, None) else None
-            cols[4].metric("Tiempo Medio", value, delta=delta_mean_param, delta_color="inverse")
-                     
+            # Percent finalized with delta
+            delta_percent_str = f"{delta_percent:.1f}%" if not np.isnan(delta_percent) and delta_percent != 0 else None
+            cols[2].metric(
+                "% Finalizados",
+                f"{finalized_percent_unidad:.1f}%",
+                delta=delta_percent_str,
+                delta_color="inverse" if delta_percent < 0 else "normal"
+            )
+            
+            # Mean duration with delta
+            mean_display = f"{mean_duration_unidad:.0f} días" if not pd.isna(mean_duration_unidad) else "N/A"
+            delta_mean_str = f"{delta_mean:.0f} días" if not np.isnan(delta_mean) else None
+            cols[3].metric(
+                "Tiempo Medio", 
+                mean_display,
+                delta=delta_mean_str,
+                delta_color="inverse" if delta_mean > 0 else "normal"
+            )
 
-
+st.divider()
