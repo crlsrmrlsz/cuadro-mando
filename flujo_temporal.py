@@ -12,7 +12,7 @@ import plotly.graph_objects as go
 import numpy as np
 
 # Global constant for the minimum percentage to show a flow
-MIN_PERCENTAGE_SHOW = 0
+MIN_PERCENTAGE_SHOW = 2
 
 # ------------------------------------------
 # Helper Functions
@@ -306,8 +306,8 @@ if not flow_data:
 # -------------------------------
 with tab1:
     st.subheader("Análisis de principales flujos de tramitación para toda la Comunidad")
-    st.info(f"""Identifica los flujos más comunes y el tiempo medio que se dedica a cada transición de estados.
-                   Sólo se muestran los flujos que representan más del {MIN_PERCENTAGE_SHOW}% del total""",  icon="🕵️‍♂️")
+    st.info(f"""Identifica los **flujos más comunes** y el **tiempo medio** que se dedica a **cada transición** de estados.
+                   Sólo se muestran los flujos que representan más del **{MIN_PERCENTAGE_SHOW}%** del total""",  icon="🕵️‍♂️")
     # Create visualizations
     legend_df, viz_df = create_visualizations(flow_data, state_names)
     
@@ -400,8 +400,8 @@ with tab1:
     # --------------------------------------------------------------------
     if filtered_processes['unidad_tramitadora'].nunique() > 1:
         #st.divider()
-        st.subheader("Flujos diferenciados por Unidad Tramitadora")
-        st.info("Identifica qué flujos de tramitación son más comunes en cada Unidad, compara los tiempos de cada cambios de estado entre unidades",  icon="🕵️‍♂️")
+        st.subheader("Análisis diferenciado por Unidad Tramitadora")
+        st.info("Identifica **para cada flujo de tramitación**, qué porcentaje de los expedientes tramitados en cada unidad siguen ese flujo, cuánto se tarda de media y posibles diferencias en los tiempo de tramitación",  icon="🕵️‍♂️")
         
         # Compute office-level data using our helper (see previous code)
         # This returns:
@@ -440,6 +440,7 @@ with tab1:
                     continue  # Skip flows without office-level info
                 
                 # LEFT CHART: Horizontal bar chart for % of processes per office
+                max_perc_ud = perc_flow['percentage'].max()
                 fig_left = go.Figure(go.Bar(
                     x=perc_flow['percentage'],
                     y=perc_flow['OfficeCode'],
@@ -449,6 +450,7 @@ with tab1:
                     customdata=perc_flow[['count']].values,
                     hovertemplate="<b>Total expedientes:</b> %{customdata[0]}<extra></extra>",
                     marker_color='#1f77b4'
+                    
                 ))
                 height_left = int(len(perc_flow) * BAR_PIXEL_HEIGHT_OFFICE + 80)
                 fig_left.update_layout(
@@ -456,7 +458,8 @@ with tab1:
                     template='plotly_white',
                     margin=dict(l=20, r=10, t=30, b=40),
                     xaxis_title="% de Procesos",
-                    yaxis=dict(autorange="reversed")
+                    yaxis=dict(autorange="reversed"),
+                    xaxis_range=[0, max_perc_ud * 1.2]
                 )
                 
                 # RIGHT CHART: Horizontal stacked bar chart for average durations per office.
@@ -487,7 +490,7 @@ with tab1:
                 
                 # Display the title for this flow.
                 st.markdown(f"#### {flow_title_mapping[flow_code]}")
-                col_left, col_right = st.columns(2)
+                col_left, col_right = st.columns([1,3])
                 with col_left:
                     st.plotly_chart(fig_left, use_container_width=True)
                 with col_right:
