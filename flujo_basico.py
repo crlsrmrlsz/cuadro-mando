@@ -9,6 +9,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
 
 @st.cache_data
 def get_state_names(estados_df, selected_procedure):
@@ -76,8 +77,6 @@ st.markdown(
 
 # General Metrics for filtered data in bordered container
 with st.container(border=True):
-    
-    
     total_processes = len(filtered_processed)
     finalized_count = filtered_processed['contains_selected'].sum()
     finalized_percent = (finalized_count / total_processes * 100) if total_processes > 0 else 0
@@ -85,7 +84,7 @@ with st.container(border=True):
 
     col_gen1, col_gen2, col_gen3, col_gen4 = st.columns(4)
     with col_gen1:
-        st.subheader("Datos generales")
+        st.subheader("Datos globales Comunidad")
     with col_gen2:
         st.metric("Total Expedientes iniciados", f"{total_processes:,}")
     with col_gen3:
@@ -95,8 +94,7 @@ with st.container(border=True):
         st.metric("Tiempo medio", value)
 
     # State-wise metrics in bordered container
-    if len(selected_states) > 0 and st.checkbox("Mostrar estadísticas por estado final", value= False):
-        #st.subheader("Datos para cada estado final")
+    if len(selected_states) > 0 and st.checkbox("Mostrar estadísticas por estado final", value=False):
         st.caption("Volumen y tiempos de expedientes que pasan por los estados seleccionados como finales. Si el estado seleccionado no es el último, los datos representan el tiempo hasta finalizar por completo esos expedientes")
     
         for state_num in selected_states:
@@ -116,70 +114,106 @@ with st.container(border=True):
 
 # Unidad Tramitadora comparison
 if 'unidad_tramitadora' in filtered_processed.columns:
-    # Create code mapping for long unidad names
     unidades_series = filtered_processed['unidad_tramitadora'].fillna('No especificada')
     unique_unidades = unidades_series.unique()
+    
+    # Create color mapping based on original names
+    color_sequence = px.colors.qualitative.Plotly
+    color_mapping = {unidad: color_sequence[i % len(color_sequence)] 
+                     for i, unidad in enumerate(sorted(unique_unidades))}
+    
+    # Create code mapping for display
     unidad_codes = {unidad: f'UT{i+1}' for i, unidad in enumerate(sorted(unique_unidades))}
-    color_sequence = px.colors.qualitative.Plotly  # Use plotly's default color sequence
-    
-    unidades_series_coded = unidades_series.map(unidad_codes)
-    filtered_processed['unidad_code'] = unidades_series_coded
+    filtered_processed['unidad_code'] = unidades_series.map(unidad_codes)
 
-    # Filter out unidades with 0 expedientes
     unidades_validas = unidades_series[unidades_series.isin(unidades_series.value_counts()[unidades_series.value_counts() > 0].index)]
-    n_unidades = len(unidades_validas.unique())
     
-    if n_unidades > 1:
+    if len(unidades_validas.unique()) > 1:
         with st.container(border=True):
             st.subheader("Comparación por Unidad Tramitadora")
             
-            # Create color mapping dictionary
-            color_mapping = {code: color_sequence[i % len(color_sequence)] 
-                            for i, code in enumerate(sorted(unidad_codes.values()))}
+            # Ensure units are sorted as desired
+            unidades_sorted = sorted(unidades_validas.unique(), key=lambda x: (x == 'No especificada', x))
             
-            # Create two columns for charts
             col1, col2 = st.columns(2)
             
+            # Pie Chart: Distribution of Expedientes
             with col1:
-                # Pie chart with coded names and consistent colors
-                fig_pie = px.pie(filtered_processed, 
-                                names='unidad_code',
-                                color='unidad_code',
-                                color_discrete_map=color_mapping,
-                                title="Distribución de Expedientes",
-                                height=400)
-                fig_pie.update_layout(showlegend=False)
+                # Aggregate data by unit code and unit name
+                agg_data = (
+                    filtered_processed
+                    .groupby(['unidad_code', 'unidad_tramitadora'], as_index=False)
+                    .size()
+                    .rename(columns={'size': 'count'})
+                )
+                # Add an order column based on unidades_sorted and sort the DataFrame
+                agg_data['order'] = agg_data['unidad_tramitadora'].apply(
+                    lambda x: unidades_sorted.index(x) if x in unidades_sorted else 999
+                )
+                agg_data.sort_values('order', inplace=True)
+                
+                # Create a legend label that combines the unit code and the unit name
+                agg_data['legend_label'] = agg_data['unidad_code'] + " - " + agg_data['unidad_tramitadora']
+                
+                fig_pie = go.Figure(data=[go.Pie(
+                    labels=agg_data['legend_label'],      # Legend shows combined code and name
+                    values=agg_data['count'],
+                    customdata=agg_data['unidad_tramitadora'],  # For hover: show only the unit name
+                    textinfo='percent',
+                    texttemplate='%{percent}',
+                    textposition='outside',
+                    marker=dict(colors=[color_mapping[ut] for ut in agg_data['unidad_tramitadora']]),
+                    hovertemplate="%{customdata}<br>Expedientes: %{value}<br>Porcentaje: %{percent}<extra></extra>"
+                )])
+                fig_pie.update_layout(
+                    title="Distribución de Expedientes",
+                    height=450,
+                    showlegend=True,
+                    legend=dict(
+                        orientation="h",  # Horizontal legend
+                        y=-0.1,           # Positioned under the chart
+                        x=0.5,
+                        xanchor="center"
+                    )
+                )
                 st.plotly_chart(fig_pie, use_container_width=True)
             
+            # Bar Chart: Average Duration of Finalization
             with col2:
-                # Bar chart with matching colors
-                duration_df = filtered_processed[filtered_processed['contains_selected']].groupby('unidad_code')['duration_days'].mean().reset_index()
-                fig_bar = px.bar(duration_df, 
-                                x='unidad_code',
-                                y='duration_days',
-                                color='unidad_code',
-                                color_discrete_map=color_mapping,
-                                title="Tiempo Medio de Finalización",
-                                labels={'duration_days': 'Días', 'unidad_code': 'Unidad'},
-                                height=400)
-                fig_bar.update_layout(yaxis_title="Días", showlegend=False)
+                # Compute the average duration for finalized processes
+                duration_df = (
+                    filtered_processed[filtered_processed['contains_selected']]
+                    .groupby('unidad_tramitadora', as_index=False)['duration_days']
+                    .mean()
+                )
+                duration_df['unidad_code'] = duration_df['unidad_tramitadora'].map(unidad_codes)
+                
+              
+                # Create a combined label for hover information
+                duration_df['legend_label'] = duration_df['unidad_code'] + " - " + duration_df['unidad_tramitadora']
+                
+                fig_bar = go.Figure()
+                for _, row in duration_df.iterrows():
+                    fig_bar.add_trace(go.Bar(
+                        x=[row['unidad_code']],
+                        y=[row['duration_days']],
+                        customdata=[row['legend_label']],  # Use combined label in hover data
+                        marker_color=color_mapping[row['unidad_tramitadora']],
+                        text=f"{row['duration_days']:.1f}",
+                        textposition='outside',
+                        hovertemplate="%{customdata}<br>Duración: %{y:.1f} días<extra></extra>"
+                    ))
+                fig_bar.update_layout(
+                    title="Tiempo Medio de Finalización",
+                    xaxis_title="Unidad",
+                    yaxis_title="Días",
+                    height=450,
+                    showlegend=False  # No legend on bar chart
+                )
                 st.plotly_chart(fig_bar, use_container_width=True)
-            
-            # Add unified legend
-            legend_df = pd.DataFrame([
-                {'Código': code, 'Nombre': name, 'Color': color_mapping[code]}
-                for name, code in unidad_codes.items()
-                if name in unidades_validas.unique()
-            ])
-            
 
-            st.markdown("**Códigos de Unidades Tramitadoras:**")
-            for _, row in legend_df.iterrows():
-                st.markdown(f"<span style='color:{row['Color']}'>■</span> **{row['Código']}**: {row['Nombre']}", 
-                          unsafe_allow_html=True)
-
-            # Process each unidad with correct delta colors
-            for unidad in unidades_validas.unique():
+            
+            for unidad in unidades_sorted:
                 mask = unidades_series == unidad
                 unidad_data = filtered_processed[mask]
                 code = unidad_codes[unidad]
@@ -189,30 +223,27 @@ if 'unidad_tramitadora' in filtered_processed.columns:
                 finalized_percent_unidad = (finalized_unidad / total_unidad * 100) if total_unidad > 0 else 0
                 mean_duration_unidad = unidad_data[unidad_data['contains_selected']]['duration_days'].mean()
                 
-                # Calculate deltas
                 delta_percent = finalized_percent_unidad - finalized_percent
                 delta_mean = mean_duration_unidad - mean_duration if not pd.isna(mean_duration_unidad) else np.nan
 
-               
-                # Display metrics with proper delta coloring
                 with st.container(border=True):
                     cols = st.columns([2, 1, 1, 1, 1])
-                    cols[0].markdown(f"**{code}** - {unidad}")
+                    with cols[0]:
+                        st.info(f"**{code}** - {unidad}")
+                    
                     cols[1].metric("Expedientes iniciados", total_unidad)
                     cols[2].metric("Expedientes finalizados", finalized_unidad)
                     
-                    # Percent finalized delta
                     cols[3].metric(
                         "% Finalizados",
                         f"{finalized_percent_unidad:.1f}%",
                         delta=f"{delta_percent:.1f}%" if not np.isnan(delta_percent) else None,
-                        delta_color="normal" if delta_percent >= 0 else "inverse"
+                        delta_color="normal" 
                     )
                     
-                    # Mean duration delta
                     cols[4].metric(
                         "Tiempo Medio", 
                         f"{mean_duration_unidad:.0f} días" if not pd.isna(mean_duration_unidad) else "N/A",
                         delta=f"{delta_mean:.0f} días" if not np.isnan(delta_mean) else None,
-                        delta_color="inverse" if delta_mean > 0 else "normal"  # Red if longer than average
+                        delta_color="inverse" 
                     )

@@ -18,6 +18,54 @@ MIN_PERCENTAGE_SHOW = 2
 # Helper Functions
 # ------------------------------------------
 
+
+# Helper function to build a DOT string for a given office's processes
+def build_dot_for_office(office_df, state_names):
+    """
+    Given a DataFrame (office_df) containing filtered expedients for one office,
+    build a DOT string that aggregates transitions (count and average duration).
+    """
+    nodes_set = set()
+    link_counts = {}
+    link_durations = {}
+    
+    # Loop over each process (expediente) for the office
+    for _, row in office_df.iterrows():
+        seq = row['all_states']
+        durations = row['durations']
+        for i in range(len(seq) - 1):
+            source = seq[i]
+            target = seq[i + 1]
+            d = durations[i] if i < len(durations) else 0
+            nodes_set.update([source, target])
+            key = (source, target)
+            link_counts[key] = link_counts.get(key, 0) + 1
+            link_durations[key] = link_durations.get(key, 0) + d
+    
+    # Build DOT lines
+    dot_lines = []
+    dot_lines.append("digraph ProcessFlow {")
+    dot_lines.append("  rankdir=TB;")
+    
+    # Create node IDs
+    sorted_nodes = sorted(nodes_set)
+    node_ids = {node: f"node{idx}" for idx, node in enumerate(sorted_nodes)}
+    
+    # Define nodes with their labels (using state_names mapping)
+    for node in sorted_nodes:
+        node_label = state_names.get(node, f"S-{node}")
+        dot_lines.append(f'  {node_ids[node]} [label="{node_label}"];')
+    
+    # Define edges with aggregated counts and average durations
+    for (source, target), count in link_counts.items():
+        avg_duration = link_durations[(source, target)] / count if count else 0
+        edge_label = f"Exp: {count}\\nDur: {avg_duration:.1f} días"
+        dot_lines.append(f'  {node_ids[source]} -> {node_ids[target]} [label="{edge_label}"];')
+    
+    dot_lines.append("}")
+    return "\n".join(dot_lines)
+
+
 # Helper function to draw an office-level legend table.
 def plot_office_legend_table(legend_df, unique_key):
     """
@@ -384,9 +432,9 @@ with tab1:
         # Display the two charts side-by-side
         col1, col2 = st.columns([1, 3])
         with col1:
-            st.plotly_chart(fig_perc, use_container_width=True)
+            st.plotly_chart(fig_perc, use_container_width=True, key="percent-global" )
         with col2:
-            st.plotly_chart(fig_dur, use_container_width=True)
+            st.plotly_chart(fig_dur, use_container_width=True, key="time-global")
         
         # Display the legend table
         #st.divider()
@@ -492,9 +540,9 @@ with tab1:
                 st.markdown(f"#### {flow_title_mapping[flow_code]}")
                 col_left, col_right = st.columns([1,3])
                 with col_left:
-                    st.plotly_chart(fig_left, use_container_width=True)
+                    st.plotly_chart(fig_left, use_container_width=True, key=f"{flow_code}-1")
                 with col_right:
-                    st.plotly_chart(fig_right, use_container_width=True)
+                    st.plotly_chart(fig_right, use_container_width=True, key= f"{flow_code}-2")
                 
                 # Build an office-level legend table for this flow.
                 # First, aggregate the durations (sum the durations across transitions) by office.
@@ -522,20 +570,21 @@ with tab1:
 # TAB 2: Diagrama de flujo
 # -------------------------------
 with tab2:
-    st.subheader("Diagrama de Flujo")
-    st.markdown(f"**Flujos principales (> {MIN_PERCENTAGE_SHOW}%):** Seleccione flujos para analizar transiciones")
+    st.subheader("Diagrama del flujo de tramitación")
+    st.markdown(f"Selecciona uno o varios flujos de tramitación para visualizarlos en el diagrama. Solo se representan los flujos que representan más del {MIN_PERCENTAGE_SHOW}%) del total de los expedientes finalizados")
     
     # Generate checkboxes for flow selection (reuse the helper function)
     selected_flows_gv = []
-    for idx, flow in enumerate(flow_data, 1):
-        code, _, _, label = generate_flow_info(flow, idx, state_names)
-        # Only the first checkbox is True by default, similar to tab2.
-        if st.checkbox(label, value=(idx == 1), key=f"gv_flow_{code}"):
-            selected_flows_gv.append(flow)
-    
-    if not selected_flows_gv:
-        st.warning("Seleccione al menos un flujo para visualizar")
-        st.stop()
+    with st.container(border=True):
+        for idx, flow in enumerate(flow_data, 1):
+            code, _, _, label = generate_flow_info(flow, idx, state_names)
+            # Only the first checkbox is True by default, similar to tab2.
+            if st.checkbox(label, value=(idx == 1), key=f"gv_flow_{code}"):
+                selected_flows_gv.append(flow)
+        
+        if not selected_flows_gv:
+            st.warning("Seleccione al menos un flujo para visualizar")
+            st.stop()
     
     
     st.markdown("")
@@ -629,10 +678,61 @@ with tab2:
             use_container_width=False
         )
 
+    #########################
+    # Comparador de flujos de unidades tramitadoras
+    ##############################################
+    if filtered_processes['unidad_tramitadora'].nunique() > 1:
+        
+        
+        st.subheader("Comparación de flujos de proceso de dos Unidades Tramitadoras")
+        st.info("Visualiza en los diagramas cuántos expedientes se tramitan en cada unidad y el tiempo que se tarda en cada trámite", icon="👀")
+        # Get the selected flows as tuples (as used earlier)
+        selected_sequences = [tuple(flow['sequence']) for flow in selected_flows_gv]
+        
+        # Create two equal-width columns for the comparator
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            with st.container(border=True):
+                st.subheader("Unidad Tramitadora 1")
+                # Combo selector showing the office labels (sorted alphabetically)
+                offices = sorted(filtered_processes['unidad_tramitadora'].unique())
+                selected_office_1 = st.selectbox("Seleccione la primera Unidad Tramitadora", options=offices, key="comp_office_1")
+                
+                # Filter the data for the selected office and then by selected flows
+                office_df1 = filtered_processes[filtered_processes['unidad_tramitadora'] == selected_office_1]
+                office_df1 = office_df1[office_df1['all_states'].apply(tuple).isin(selected_sequences)]
+                
+                if office_df1.empty:
+                    st.info("No hay procesos para esta combinación en esta unidad.")
+                else:
+                    dot_str_office_1 = build_dot_for_office(office_df1, state_names)
+                    col_order_1_1, col_order_1_2, col_order_1_3 = st.columns(3)
+                    with col_order_1_2:
+                        st.graphviz_chart(dot_str_office_1)
+            
+        with col2:
+            with st.container(border=True):
+                
+                st.subheader("Unidad Tramitadora 2")
+                selected_office_2 = st.selectbox("Seleccione la segunda Unidad Tramitadora", options=offices, key="comp_office_2")
+                
+                office_df2 = filtered_processes[filtered_processes['unidad_tramitadora'] == selected_office_2]
+                office_df2 = office_df2[office_df2['all_states'].apply(tuple).isin(selected_sequences)]
+                
+                if office_df2.empty:
+                    st.info("No hay procesos para esta combinación en esta unidad.")
+                else:
+                    dot_str_office_2 = build_dot_for_office(office_df2, state_names)
+                    col_order_2_1, col_order_2_2, col_order_2_3 = st.columns(3)
+                    with col_order_2_2:
+                        st.graphviz_chart(dot_str_office_2)
+
+
 
 with tab3:
     st.subheader("Análisis de complejidad")
-    st.info(f"""Mayor númeo de pasos suele implicar mayor tiempo. Visualiza el vollumen de procesos que tiene más pasos y tardan más.
+    st.info(f"""Mayor númeo de pasos suele implicar mayor tiempo. Visualiza el volumen de procesos que tiene más pasos y tardan más.
                    Sólo se muestran los flujos que representan más del {MIN_PERCENTAGE_SHOW}% del total""",  icon="🕵️‍♂️")
     
     # Prepare data for the bubble scatter plot using generate_flow_info for consistency.
@@ -696,7 +796,7 @@ with tab3:
     )
     
     # Display the bubble chart in the Streamlit app.
-    st.plotly_chart(fig_bubble, use_container_width=True)
+    st.plotly_chart(fig_bubble, use_container_width=True, key="complexity")
     
     # Now show the legend table below the bubble plot.
     st.markdown("**Leyenda de Flujos:**")

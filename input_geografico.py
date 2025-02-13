@@ -261,7 +261,7 @@ tab1, tab2, tab3, tab4 = st.tabs([
 
 with tab1:
     st.subheader("Número de solicitudes por Provincia")
-    st.info("¿En qué provincias se presentan más solicitudes? identifica zonas, a nivel municipio que presentan más o que no lo utilizan",  icon="🕵️‍♂️") 
+    st.info("¿En qué provincias se presentan más solicitudes? identifica provincias y municipios que presentan más o que no lo utilizan",  icon="🕵️‍♂️") 
     
     col_tab1_prov_1, col_tab1_prov_2 = st.columns([0.7, 0.3])
     with col_tab1_prov_1:
