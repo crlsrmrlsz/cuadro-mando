@@ -18,7 +18,6 @@ MIN_PERCENTAGE_SHOW = 2
 # Helper Functions
 # ------------------------------------------
 
-
 # Helper function to build a DOT string for a given office's processes
 def build_dot_for_office(office_df, state_names):
     """
@@ -65,35 +64,6 @@ def build_dot_for_office(office_df, state_names):
     dot_lines.append("}")
     return "\n".join(dot_lines)
 
-
-# Helper function to draw an office-level legend table.
-def plot_office_legend_table(legend_df, unique_key):
-    """
-    Render a Plotly table with the office-level legend information.
-    Expected columns: Código, Unidad Tramitadora, % Procesos, Total, Duración total.
-    """
-    fig = go.Figure(data=[go.Table(
-        header=dict(
-            values=list(legend_df.columns),
-            fill_color='aliceblue',
-            font=dict(color='black', size=14),
-            align='center'
-        ),
-        cells=dict(
-            values=[legend_df[col] for col in legend_df.columns],
-            fill_color='whitesmoke',
-            font=dict(color='black', size=12),
-            align='center',
-            height=30
-        ),
-        columnwidth=[30, 400, 50, 30, 60]
-    )])
-    custom_height = legend_df.shape[0] * 30 + 60
-    fig.update_layout(
-        height=custom_height,
-        margin=dict(l=20, r=20, t=0, b=20)
-        )
-    st.plotly_chart(fig, use_container_width=False, key=unique_key)
 
 def plot_legend_table(legend_df, unique_key):
     """
@@ -271,18 +241,21 @@ def create_office_visualizations(filtered_processes, flow_data, state_names):
     for (office, seq_tuple), group in df.groupby(['unidad_tramitadora', 'seq_tuple']):
         count = len(group)
         percentage = round(count / totals_by_office[office] * 100, 1)
-        flow_code = flow_code_mapping.get(seq_tuple, "N/A")
-        perc_list.append({
-            'Flow': flow_code,
-            'Office': office,
-            'percentage': percentage,
-            'count': count
-        })
+        flow_code = flow_code_mapping.get(seq_tuple, "N/A")    
         # Compute average durations per transition:
         seq_len = len(seq_tuple)
         durations_lists = group['durations'].tolist()
         aligned = [d[:seq_len - 1] for d in durations_lists] if seq_len > 1 else []
         avg_durs = np.nanmean(aligned, axis=0).tolist() if aligned and len(aligned[0]) > 0 else []
+        total_duration = sum(avg_durs) if avg_durs else 0
+        perc_list.append({
+            'Flow': flow_code,
+            'Office': office,
+            'percentage': percentage,
+            'count': count,
+            'total_duration': total_duration  # Add total duration
+        })
+        
         # Get transitions labels from state names
         states = [str(state_names.get(s, f"S-{s}")) for s in seq_tuple]
         transitions = [f"{states[i]} → {states[i+1]}" for i in range(len(states)-1)]
@@ -349,6 +322,7 @@ flow_data, total, filtered_processes = process_flows(  # Changed to receive 3 va
 if not flow_data:
     st.warning(f"No hay flujos que cumplan el criterio del {MIN_PERCENTAGE_SHOW}%")
 
+
 # -------------------------------
 # TAB 1: Flow Analysis & Charts
 # -------------------------------
@@ -359,9 +333,11 @@ with tab1:
     # Create visualizations
     legend_df, viz_df = create_visualizations(flow_data, state_names)
     
-    # Parameter: desired bar thickness in pixels (for horizontal bars)
-    BAR_PIXEL_HEIGHT = 50
+    flow_sequence_mapping = legend_df.set_index('Code')['Sequence'].to_dict()
 
+    # Parameter: desired bar thickness in pixels (for horizontal bars)
+    BAR_PIXEL_HEIGHT = 35
+    BARGAP_PLOT = 0.1
     # --- Left Chart: Percentage Bar Chart ---
     df_perc = viz_df.drop_duplicates('Flow')
     
@@ -377,17 +353,23 @@ with tab1:
         text=df_perc['Percentage'].apply(lambda x: f"{x:.1f}%"),
         textposition='outside',
         customdata=df_perc['Flow'].apply(
-            lambda x: [total_mapping.get(x, ''), avg_duration_mapping.get(x, '')]
+            lambda x: [
+                total_mapping.get(x, ''),
+                avg_duration_mapping.get(x, ''),
+                flow_sequence_mapping.get(x, '')  # Add sequence
+            ]
         ).tolist(),
         hovertemplate="<b>Total expedientes:</b> %{customdata[0]}<br>"
-                      "<b>Duración media:</b> %{customdata[1]}<extra></extra>",
+                      "<b>Duración media:</b> %{customdata[1]}<br>"
+                      "<extra></extra>",
         marker_color='#1f77b4'
     ))
+    fig_perc.update_traces(hoverlabel=dict(namelength=-1))
     
     max_perc = df_perc['Percentage'].max()
     
     # Compute height: one row per bar plus top and bottom margins (20 each)
-    height_perc = int(len(df_perc) * BAR_PIXEL_HEIGHT + 20 + 20)
+    height_perc = int(len(df_perc) * BAR_PIXEL_HEIGHT + 20 + 30)
     
     fig_perc.update_layout(
         height=height_perc,
@@ -395,7 +377,8 @@ with tab1:
         margin=dict(l=20, r=10, t=20, b=20),
         xaxis_title="% de Procesos",
         yaxis=dict(title='% de Procesos', autorange="reversed"),
-        xaxis_range=[0, max_perc * 1.2]
+        xaxis_range=[0, max_perc * 1.15],
+        bargap=BARGAP_PLOT
     )
     
     # --- Right Chart: Duration Stacked Bar Chart ---
@@ -426,7 +409,8 @@ with tab1:
         margin=dict(l=10, r=20, t=20, b=20),
         barmode='overlay',
         yaxis=dict(categoryorder="array", visible=False, autorange="reversed"),
-        showlegend=False
+        showlegend=False,
+        bargap=BARGAP_PLOT
     )
     with st.container(border=True):
         # Display the two charts side-by-side
@@ -443,134 +427,125 @@ with tab1:
         st.markdown("**Leyenda de Flujos:**")
         plot_legend_table(legend_df , unique_key="legend_table_tab1")
 
+
     # --------------------------------------------------------------------
     # NEW SECTION: Office-level (Unidad Tramitadora) Grouped Charts
     # --------------------------------------------------------------------
+    st.write("") 
+    st.write("") 
+    st.write("") 
     if filtered_processes['unidad_tramitadora'].nunique() > 1:
-        #st.divider()
-        st.subheader("Análisis diferenciado por Unidad Tramitadora")
-        st.info("Identifica **para cada flujo de tramitación**, qué porcentaje de los expedientes tramitados en cada unidad siguen ese flujo, cuánto se tarda de media y posibles diferencias en los tiempo de tramitación",  icon="🕵️‍♂️")
+        st.subheader("Análisis por Unidad Tramitadora")
+        st.write("") 
+        st.info("Muestra los flujos principales y tiempos de tramitación para cada unidad procesadora", icon="🏢")
         
-        # Compute office-level data using our helper (see previous code)
-        # This returns:
-        #   perc_df: one row per (Flow, Office) with percentage and count
-        #   dur_df: one row per (Flow, Office, Transition) with average durations
-        #   office_code_mapping: mapping of full office names to abbreviated codes (e.g. U1, U2)
-        perc_df, dur_df, office_code_mapping = create_office_visualizations(filtered_processes, flow_data, state_names)
+        # Generate office-level data
+        perc_df, dur_df, office_code_mapping = create_office_visualizations(
+            filtered_processes, flow_data, state_names
+        )
         
-        # Also compute a mapping from flow code to its title (code + full sequence text)
-        flow_title_mapping = {}
-        for idx, flow in enumerate(flow_data, 1):
-            code, states, full_sequence, _ = generate_flow_info(flow, idx, state_names)
-            #flow_title_mapping[code] = f"{code}: {full_sequence}"
-            flow_title_mapping[code] = f":orange[{full_sequence}]"
-            
-        # Pre-calculate a color mapping for transitions (reuse Set3 palette)
+        # Create consistent color mapping for transitions across all offices
         color_palette = px.colors.qualitative.Set3
-        transition_colors_office = {}
-        for i, transition in enumerate(dur_df['Transition'].unique()):
-            transition_colors_office[transition] = color_palette[i % len(color_palette)]
-            
-        # Define a bar height (in pixels) for these per-flow charts.
-        BAR_PIXEL_HEIGHT_OFFICE = 40
-        
-        # Use the global flow order (F01, F02, …) to iterate in a consistent order.
-        global_flow_order = [f"F{idx:02d}" for idx in range(1, len(flow_data)+1)]
-        
-        for flow_code in global_flow_order:
-            
+        all_transitions = dur_df['Transition'].unique()
+        transition_colors_office = {
+            trans: color_palette[i % len(color_palette)] 
+            for i, trans in enumerate(all_transitions)
+        }
+    
+        # Get sorted list of offices (using original full names)
+        offices = sorted(perc_df['Office'].unique())
+    
+        for office in offices:
+            st.write("") 
             with st.container(border=True):
+                st.subheader(f"{office}")
                 
-                # Filter the office-level data for this flow.
-                perc_flow = perc_df[perc_df['Flow'] == flow_code].copy()
-                dur_flow = dur_df[dur_df['Flow'] == flow_code].copy()
-                if perc_flow.empty:
-                    continue  # Skip flows without office-level info
+                # Filter data for current office
+                office_perc = perc_df[perc_df['Office'] == office]
+                office_dur = dur_df[dur_df['Office'] == office]
                 
-                # LEFT CHART: Horizontal bar chart for % of processes per office
-                max_perc_ud = perc_flow['percentage'].max()
-                fig_left = go.Figure(go.Bar(
-                    x=perc_flow['percentage'],
-                    y=perc_flow['OfficeCode'],
+                # Sort flows by global order
+                office_perc = office_perc.sort_values(
+                    'Flow_order', ascending=True
+                ).reset_index(drop=True)
+    
+                # --- Left Chart: Flow Percentage ---
+                fig_perc = go.Figure()
+                fig_perc.add_trace(go.Bar(
+                    x=office_perc['percentage'],
+                    y=office_perc['Flow'],
                     orientation='h',
-                    text=perc_flow['percentage'].apply(lambda x: f"{x:.1f}%"),
+                    text=office_perc['percentage'].apply(lambda x: f"{x:.1f}%"),
                     textposition='outside',
-                    customdata=perc_flow[['count']].values,
-                    hovertemplate="<b>Total expedientes:</b> %{customdata[0]}<extra></extra>",
-                    marker_color='#1f77b4'
-                    
+                    marker_color='#1f77b4',
+                    customdata=office_perc.apply(
+                        lambda row: [
+                            row['count'],
+                            row['total_duration'],  # From modified create_office_visualizations
+                            flow_sequence_mapping.get(row['Flow'], '')
+                        ], axis=1
+                    ).tolist(),
+                    hovertemplate="<b>Total:</b> %{customdata[0]}<br>"
+                                  "<b>Duración total:</b> %{customdata[1]:.0f} días<br>"
+                                  "<extra></extra>",
                 ))
-                height_left = int(len(perc_flow) * BAR_PIXEL_HEIGHT_OFFICE + 80)
-                fig_left.update_layout(
-                    height=height_left,
-                    template='plotly_white',
-                    margin=dict(l=20, r=10, t=30, b=40),
-                    xaxis_title="% de Procesos",
-                    yaxis=dict(autorange="reversed"),
-                    xaxis_range=[0, max_perc_ud * 1.2]
-                )
                 
-                # RIGHT CHART: Horizontal stacked bar chart for average durations per office.
-                fig_right = go.Figure()
-                # Group by OfficeCode – each office gets one horizontal bar.
-                for office_code, group in dur_flow.groupby('OfficeCode', sort=False):
-                    group = group.sort_values('transition_index')
-                    cumulative = 0  
-                    for _, row in group.iterrows():
-                        fig_right.add_trace(go.Bar(
+                # Calculate chart height based on number of flows
+                chart_height = int(len(office_perc) * BAR_PIXEL_HEIGHT + 30 + 30)
+                
+                max_perc_ut = office_perc['percentage'].max()
+                fig_perc.update_layout(
+                    height=chart_height,
+                    xaxis_title="% de Procesos",
+                    yaxis={'autorange': 'reversed', 'title': None},
+                    margin=dict(l=20, r=10, t=20, b=20),
+                    xaxis_range=[0, max_perc_ut * 1.15],
+                    bargap=BARGAP_PLOT
+                )
+    
+                # --- Right Chart: Duration Breakdown ---
+                fig_dur = go.Figure()
+                
+                # Add stacked bars for each transition
+                for flow in office_perc['Flow']:
+                    flow_dur = office_dur[office_dur['Flow'] == flow].sort_values('transition_index')
+                    cumulative = 0
+                    
+                    for _, row in flow_dur.iterrows():
+                        fig_dur.add_trace(go.Bar(
                             x=[row['Duration']],
-                            y=[office_code],
+                            y=[flow],
                             base=cumulative,
                             orientation='h',
-                            hovertemplate=f"{row['Transition']}: %{{x:.0f}} días<extra></extra>",
-                            marker=dict(color=transition_colors_office[row['Transition']])
+                            marker_color=transition_colors_office[row['Transition']],
+                            name=row['Transition'],
+                            showlegend=False,
+                            hovertemplate=f"{row['Transition']}: %{{x:.0f}} días<extra></extra>"
                         ))
                         cumulative += row['Duration']
-                fig_right.update_layout(
-                    height=height_left,
-                    template='plotly_white',
-                    xaxis_title="Días Promedio",
-                    margin=dict(l=10, r=20, t=30, b=40),
-                    barmode='overlay',
-                    yaxis=dict(autorange="reversed", visible=False),
-                    showlegend=False
+    
+                fig_dur.update_layout(
+                    height=chart_height,
+                    xaxis_title="Duración Promedio (días)",
+                    barmode='stack',
+                    yaxis={'visible': False, 'autorange': 'reversed'},
+                    margin=dict(l=10, r=20, t=20, b=20),
+                    bargap=BARGAP_PLOT
                 )
-                
-                # Display the title for this flow.
-                st.markdown(f"#### {flow_title_mapping[flow_code]}")
-                col_left, col_right = st.columns([1,3])
-                with col_left:
-                    st.plotly_chart(fig_left, use_container_width=True, key=f"{flow_code}-1")
-                with col_right:
-                    st.plotly_chart(fig_right, use_container_width=True, key= f"{flow_code}-2")
-                
-                # Build an office-level legend table for this flow.
-                # First, aggregate the durations (sum the durations across transitions) by office.
-                agg_dur = dur_flow.groupby('OfficeCode', as_index=False)['Duration'].sum()
-                # Merge with the percentage info.
-                office_legend_df = perc_flow.merge(agg_dur, on='OfficeCode', how='left')
-                # Rename and reformat columns.
-                office_legend_df = office_legend_df.rename(columns={
-                    'OfficeCode': 'Código',
-                    'Office': 'Unidad Tramitadora',
-                    'percentage': '% Procesos',
-                    'count': 'Total',
-                    'Duration': 'Duración total'
-                })
-                office_legend_df['% Procesos'] = office_legend_df['% Procesos'].apply(lambda x: f"{x:.1f}%")
-                office_legend_df['Duración total'] = office_legend_df['Duración total'].apply(lambda x: f"{x:.0f} días")
-                office_legend_df = office_legend_df[['Código', 'Unidad Tramitadora', '% Procesos', 'Total', 'Duración total']]
-                
-                st.markdown("**Leyenda de Unidades Tramitadoras para este flujo:**")
-                plot_office_legend_table(office_legend_df, unique_key=f"office_legend_{flow_code}")
-    else:
-        st.info("Solo se encontró una Unidad Tramitadora, por lo que no se muestra el análisis por unidad.")
+    
+                # Display charts side-by-side
+                col1, col2 = st.columns([1, 3])
+                with col1:
+                    st.plotly_chart(fig_perc, use_container_width=True)
+                with col2:
+                    st.plotly_chart(fig_dur, use_container_width=True)
+    
+
 
 # -------------------------------
 # TAB 2: Diagrama de flujo
 # -------------------------------
 with tab2:
-    GRAPHVIZ_HEIGHT = 900
     st.subheader("Diagrama del flujo de tramitación")
     st.markdown(f"Selecciona uno o varios flujos de tramitación para visualizarlos en el diagrama. Solo se representan los flujos que representan más del {MIN_PERCENTAGE_SHOW}%) del total de los expedientes finalizados")
     
@@ -682,6 +657,7 @@ with tab2:
     #########################
     # Comparador de flujos de unidades tramitadoras
     ##############################################
+
     if filtered_processes['unidad_tramitadora'].nunique() > 1:
         
         

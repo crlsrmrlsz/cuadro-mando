@@ -76,7 +76,6 @@ tab1, tab2, tab3, tab4 = st.tabs([
     "Tabla de datos"
 ])
 
-plot_height = 650
 
 selected_dates = st.session_state.get('selected_dates', (None, None))
 selected_procedure = st.session_state.selected_procedure
@@ -105,7 +104,11 @@ with tab1:
                  labels={'fecha_registro_exp': 'Fecha', 'total_exp': 'Solicitudes'})
     
     fig.update_xaxes(tickformat=tick_format)
-    fig.update_layout(height=plot_height)
+    # Compute the max stacked value across all dates and set y-axis range accordingly
+    max_total_1 = df_agregado['total_exp'].max()
+    fig.update_yaxes(range=[0, max_total_1])
+    
+    #fig.update_layout(height=plot_height)
     st.plotly_chart(fig, use_container_width=True)
 
 with tab2:
@@ -126,10 +129,8 @@ with tab2:
         color='provincia',
         labels={'fecha_registro_exp': 'Fecha', 'total_exp': 'Solicitudes', 'provincia': 'Provincia'}
     )
-    
     fig_prov.update_layout(
         barmode='stack',
-        height=plot_height,
         legend=dict(
             orientation="h",
             yanchor="top",
@@ -138,6 +139,7 @@ with tab2:
             x=0.5
         )
     )
+
     fig_prov.update_xaxes(tickformat=tick_format)
     
     # Reorder traces
@@ -145,7 +147,27 @@ with tab2:
     sorted_traces = sorted(fig_prov.data, key=lambda trace: ordered_provinces.index(trace.name))
     fig_prov.data = tuple(sorted_traces)
     
+    # Set default visibility so that only specific provinces are marked (visible)
+    default_provinces = ['Toledo', 'Cuenca', 'Ciudad Real', 'Albacete', 'Guadalajara']
+    for trace in fig_prov.data:
+        if trace.name not in default_provinces:
+            trace.visible = 'legendonly'
+    # Compute the max stacked value across all dates and set y-axis range accordingly
+    max_total = df_provincia.groupby('fecha_registro_exp')['total_exp'].sum().max()
+    fig_prov.update_yaxes(range=[0, max_total])
+    
     st.plotly_chart(fig_prov, use_container_width=True)
+
+    # fig_area = px.area(
+    #     df_provincia,
+    #     x='fecha_registro_exp',
+    #     y='total_exp',
+    #     color='provincia',
+    #     labels={'fecha_registro_exp': 'Fecha', 'total_exp': 'Solicitudes', 'provincia': 'Provincia'}
+    # )
+    # fig_area.update_xaxes(tickformat=tick_format)
+    # fig_area.update_layout(height=plot_height)
+    # st.plotly_chart(fig_area, use_container_width=True)
 
 with tab3:
     st.subheader("Mapa de calor con demanda semanal a lo largo del año")
