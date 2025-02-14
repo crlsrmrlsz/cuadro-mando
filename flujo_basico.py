@@ -107,10 +107,10 @@ with st.container(border=True):
 
             cols = st.columns([2, 1, 1, 1])
             cols[0].info(f"**{state_name}**")
-            cols[1].metric("Expedientes finalizados en este estado", state_count)
-            cols[2].metric("% del Total", f"{state_percent:.1f}%")
+            cols[1].metric("Expedientes que llegan a este estado", state_count)
+            cols[2].metric("% del Total que pasan por este estado", f"{state_percent:.1f}%")
             value = f"{state_mean:.0f} días" if not pd.isna(state_mean) else "N/A"
-            cols[3].metric("Tiempo Medio", value)
+            cols[3].metric("Tiempo Medio hasta un estado final", value)
 
 # Unidad Tramitadora comparison
 if 'unidad_tramitadora' in filtered_processed.columns:
@@ -207,10 +207,8 @@ if 'unidad_tramitadora' in filtered_processed.columns:
                 )
                 st.plotly_chart(fig_bar, use_container_width=True, key="global-time")
 
-            
+            st.subheader("Número y tiempos por Unidad")
             for unidad in unidades_sorted:
-                
-                st.subheader("Número y tiempos por Unidad")
                 mask = unidades_series == unidad
                 unidad_data = filtered_processed[mask]
                 code = unidad_codes[unidad]

@@ -110,48 +110,35 @@
 # df_scatter_grouped = pd.DataFrame(data_scatter_grouped)
 
 
-
-
-
-
 # # Calculate figure height
 # n_bars = len(df_transitions)
 # bar_height = 30  # Adjust this value to control bar spacing
 # fig_height = n_bars * bar_height + 120  # Add padding for titles/labels
+
 
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# Verificar datos iniciales
 if "filtered_data" not in st.session_state:
     st.error("Cargue los datos desde la página principal primero.")
     st.stop()
 
-# Inicializar estado de pestaña solo una vez
-if 'selected_tab' not in st.session_state:
-    st.session_state.selected_tab = "Tiempos medios por transición"
+# Get parameters from session state
+date_range = st.session_state.get('selected_dates', (None, None))
+selected_procedure = st.session_state.get('selected_procedure', None)
+selected_states = [int(s) for s in st.session_state.selected_final_states]
+state_names = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
 
 @st.cache_data
-def get_state_names(estados_df, selected_procedure):
-    return estados_df.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].astype('category').to_dict()
-
-
-
-@st.cache_data(ttl=3600, show_spinner="Procesando flujos de trámites...")
-def process_flows_for_transitions(
-    tramites, 
-    selected_states, date_range, selected_procedure):
-    """Procesa los flujos incluyendo parámetros relevantes en la caché"""
+def process_flows_for_transitions(tramites, selected_states, date_range, selected_procedure):
     tramites_sorted = tramites.sort_values(['id_exp', 'fecha_tramite'])
-    
     tramites_sorted['next_fecha'] = tramites_sorted.groupby('id_exp')['fecha_tramite'].shift(-1)
     tramites_sorted['duration'] = (
         (tramites_sorted['next_fecha'] - tramites_sorted['fecha_tramite'])
         .dt.total_seconds() / 86400
     ).fillna(0)
-    
     tramites_sorted['unidad_tramitadora'] = tramites_sorted['unidad_tramitadora'].fillna('Desconocida')
     
     process_states = tramites_sorted.groupby('id_exp').agg(
@@ -162,21 +149,13 @@ def process_flows_for_transitions(
     
     return process_states[process_states['all_states'].apply(lambda x: any(s in selected_states for s in x))]
 
-
-
-@st.cache_data(ttl=3600, show_spinner="Calculando transiciones...")
-def calculate_transitions_cached(
-    filtered_processes,
-    selected_states, date_range, selected_procedure)
-):
-    """
-    Versión cacheada del cálculo de transiciones
-    Incluye todos los parámetros críticos como dependencias
-    """
+@st.cache_data
+def calculate_transition_stats(filtered_processes, selected_states, date_range, selected_procedure):
     transition_stats = {}
     transition_stats_grouped = {}
     
     for _, row in filtered_processes.iterrows():
+        exp_id = row['id_exp']
         states = row['all_states']
         durations = row['durations']
         unidad = row['unidad_tramitadora']
@@ -186,45 +165,87 @@ def calculate_transitions_cached(
             duration = durations[i]
             
             # Global stats
-            key = (src, tgt)
-            transition_stats[key] = transition_stats.get(key, {'sum_duration': 0.0, 'count': 0})
-            transition_stats[key]['sum_duration'] += duration
-            transition_stats[key]['count'] += 1
+            if (src, tgt) not in transition_stats:
+                transition_stats[(src, tgt)] = {'sum_duration': 0.0, 'count': 0}
+            transition_stats[(src, tgt)]['sum_duration'] += duration
+            transition_stats[(src, tgt)]['count'] += 1
             
             # Grouped stats
-            grouped_key = (*key, unidad)
-            transition_stats_grouped[grouped_key] = transition_stats_grouped.get(
-                grouped_key, {'sum_duration': 0.0, 'count': 0})
-            transition_stats_grouped[grouped_key]['sum_duration'] += duration
-            transition_stats_grouped[grouped_key]['count'] += 1
-            
+            key = (src, tgt, unidad)
+            if key not in transition_stats_grouped:
+                transition_stats_grouped[key] = {'sum_duration': 0.0, 'count': 0}
+            transition_stats_grouped[key]['sum_duration'] += duration
+            transition_stats_grouped[key]['count'] += 1
+    
     return transition_stats, transition_stats_grouped
 
+@st.cache_data
+def build_transition_dataframes(transition_stats, transition_stats_grouped):
+    # Create main transitions dataframe
+    data = []
+    for (src, tgt), stats in transition_stats.items():
+        avg_duration = stats['sum_duration'] / stats['count'] if stats['count'] > 0 else 0
+        src_label = state_names.get(src, f"S-{src}")
+        tgt_label = state_names.get(tgt, f"S-{tgt}")
+        data.append({
+            'Transition': f"{src_label} → {tgt_label}",
+            'Mean Duration': avg_duration,
+            'Count': stats['count']
+        })
+    df_transitions = pd.DataFrame(data).sort_values("Mean Duration", ascending=True)
 
-selected_procedure = st.session_state.selected_procedure
-selected_dates = st.session_state.get('selected_dates', (None, None))
-state_names = get_state_names(st.session_state.estados, selected_procedure)
-selected_states = [int(s) for s in st.session_state.selected_final_states]
+    # Prepare scatter data
+    data_scatter_global = []
+    for (src, tgt), stats in transition_stats.items():
+        mean_duration = stats['sum_duration'] / stats['count'] if stats['count'] > 0 else 0
+        total_days = stats['sum_duration']
+        count = stats['count']
+        src_label = state_names.get(src, f"S-{src}")
+        tgt_label = state_names.get(tgt, f"S-{tgt}")
+        transition_label = f"{src_label} → {tgt_label}"
+        data_scatter_global.append({
+            'Transition': transition_label,
+            'Mean Duration': mean_duration,
+            'Total Processes': count,
+            'Total Days': total_days
+        })
+    df_scatter_global = pd.DataFrame(data_scatter_global)
 
+    # Grouped scatter data
+    data_scatter_grouped = []
+    for (src, tgt, unidad), stats in transition_stats_grouped.items():
+        mean_duration = stats['sum_duration'] / stats['count'] if stats['count'] > 0 else 0
+        total_days = stats['sum_duration']
+        count = stats['count']
+        src_label = state_names.get(src, f"S-{src}")
+        tgt_label = state_names.get(tgt, f"S-{tgt}")
+        transition_label = f"{src_label} → {tgt_label}"
+        data_scatter_grouped.append({
+            'Transition': transition_label,
+            'Unidad': unidad,
+            'Mean Duration': mean_duration,
+            'Total Processes': count,
+            'Total Days': total_days
+        })
+    df_scatter_grouped = pd.DataFrame(data_scatter_grouped)
 
+    return df_transitions, df_scatter_global, df_scatter_grouped
 
+# Main processing pipeline
+tramites_data = st.session_state.filtered_data['tramites']
 filtered_processes = process_flows_for_transitions(
-    st.session_state.filtered_data['tramites'],
-    selected_states,
-    st.session_state.selected_procedure,
-    selected_datess)  # Convertir a tuple para hashable
+    tramites_data, selected_states, date_range, selected_procedure
+)
+transition_stats, transition_stats_grouped = calculate_transition_stats(
+    filtered_processes, selected_states, date_range, selected_procedure
+)
+df_transitions, df_scatter_global, df_scatter_grouped = build_transition_dataframes(
+    transition_stats, transition_stats_grouped
 )
 
-
-transition_stats, transition_stats_grouped = calculate_transitions(filtered_processes,
-                                                                   selected_states,
-                                                                   selected_dates,
-                                                                   st.session_state.selected_procedure)
-
-
-
-
+# Tab definitions remain the same
 tab_bar, tab_scatter, tab_acumulado = st.tabs(["Tiempos medios por transición", "Cuellos de botella", "Carga de trabajo acumulada"])
+
 
 with tab_bar:
     # Parameters for bar dimensions
@@ -311,9 +332,9 @@ with tab_bar:
         # Update hover template
         fig_grouped.update_traces(
             hovertemplate=(
-                "<b>%{y}</b><br>"
+                #"<b>%{y}</b><br>"
                 "Unidad: %{customdata[0]}<br>"  # ← Now index 0 is Unidad
-                "Duración: %{x:.1f} días<br>"
+                "Duración: %{x:.0f} días<br>"
                 "Procesos: %{customdata[1]}<extra></extra>"  # ← Index 1 is Count
             ),
             textposition='outside',
@@ -351,7 +372,7 @@ with tab_scatter:
     # Global scatter plot
     if not df_scatter_global.empty:
         st.subheader("Estados que consumen más tiempo, datos globales de toda la Comunidad")
-        st.info("El tamaño de la burbuja representa el número total de días dedicados a lo largo de toda la tramitación. Se calcula como la multiplicación del tiempo medio y el número total expedientes que han pasado por ese trámite. Por lo tanto, las burbujas más grandes son los **grandes consumidores de tiempo**", icon='🧛‍♀️')
+        st.info("El tamaño de la burbuja representa el número total de días dedicados a lo largo de la tramitación de todos los expedientes en el rango de fechas seleccionado. Se calcula como la multiplicación del tiempo medio y el número total expedientes que han pasado por ese trámite. Por lo tanto, las burbujas más grandes son los **grandes consumidores de tiempo**", icon='🧛‍♀️')
         fig_global = px.scatter(
             df_scatter_global,
             x='Mean Duration',

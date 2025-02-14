@@ -8,7 +8,7 @@ import geopandas as gpd
 # CACHED DATA LOADING
 # ====================
 
-@st.cache_data
+@st.cache_data(show_spinner="Cargando mapas")
 def load_geo_data():
     """Carga los datos geográficos optimizados"""
     
