@@ -137,7 +137,7 @@ def process_flows(_tramites, selected_states, selected_procedure, selected_dates
         (tramites_sorted['next_fecha'] - tramites_sorted['fecha_tramite'])
         .dt.total_seconds() / 86400
     ).fillna(0)
-    
+    tramites_sorted['unidad_tramitadora'] = tramites_sorted['unidad_tramitadora'].fillna('No especificada')
     # Group by expedition. Because all rows for an id_exp share the same office,
     # we take the first value of 'unidad_tramitadora'.
     process_states = tramites_sorted.groupby('id_exp').agg(

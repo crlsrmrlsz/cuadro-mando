@@ -214,15 +214,16 @@ with st.sidebar:
 # 5. Navigation / Page definitions
 # NOTE: The st.Page and st.navigation APIs are not part of the official Streamlit API.
 # If you are using a custom or experimental navigation solution, ensure you follow its guidelines.
-flujo_diagrama = st.Page("flujo_basico.py", title="Datos básicos", icon="🔀")
-flujo_temporal = st.Page("flujo_temporal.py", title="Flujos de ejecución", icon="⏳")
-demanda_temporal = st.Page("input_temporal.py", title="Temporal", icon="📋")
-demanda_geografico = st.Page("input_geografico.py", title="Geográfico", icon="🌍")
+flujo_diagrama = st.Page("flujo_basico.py", title="Datos básicos", icon="🏠")
+flujo_temporal = st.Page("flujo_temporal.py", title="Flujos de tramitación", icon="⏳")
+temporal_demanda = st.Page("temporal_demanda.py", title="Evolucion temporal demanda", icon="✋")
+demanda_geografico = st.Page("input_geografico.py", title="Origen Geográfico", icon="🌍")
 estado_temporal = st.Page("estados_temporal.py", title="Cuellos de botella", icon="🎯")
-
+acumulado = st.Page("acumulado.py",  title="Carga de trabajo acumulada", icon="🛠️")
+temporal_tramitacion = st.Page("temporal_tramitacion.py", title="Evolución tramitación", icon="🗓️")
 
 nav = st.navigation({
-    "Análisis proceso": [flujo_diagrama, flujo_temporal, estado_temporal],
-    "Análisis de la demanda": [demanda_temporal, demanda_geografico],
+    "Análisis estático": [flujo_diagrama, flujo_temporal, estado_temporal, demanda_geografico],
+    "Análisis dinámico": [temporal_demanda,temporal_tramitacion,  acumulado],
 })
 nav.run()

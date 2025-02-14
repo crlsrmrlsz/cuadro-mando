@@ -21,7 +21,8 @@ def process_tramites_final(_tramites, selected_states, date_range, selected_proc
     _tramites['num_tramite'] = _tramites['num_tramite'].astype('int16')
     
     _tramites_sorted = _tramites.sort_values(['id_exp', 'fecha_tramite'])
-    
+    _tramites_sorted['unidad_tramitadora'] = _tramites_sorted['unidad_tramitadora'].fillna('No especificada')
+
     process_states = _tramites_sorted.groupby('id_exp').agg(
         first_date=('fecha_tramite', 'min'),
         last_date=('fecha_tramite', 'max'),
@@ -114,7 +115,7 @@ with st.container(border=True):
 
 # Unidad Tramitadora comparison
 if 'unidad_tramitadora' in filtered_processed.columns:
-    unidades_series = filtered_processed['unidad_tramitadora'].fillna('No especificada')
+    unidades_series = filtered_processed['unidad_tramitadora']
     unique_unidades = unidades_series.unique()
     
     # Create color mapping based on original names
@@ -135,10 +136,10 @@ if 'unidad_tramitadora' in filtered_processed.columns:
             # Ensure units are sorted as desired
             unidades_sorted = sorted(unidades_validas.unique(), key=lambda x: (x == 'No especificada', x))
             
-            col1, col2 = st.columns([4,2])
+            col1, col2, col3, col4 = st.columns([1,4,2,1])
             
             # Pie Chart: Distribution of Expedientes
-            with col1:
+            with col2:
                 # Aggregate data by unit code and unit name
                 agg_data = (
                     filtered_processed
@@ -175,7 +176,7 @@ if 'unidad_tramitadora' in filtered_processed.columns:
                 st.plotly_chart(fig_pie, use_container_width=True, key="global-number")
             
             # Bar Chart: Average Duration of Finalization
-            with col2:
+            with col3:
                 # Compute the average duration for finalized processes
                 duration_df = (
                     filtered_processed[filtered_processed['contains_selected']]
