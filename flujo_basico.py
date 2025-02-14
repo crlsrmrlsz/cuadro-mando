@@ -130,12 +130,12 @@ if 'unidad_tramitadora' in filtered_processed.columns:
     
     if len(unidades_validas.unique()) > 1:
         with st.container(border=True):
-            st.subheader("Comparación por Unidad Tramitadora")
+            st.subheader("Datos por Unidad Tramitadora")
             
             # Ensure units are sorted as desired
             unidades_sorted = sorted(unidades_validas.unique(), key=lambda x: (x == 'No especificada', x))
             
-            col1, col2 = st.columns(2)
+            col1, col2 = st.columns([4,2])
             
             # Pie Chart: Distribution of Expedientes
             with col1:
@@ -146,11 +146,6 @@ if 'unidad_tramitadora' in filtered_processed.columns:
                     .size()
                     .rename(columns={'size': 'count'})
                 )
-                # Add an order column based on unidades_sorted and sort the DataFrame
-                agg_data['order'] = agg_data['unidad_tramitadora'].apply(
-                    lambda x: unidades_sorted.index(x) if x in unidades_sorted else 999
-                )
-                agg_data.sort_values('order', inplace=True)
                 
                 # Create a legend label that combines the unit code and the unit name
                 agg_data['legend_label'] = agg_data['unidad_code'] + " - " + agg_data['unidad_tramitadora']
@@ -166,17 +161,18 @@ if 'unidad_tramitadora' in filtered_processed.columns:
                     hovertemplate="%{customdata}<br>Expedientes: %{value}<br>Porcentaje: %{percent}<extra></extra>"
                 )])
                 fig_pie.update_layout(
-                    title="Distribución de Expedientes",
+                    title="Expedientes recibidos por Unidad",
                     height=450,
                     showlegend=True,
                     legend=dict(
                         orientation="h",  # Horizontal legend
-                        y=-0.1,           # Positioned under the chart
+                        y=-0.15,           # Positioned under the chart
                         x=0.5,
                         xanchor="center"
                     )
                 )
-                st.plotly_chart(fig_pie, use_container_width=True)
+                #fig_pie.update_traces(traceorder='normal')
+                st.plotly_chart(fig_pie, use_container_width=True, key="global-number")
             
             # Bar Chart: Average Duration of Finalization
             with col2:
@@ -187,7 +183,6 @@ if 'unidad_tramitadora' in filtered_processed.columns:
                     .mean()
                 )
                 duration_df['unidad_code'] = duration_df['unidad_tramitadora'].map(unidad_codes)
-                
               
                 # Create a combined label for hover information
                 duration_df['legend_label'] = duration_df['unidad_code'] + " - " + duration_df['unidad_tramitadora']
@@ -210,10 +205,12 @@ if 'unidad_tramitadora' in filtered_processed.columns:
                     height=450,
                     showlegend=False  # No legend on bar chart
                 )
-                st.plotly_chart(fig_bar, use_container_width=True)
+                st.plotly_chart(fig_bar, use_container_width=True, key="global-time")
 
             
             for unidad in unidades_sorted:
+                
+                st.subheader("Número y tiempos por Unidad")
                 mask = unidades_series == unidad
                 unidad_data = filtered_processed[mask]
                 code = unidad_codes[unidad]

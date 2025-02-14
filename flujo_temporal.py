@@ -321,11 +321,11 @@ def create_office_visualizations(filtered_processes, flow_data, state_names):
 # ------------------------------------------
 # INTERFACE / USER INTERFACE
 # ------------------------------------------
-tab1, tab2, tab3 = st.tabs([
+tab1, tab2, tab3, tab4 = st.tabs([
     "Flujos principales", 
     "Diagrama de Flujo",
-    #"Diagrama Sankey",
-    "Complejidad"
+    "Complejidad",
+    "Diagrama Sankey",
 ])
 
 # Validate session state
@@ -804,94 +804,97 @@ with tab3:
     plot_legend_table(legend_df, unique_key="legend_table_tab3")
 
 # -------------------------------
-# TAB X: Sankey Diagram (Vertical)
+# TAB 4: Sankey Diagram (Vertical)
 # -------------------------------
-# with tabx:
-#     st.subheader("Diagrama Sankey")
-#     st.markdown(f"**Flujos principales (> {MIN_PERCENTAGE_SHOW}%):** Seleccione flujos para analizar transiciones")
+with tab4:
+    st.subheader("Diagrama Sankey")
+    st.markdown(f"**Flujos principales (> {MIN_PERCENTAGE_SHOW}%):** Seleccione flujos para analizar transiciones")
     
-#     # Generate checkboxes for flow selection using the helper function
-#     selected_flows = []
-#     for idx, flow in enumerate(flow_data, 1):
-#         code, _, _, label = generate_flow_info(flow, idx, state_names)
-#         if st.checkbox(label, value=(idx == 1), key=f"flow_{code}"):
-#             selected_flows.append(flow)
-    
-#     if not selected_flows:
-#         st.warning("Seleccione al menos un flujo para visualizar")
-#         st.stop()
-    
-#     # Build Sankey data by aggregating transitions
-#     nodes_set = set()
-#     link_counts = {}
-#     link_durations = {}
-    
-#     for flow in selected_flows:
-#         seq = flow['sequence']
-#         count = flow['count']
-#         for i in range(len(seq) - 1):
-#             source = seq[i]
-#             target = seq[i + 1]
-#             duration = flow['durations'][i] if i < len(flow['durations']) else 0
-            
-#             nodes_set.update([source, target])
-#             key = (source, target)
-#             link_counts[key] = link_counts.get(key, 0) + count
-#             link_durations[key] = link_durations.get(key, 0) + (count * duration)
-    
-#     # Create node index mapping (sorted order)
-#     nodes = sorted(nodes_set)
-#     node_indices = {node: idx for idx, node in enumerate(nodes)}
-    
-#     # Prepare Sankey links
-#     links = []
-#     for (source, target), count in link_counts.items():
-#         avg_duration = link_durations[(source, target)] / count
-#         links.append({
-#             'source': node_indices[source],
-#             'target': node_indices[target],
-#             'value': count,
-#             'customdata': [avg_duration]
-#         })
-    
-#     # Build the vertical Sankey diagram
-#     fig_sankey = go.Figure(go.Sankey(
-#         orientation='v',  # Attempt to set vertical orientation
-#         node=dict(
-#             #pad=300,         # Padding between nodes
-#             thickness=25,   # Node thickness
-#             label=[state_names.get(n, f"S-{n}") for n in nodes],
-#             line=dict(color="black", width=0.5),
-#             hovertemplate = "%{label}<extra></extra>"
-#         ),
-#         link=dict(
-#             source=[l['source'] for l in links],
-#             target=[l['target'] for l in links],
-#             value=[l['value'] for l in links],
-#             customdata=[l['customdata'] for l in links],
-#             arrowlen=15,  # Set link arrow length
-#             hovertemplate=(
-#                 "%{source.label} → %{target.label}<br>"
-#                 "Expedientes: %{value}<br>"
-#                 "Duración media: %{customdata[0]:.1f} días"
-#                 "<extra></extra>"
-#             )
-#         )
-#     ))
-    
-#     fig_sankey.update_layout(
-#         height=800,
-#         margin=dict(l=50, r=50, b=50, t=50),
-#         font_size=10
-#     )
-#     fig_sankey.update_layout(
-#         height=1200,
-#         #width=800,
-#         #autosize=True,
-#         margin=dict(l=300, r=300, b=200, t=20),
-#         font_size=10,
+    # Generate checkboxes for flow selection using the helper function
+    selected_flows = []
+    with st.container(border=True):
+        for idx, flow in enumerate(flow_data, 1):
+            code, _, _, label = generate_flow_info(flow, idx, state_names)
+            if st.checkbox(label, value=(idx == 1), key=f"flow_{code}"):
+                selected_flows.append(flow)
         
-#     )
-#     # col_sankey_1, col_sankey_2, col_sankey_3 = st.columns([1, 6, 1])
-#     # with col_sankey_2:
-#     st.plotly_chart(fig_sankey, use_container_width=False)
+        if not selected_flows:
+            st.warning("Seleccione al menos un flujo para visualizar")
+            st.stop()
+    
+    # Build Sankey data by aggregating transitions
+    nodes_set = set()
+    link_counts = {}
+    link_durations = {}
+    
+    for flow in selected_flows:
+        seq = flow['sequence']
+        count = flow['count']
+        for i in range(len(seq) - 1):
+            source = seq[i]
+            target = seq[i + 1]
+            duration = flow['durations'][i] if i < len(flow['durations']) else 0
+            
+            nodes_set.update([source, target])
+            key = (source, target)
+            link_counts[key] = link_counts.get(key, 0) + count
+            link_durations[key] = link_durations.get(key, 0) + (count * duration)
+    
+    # Create node index mapping (sorted order)
+    nodes = sorted(nodes_set)
+    node_indices = {node: idx for idx, node in enumerate(nodes)}
+    
+    # Prepare Sankey links
+    links = []
+    for (source, target), count in link_counts.items():
+        avg_duration = link_durations[(source, target)] / count
+        links.append({
+            'source': node_indices[source],
+            'target': node_indices[target],
+            'value': count,
+            'customdata': [avg_duration]
+        })
+    
+    # Build the vertical Sankey diagram
+    fig_sankey = go.Figure(go.Sankey(
+        orientation='v',  # Attempt to set vertical orientation
+        node=dict(
+            #pad=300,         # Padding between nodes
+            thickness=25,   # Node thickness
+            label=[state_names.get(n, f"S-{n}") for n in nodes],
+            line=dict(
+                color="black", 
+                width=0.7),
+            hovertemplate = "%{label}<extra></extra>"
+        ),
+        link=dict(
+            source=[l['source'] for l in links],
+            target=[l['target'] for l in links],
+            value=[l['value'] for l in links],
+            customdata=[l['customdata'] for l in links],
+            arrowlen=15,  # Set link arrow length
+            hovertemplate=(
+                "%{source.label} → %{target.label}<br>"
+                "Expedientes: %{value}<br>"
+                "Duración media: %{customdata[0]:.1f} días"
+                "<extra></extra>"
+            )
+        )
+    ))
+    
+    fig_sankey.update_layout(
+        height=800,
+        margin=dict(l=50, r=50, b=50, t=50),
+        font_size=10
+    )
+    fig_sankey.update_layout(
+        height=1200,
+        #width=800,
+        #autosize=True,
+        margin=dict(l=300, r=300, b=200, t=20),
+        font_size=10,
+        
+    )
+    # col_sankey_1, col_sankey_2, col_sankey_3 = st.columns([1, 6, 1])
+    # with col_sankey_2:
+    st.plotly_chart(fig_sankey, use_container_width=True)
