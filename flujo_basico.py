@@ -89,10 +89,10 @@ with st.container(border=True):
     with col_gen2:
         st.metric("Total Expedientes iniciados", f"{total_processes:,}")
     with col_gen3:
-        st.metric("Finalizados", f"{finalized_percent:.1f}%")
+        st.metric("Finalizados (alcanza cualquiera de los estados finales)", f"{finalized_percent:.1f}%")
     with col_gen4:
         value = f"{mean_duration:.0f} días" if not pd.isna(mean_duration) else "N/A"
-        st.metric("Tiempo medio", value)
+        st.metric("Tiempo medio finalización", value)
 
     # State-wise metrics in bordered container
     if len(selected_states) > 0 and st.checkbox("Mostrar estadísticas por estado final", value=False):
@@ -130,9 +130,10 @@ if 'unidad_tramitadora' in filtered_processed.columns:
     unidades_validas = unidades_series[unidades_series.isin(unidades_series.value_counts()[unidades_series.value_counts() > 0].index)]
     
     if len(unidades_validas.unique()) > 1:
+        st.markdown("")
         with st.container(border=True):
             st.subheader("Datos por Unidad Tramitadora")
-            
+            st.info("Reparto de expedientes por Unidades y tiempos medios de finalización",icon='ℹ️')
             # Ensure units are sorted as desired
             unidades_sorted = sorted(unidades_validas.unique(), key=lambda x: (x == 'No especificada', x))
             
@@ -207,8 +208,10 @@ if 'unidad_tramitadora' in filtered_processed.columns:
                     showlegend=False  # No legend on bar chart
                 )
                 st.plotly_chart(fig_bar, use_container_width=True, key="global-time")
-
+            
+            st.markdown("")    
             st.subheader("Número y tiempos por Unidad")
+            st.info("Compara % de expedientes finalizados, tiempos medios y diferencia respecto a la media",icon='ℹ️')
             for unidad in unidades_sorted:
                 mask = unidades_series == unidad
                 unidad_data = filtered_processed[mask]

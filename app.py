@@ -172,7 +172,7 @@ with st.sidebar:
     ##############################################
     original_start = base_data['expedientes']['fecha_registro_exp'].min().date()
     original_end = base_data['expedientes']['fecha_registro_exp'].max().date()
-    min_date = max(original_start, datetime.date(2010, 1, 1))
+    min_date = max(original_start, datetime.date(2015, 1, 1))
     max_date = min(original_end, datetime.date.today())
     
     selected_dates = st.slider(
