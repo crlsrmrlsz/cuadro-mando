@@ -12,76 +12,83 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 @st.cache_data
-def get_state_names(estados_df, selected_procedure):
+def get_nombre_estados(estados_df, proced_seleccionado):
     return estados_df.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].astype('category').to_dict()
 
 @st.cache_data
-def process_tramites_final(_tramites, selected_states, date_range, selected_procedure):
+def agg_tram_filtrado_tini_tfin_dur(_tramites, estados_finales_selecc, rango_fechas, proced_seleccionado):
     _tramites = _tramites.copy()
     _tramites['num_tramite'] = _tramites['num_tramite'].astype('int16')
     
     _tramites_sorted = _tramites.sort_values(['id_exp', 'fecha_tramite'])
     _tramites_sorted['unidad_tramitadora'] = _tramites_sorted['unidad_tramitadora'].fillna('No especificada')
 
-    process_states = _tramites_sorted.groupby('id_exp').agg(
+    tram_filtr_agg_tiempos = _tramites_sorted.groupby('id_exp').agg(
         first_date=('fecha_tramite', 'min'),
         last_date=('fecha_tramite', 'max'),
         all_states=('num_tramite', lambda x: x.astype('int16').tolist()),
         unidad_tramitadora=('unidad_tramitadora', 'first')
     ).reset_index()
     
-    process_states['duration_days'] = (
-        process_states['last_date'] - process_states['first_date']
+    tram_filtr_agg_tiempos['duration_days'] = (
+        tram_filtr_agg_tiempos['last_date'] - tram_filtr_agg_tiempos['first_date']
     ).dt.total_seconds() / (3600 * 24)
     
-    process_states['contains_selected'] = process_states['all_states'].apply(
-        lambda states: any(s in selected_states for s in states)
-    )
+    # tram_filtr_agg_tiempos['contains_selected'] = tram_filtr_agg_tiempos['all_states'].apply(
+    #     lambda states: any(s in estados_finales_selecc for s in states)
+    # )
+    # If no final states are selected, mark all rows as True.
+    if not estados_finales_selecc:
+        tram_filtr_agg_tiempos['contains_selected'] = True
+    else:
+        tram_filtr_agg_tiempos['contains_selected'] = tram_filtr_agg_tiempos['all_states'].apply(
+            lambda states: any(s in estados_finales_selecc for s in states)
+        )
     
-    return process_states
+    return tram_filtr_agg_tiempos
 
 # Page initialization
-if "filtered_data" not in st.session_state:
+if "datos_filtrados_rango" not in st.session_state:
     st.error("Filtered data not found. Please load the main page first.")
     st.stop()
 
-tramites_df = st.session_state.filtered_data.get("tramites")
+tramites_df = st.session_state.datos_filtrados_rango.get("tramites")
 if tramites_df is None:
     st.error("Trámites data is not available in the filtered data.")
     st.stop()
 
-if "tramites_texts" not in st.session_state:
+if "textos_procedimiento" not in st.session_state:
     st.error("Tramites texts not found. Please load the main page first.")
     st.stop()
 
 # Get required session state values
-selected_procedure = st.session_state.selected_procedure
-selected_dates = st.session_state.get('selected_dates', (None, None))
-state_names = get_state_names(st.session_state.estados, selected_procedure)
-selected_states = [int(s) for s in st.session_state.selected_final_states]
-tramites_texts = st.session_state.tramites_texts
+proced_seleccionado = st.session_state.proced_seleccionado
+rango_fechas = st.session_state.get('rango_fechas', (None, None))
+nombres_estados = get_nombre_estados(st.session_state.estados, proced_seleccionado)
+estados_finales_selecc = [int(s) for s in st.session_state.estados_finales_selecc]
+textos_procedimiento = st.session_state.textos_procedimiento
 
 # Process filtered data
-filtered_processed = process_tramites_final(
-    st.session_state.filtered_data['tramites'],
-    selected_states,
-    selected_dates,
-    selected_procedure
+tram_filtr_agg_t = agg_tram_filtrado_tini_tfin_dur(
+    st.session_state.datos_filtrados_rango['tramites'],
+    estados_finales_selecc,
+    rango_fechas,
+    proced_seleccionado
 )
 
 # Header section
-st.header(f"{tramites_texts['descripcion']}")
+st.header(f"{textos_procedimiento['descripcion']}")
 st.markdown(
-    f"**Consejería:** {tramites_texts['consejeria']}  \n"
-    f"**Organismo Instructor:** {tramites_texts['org_instructor']}"
+    f"**Consejería:** {textos_procedimiento['consejeria']}  \n"
+    f"**Organismo Instructor:** {textos_procedimiento['org_instructor']}"
 )
 
 # General Metrics for filtered data in bordered container
 with st.container(border=True):
-    total_processes = len(filtered_processed)
-    finalized_count = filtered_processed['contains_selected'].sum()
+    total_processes = len(tram_filtr_agg_t)
+    finalized_count = tram_filtr_agg_t['contains_selected'].sum()
     finalized_percent = (finalized_count / total_processes * 100) if total_processes > 0 else 0
-    mean_duration = filtered_processed[filtered_processed['contains_selected']]['duration_days'].mean()
+    mean_duration = tram_filtr_agg_t[tram_filtr_agg_t['contains_selected']]['duration_days'].mean()
 
     col_gen1, col_gen2, col_gen3, col_gen4 = st.columns(4)
     with col_gen1:
@@ -95,16 +102,16 @@ with st.container(border=True):
         st.metric("Tiempo medio finalización", value)
 
     # State-wise metrics in bordered container
-    if len(selected_states) > 0 and st.checkbox("Mostrar estadísticas por estado final", value=False):
+    if len(estados_finales_selecc) > 0 and st.checkbox("Mostrar estadísticas por estado final", value=False):
         st.caption("Volumen y tiempos de expedientes que pasan por los estados seleccionados como finales. Si el estado seleccionado no es el último, los datos representan el tiempo hasta finalizar por completo esos expedientes")
     
-        for state_num in selected_states:
-            state_name = state_names.get(state_num, f"State {state_num}")
+        for state_num in estados_finales_selecc:
+            state_name = nombres_estados.get(state_num, f"State {state_num}")
             
-            mask = filtered_processed['all_states'].apply(lambda x: state_num in x)
+            mask = tram_filtr_agg_t['all_states'].apply(lambda x: state_num in x)
             state_count = mask.sum()
             state_percent = (state_count / total_processes * 100) if total_processes > 0 else 0
-            state_mean = filtered_processed[mask]['duration_days'].mean()
+            state_mean = tram_filtr_agg_t[mask]['duration_days'].mean()
 
             cols = st.columns([2, 1, 1, 1])
             cols[0].info(f"**{state_name}**")
@@ -114,8 +121,8 @@ with st.container(border=True):
             cols[3].metric("Tiempo Medio hasta un estado final", value)
 
 # Unidad Tramitadora comparison
-if 'unidad_tramitadora' in filtered_processed.columns:
-    unidades_series = filtered_processed['unidad_tramitadora']
+if 'unidad_tramitadora' in tram_filtr_agg_t.columns:
+    unidades_series = tram_filtr_agg_t['unidad_tramitadora']
     unique_unidades = unidades_series.unique()
     
     # Create color mapping based on original names
@@ -125,7 +132,7 @@ if 'unidad_tramitadora' in filtered_processed.columns:
     
     # Create code mapping for display
     unidad_codes = {unidad: f'UT{i+1}' for i, unidad in enumerate(sorted(unique_unidades))}
-    filtered_processed['unidad_code'] = unidades_series.map(unidad_codes)
+    tram_filtr_agg_t['unidad_code'] = unidades_series.map(unidad_codes)
 
     unidades_validas = unidades_series[unidades_series.isin(unidades_series.value_counts()[unidades_series.value_counts() > 0].index)]
     
@@ -143,7 +150,7 @@ if 'unidad_tramitadora' in filtered_processed.columns:
             with col2:
                 # Aggregate data by unit code and unit name
                 agg_data = (
-                    filtered_processed
+                    tram_filtr_agg_t
                     .groupby(['unidad_code', 'unidad_tramitadora'], as_index=False)
                     .size()
                     .rename(columns={'size': 'count'})
@@ -180,7 +187,7 @@ if 'unidad_tramitadora' in filtered_processed.columns:
             with col3:
                 # Compute the average duration for finalized processes
                 duration_df = (
-                    filtered_processed[filtered_processed['contains_selected']]
+                    tram_filtr_agg_t[tram_filtr_agg_t['contains_selected']]
                     .groupby('unidad_tramitadora', as_index=False)['duration_days']
                     .mean()
                 )
@@ -214,7 +221,7 @@ if 'unidad_tramitadora' in filtered_processed.columns:
             st.info("Compara % de expedientes finalizados, tiempos medios y diferencia respecto a la media",icon='ℹ️')
             for unidad in unidades_sorted:
                 mask = unidades_series == unidad
-                unidad_data = filtered_processed[mask]
+                unidad_data = tram_filtr_agg_t[mask]
                 code = unidad_codes[unidad]
                 
                 total_unidad = len(unidad_data)

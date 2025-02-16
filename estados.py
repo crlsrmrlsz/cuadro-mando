@@ -3,18 +3,18 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-if "filtered_data" not in st.session_state:
+if "datos_filtrados_rango" not in st.session_state:
     st.error("Cargue los datos desde la página principal primero.")
     st.stop()
 
 # Get parameters from session state
-date_range = st.session_state.get('selected_dates', (None, None))
-selected_procedure = st.session_state.get('selected_procedure', None)
-selected_states = [int(s) for s in st.session_state.selected_final_states]
-state_names = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
+rango_fechas = st.session_state.get('rango_fechas', (None, None))
+proced_seleccionado = st.session_state.get('proced_seleccionado', None)
+estados_finales_selecc = [int(s) for s in st.session_state.estados_finales_selecc]
+nombres_estados = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
 
 @st.cache_data(show_spinner="Calculando transiciones de estados")
-def process_flows_for_transitions(tramites, selected_states, date_range, selected_procedure):
+def process_flows_for_transitions(tramites, estados_finales_selecc, rango_fechas, proced_seleccionado):
     tramites_sorted = tramites.sort_values(['id_exp', 'fecha_tramite'])
     tramites_sorted['next_fecha'] = tramites_sorted.groupby('id_exp')['fecha_tramite'].shift(-1)
     tramites_sorted['duration'] = (
@@ -23,21 +23,29 @@ def process_flows_for_transitions(tramites, selected_states, date_range, selecte
     ).fillna(0)
     tramites_sorted['unidad_tramitadora'] = tramites_sorted['unidad_tramitadora'].fillna('No especificada')
     
-    process_states = tramites_sorted.groupby('id_exp').agg(
+    tram_filtr_agg_tiempos = tramites_sorted.groupby('id_exp').agg(
         all_states=('num_tramite', lambda x: list(x.astype(int))),
         durations=('duration', list),
         unidad_tramitadora=('unidad_tramitadora', 'first')
     ).reset_index()
+    if not estados_finales_selecc:
+        filtered_processed = tram_filtr_agg_tiempos
+    else:
+        filtered_processed = tram_filtr_agg_tiempos[tram_filtr_agg_tiempos['all_states'].apply(
+            lambda x: any(s in estados_finales_selecc for s in x)
+        )]
+    # filtered_processed = tram_filtr_agg_tiempos[tram_filtr_agg_tiempos['all_states'].apply(
+    #     lambda x: any(s in estados_finales_selecc for s in x))]
     
-    return process_states[process_states['all_states'].apply(lambda x: any(s in selected_states for s in x))]
+    return filtered_processed
 
 @st.cache_data
-def calculate_transition_stats(filtered_processes, selected_states, date_range, selected_procedure):
+def calculate_transition_stats(filtered_processes, estados_finales_selecc, rango_fechas, proced_seleccionado):
     transition_stats = {}
     transition_stats_grouped = {}
     
     for _, row in filtered_processes.iterrows():
-        exp_id = row['id_exp']
+        #exp_id = row['id_exp']
         states = row['all_states']
         durations = row['durations']
         unidad = row['unidad_tramitadora']
@@ -67,8 +75,8 @@ def build_transition_dataframes(transition_stats, transition_stats_grouped):
     data = []
     for (src, tgt), stats in transition_stats.items():
         avg_duration = stats['sum_duration'] / stats['count'] if stats['count'] > 0 else 0
-        src_label = state_names.get(src, f"S-{src}")
-        tgt_label = state_names.get(tgt, f"S-{tgt}")
+        src_label = nombres_estados.get(src, f"S-{src}")
+        tgt_label = nombres_estados.get(tgt, f"S-{tgt}")
         data.append({
             'Transition': f"{src_label} → {tgt_label}",
             'Mean Duration': avg_duration,
@@ -82,8 +90,8 @@ def build_transition_dataframes(transition_stats, transition_stats_grouped):
         mean_duration = stats['sum_duration'] / stats['count'] if stats['count'] > 0 else 0
         total_days = stats['sum_duration']
         count = stats['count']
-        src_label = state_names.get(src, f"S-{src}")
-        tgt_label = state_names.get(tgt, f"S-{tgt}")
+        src_label = nombres_estados.get(src, f"S-{src}")
+        tgt_label = nombres_estados.get(tgt, f"S-{tgt}")
         transition_label = f"{src_label} → {tgt_label}"
         data_scatter_global.append({
             'Transition': transition_label,
@@ -99,8 +107,8 @@ def build_transition_dataframes(transition_stats, transition_stats_grouped):
         mean_duration = stats['sum_duration'] / stats['count'] if stats['count'] > 0 else 0
         total_days = stats['sum_duration']
         count = stats['count']
-        src_label = state_names.get(src, f"S-{src}")
-        tgt_label = state_names.get(tgt, f"S-{tgt}")
+        src_label = nombres_estados.get(src, f"S-{src}")
+        tgt_label = nombres_estados.get(tgt, f"S-{tgt}")
         transition_label = f"{src_label} → {tgt_label}"
         data_scatter_grouped.append({
             'Transition': transition_label,
@@ -114,19 +122,19 @@ def build_transition_dataframes(transition_stats, transition_stats_grouped):
     return df_transitions, df_scatter_global, df_scatter_grouped
 
 # Main processing pipeline
-tramites_data = st.session_state.filtered_data['tramites']
+tramites_data = st.session_state.datos_filtrados_rango['tramites']
 filtered_processes = process_flows_for_transitions(
-    tramites_data, selected_states, date_range, selected_procedure
+    tramites_data, estados_finales_selecc, rango_fechas, proced_seleccionado
 )
 transition_stats, transition_stats_grouped = calculate_transition_stats(
-    filtered_processes, selected_states, date_range, selected_procedure
+    filtered_processes, estados_finales_selecc, rango_fechas, proced_seleccionado
 )
 df_transitions, df_scatter_global, df_scatter_grouped = build_transition_dataframes(
     transition_stats, transition_stats_grouped
 )
 
 # Tab definitions remain the same
-tab_bar, tab_scatter, tab_acumulado = st.tabs(["Cuellos de botella", "Grandes consumidores de tiempo", "Carga de trabajo acumulada"])
+tab_bar, tab_scatter = st.tabs(["Cuellos de botella", "Grandes consumidores de tiempo"])
 
 
 with tab_bar:
@@ -174,8 +182,8 @@ with tab_bar:
         grouped_data = []
         for (src, tgt, unidad), stats in transition_stats_grouped.items():
             avg_duration = stats['sum_duration'] / stats['count'] if stats['count'] > 0 else 0
-            src_label = state_names.get(src, f"S-{src}")
-            tgt_label = state_names.get(tgt, f"S-{tgt}")
+            src_label = nombres_estados.get(src, f"S-{src}")
+            tgt_label = nombres_estados.get(tgt, f"S-{tgt}")
             grouped_data.append({
                 'Transition': f"{src_label} → {tgt_label}",
                 'Unidad': unidad,
@@ -335,6 +343,3 @@ with tab_scatter:
     elif unique_unidades > 1:
         st.warning("No hay datos suficientes para comparar unidades")
         
-with tab_acumulado:
-    st.subheader("Carga de trabajo acumulada a lo largo del tiempo")
-    st.info("Identifica cómo evoluciona la carga de trabajo, qué trámites se acumulan durante más tiempo, o en ciertos periodos", icon='⚙️')

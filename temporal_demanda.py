@@ -16,7 +16,7 @@ import numpy as np
 # CARGA DE DATOS DE SESSION STATE
 ##########################
 # Get filtered expedientes
-expedientes = st.session_state.filtered_data['expedientes']
+expedientes = st.session_state.datos_filtrados_rango['expedientes']
 # Ensure datetime type
 expedientes['fecha_registro_exp'] = pd.to_datetime(expedientes['fecha_registro_exp'])
 
@@ -24,7 +24,7 @@ expedientes['fecha_registro_exp'] = pd.to_datetime(expedientes['fecha_registro_e
 # FUNCIONES CACHEADAS
 ##########################
 @st.cache_data
-def compute_agregado(_expedientes, freq, date_range, selected_procedure):
+def compute_agregado(_expedientes, freq, rango_fechas, proced_seleccionado):
     """Compute aggregated data for Tab1"""
     freq_map = {'Diaria': 'D', 'Semanal': 'W-MON', 'Mensual': 'MS'}
     return _expedientes.set_index('fecha_registro_exp').resample(freq_map[freq]).agg(
@@ -32,7 +32,7 @@ def compute_agregado(_expedientes, freq, date_range, selected_procedure):
     ).reset_index()
 
 @st.cache_data
-def compute_provincia(_expedientes, freq, date_range, selected_procedure):
+def compute_provincia(_expedientes, freq, rango_fechas, proced_seleccionado):
     """Compute province data for Tab2 and Tab4"""
     freq_map = {'Diaria': 'D', 'Semanal': 'W-MON', 'Mensual': 'MS'}
     df = _expedientes.groupby(
@@ -48,7 +48,7 @@ def compute_provincia(_expedientes, freq, date_range, selected_procedure):
     return df
 
 @st.cache_data
-def compute_heatmap_data(_expedientes, date_range, selected_procedure):
+def compute_heatmap_data(_expedientes, rango_fechas, proced_seleccionado):
     """Compute heatmap data for Tab3"""
     df_week = _expedientes.set_index('fecha_registro_exp').resample('W-MON').agg(
         total_exp=('id_exp', 'count')
@@ -77,15 +77,18 @@ tab1, tab2, tab3, tab4 = st.tabs([
 ])
 
 
-selected_dates = st.session_state.get('selected_dates', (None, None))
-selected_procedure = st.session_state.selected_procedure
+rango_fechas = st.session_state.get('rango_fechas', (None, None))
+proced_seleccionado = st.session_state.proced_seleccionado
 
 with tab1:
     st.subheader("Evolución mensual de la recepción de solicitudes")
     st.info("Identifica patrones de mayor entrada de solicitudes y posibles relaciones con eventos relacionados con el procedimiento",  icon="🕵️‍♂️")
     
     freq = 'Mensual'
-    df_agregado = compute_agregado(expedientes, freq, selected_dates, selected_procedure)
+    df_agregado = compute_agregado(expedientes, freq, rango_fechas, proced_seleccionado)
+    
+    # Checkbox to include rolling mean
+    include_rolling_mean = st.checkbox("Ver media móvil")
     
     # Dynamic labels and ticks
     if freq == 'Diaria':
@@ -104,6 +107,37 @@ with tab1:
                  labels={'fecha_registro_exp': 'Fecha', 'total_exp': 'Solicitudes'})
     
     fig.update_xaxes(tickformat=tick_format)
+    
+    
+    # Optionally add a rolling mean line
+    if include_rolling_mean:
+        # Determine an appropriate window size for the rolling mean
+        # n_months = len(df_agregado)
+        # if n_months < 24:
+        #     window_size = 3
+        # elif n_months < 48:
+        #     window_size = 6
+        # else:
+        #     window_size = 12
+        window_size = 6
+        # Compute the rolling mean with a minimum period of 1 so early values are computed
+        #df_agregado['rolling_mean'] = df_agregado['total_exp'].rolling(window=window_size, min_periods=1).mean()
+        df_agregado['centered_mean'] = df_agregado['total_exp'].rolling(window=window_size, min_periods=1, center=True).mean()
+        #df_agregado['centered_mean'] = df_agregado['total_exp'].rolling(window=window_size, min_periods=1, center=True).median()
+
+        # Add the rolling mean as a red line trace over the bar chart
+        fig.add_trace(
+            go.Scatter(
+                x=df_agregado['fecha_registro_exp'],
+                y=df_agregado['centered_mean'],
+                mode='lines',
+                line=dict(color='red', width=2),
+                showlegend=False
+                # name=f'Media móvil ({window_size} meses)'
+            )
+        )
+    
+    
     # Compute the max stacked value across all dates and set y-axis range accordingly
     max_total_1 = df_agregado['total_exp'].max()
     fig.update_yaxes(range=[0, max_total_1])
@@ -117,7 +151,7 @@ with tab2:
 
     
     freq = 'Mensual'
-    df_provincia = compute_provincia(expedientes, freq, selected_dates, selected_procedure)
+    df_provincia = compute_provincia(expedientes, freq, rango_fechas, proced_seleccionado)
     
     # Create dynamic labels for the x-axis
     tick_format = '%b %Y' if freq == 'Mensual' else '%Y-%m-%d'
@@ -174,7 +208,7 @@ with tab3:
     st.info("El mapa de calor permite visualizar posibles semanas o periodos anuales en que se presentan más solicitudes",  icon="🕵️‍♂️")
 
 
-    df_week, heatmap_data, custom_data = compute_heatmap_data(expedientes, selected_dates, selected_procedure)
+    df_week, heatmap_data, custom_data = compute_heatmap_data(expedientes, rango_fechas, proced_seleccionado)
     
     fig_heatmap = go.Figure(data=go.Heatmap(
         x=heatmap_data.columns,
@@ -210,7 +244,7 @@ with tab4:
     
     # Usamos los datos cacheados de tab2
     freq = 'Mensual'
-    df_provincia = compute_provincia(expedientes, freq, selected_dates, selected_procedure)
+    df_provincia = compute_provincia(expedientes, freq, rango_fechas, proced_seleccionado)
     
     df_subset = df_provincia[['fecha_registro_exp', 'provincia', 'total_exp']].rename(columns={
         'fecha_registro_exp': 'Fecha inicio mes',

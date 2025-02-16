@@ -19,7 +19,7 @@ MIN_PERCENTAGE_SHOW = 2
 # ------------------------------------------
 
 # Helper function to build a DOT string for a given office's processes
-def build_dot_for_office(office_df, state_names):
+def build_dot_for_office(office_df, nombres_estados):
     """
     Given a DataFrame (office_df) containing filtered expedients for one office,
     build a DOT string that aggregates transitions (count and average duration).
@@ -50,9 +50,9 @@ def build_dot_for_office(office_df, state_names):
     sorted_nodes = sorted(nodes_set)
     node_ids = {node: f"node{idx}" for idx, node in enumerate(sorted_nodes)}
     
-    # Define nodes with their labels (using state_names mapping)
+    # Define nodes with their labels (using nombres_estados mapping)
     for node in sorted_nodes:
-        node_label = state_names.get(node, f"S-{node}")
+        node_label = nombres_estados.get(node, f"S-{node}")
         dot_lines.append(f'  {node_ids[node]} [label="{node_label}"];')
     
     # Define edges with aggregated counts and average durations
@@ -104,7 +104,7 @@ def plot_legend_table(legend_df, unique_key):
     )
     st.plotly_chart(fig, use_container_width=False, key=unique_key)
 
-def generate_flow_info(flow, idx, state_names):
+def generate_flow_info(flow, idx, nombres_estados):
     """
     Given a flow record, its index, and the mapping of state names,
     return a tuple containing:
@@ -114,16 +114,16 @@ def generate_flow_info(flow, idx, state_names):
       - label string for display.
     """
     code = f"F{idx:02d}"
-    states = [str(state_names.get(s, f"S-{s}")) for s in flow['sequence']]
+    states = [str(nombres_estados.get(s, f"S-{s}")) for s in flow['sequence']]
     full_sequence = " → ".join(states)
     label = f"{code}: ({flow['percentage']}%) {full_sequence} "
     return code, states, full_sequence, label
 
 @st.cache_data
-def process_flows(_tramites, selected_states, selected_procedure, selected_dates):
+def process_flows(_tramites, estados_finales_selecc, proced_seleccionado, rango_fechas):
     """
-    Process the tramites data (which has already been filtered by selected_procedure,
-    selected_dates, and selected_final_states) and compute flows.
+    Process the tramites data (which has already been filtered by proced_seleccionado,
+    rango_fechas, and estados_finales_selecc) and compute flows.
     
     This version also carries the 'unidad_tramitadora' column (the office that processes
     each expediente) so that later we can group office-level metrics.
@@ -140,17 +140,25 @@ def process_flows(_tramites, selected_states, selected_procedure, selected_dates
     tramites_sorted['unidad_tramitadora'] = tramites_sorted['unidad_tramitadora'].fillna('No especificada')
     # Group by expedition. Because all rows for an id_exp share the same office,
     # we take the first value of 'unidad_tramitadora'.
-    process_states = tramites_sorted.groupby('id_exp').agg(
+    tram_filtr_agg_tiempos = tramites_sorted.groupby('id_exp').agg(
         all_states=('num_tramite', lambda x: list(x.astype(int))),
         durations=('duration', list),
         unidad_tramitadora=('unidad_tramitadora', 'first')
     ).reset_index()
     
     # Filter processes that include at least one of the selected states
-    filtered_processes = process_states[process_states['all_states'].apply(
-        lambda x: any(s in selected_states for s in x)
-    )]
-    
+    # filtered_processes = tram_filtr_agg_tiempos[tram_filtr_agg_tiempos['all_states'].apply(
+    #     lambda x: any(s in estados_finales_selecc for s in x)
+    # )]
+    # Filter processes that include at least one of the selected states,
+    # or include all processes if no states are selected.
+    if not estados_finales_selecc:
+        filtered_processes = tram_filtr_agg_tiempos
+    else:
+        filtered_processes = tram_filtr_agg_tiempos[tram_filtr_agg_tiempos['all_states'].apply(
+            lambda x: any(s in estados_finales_selecc for s in x)
+        )]
+        
     total_processes = len(filtered_processes)
     
     # Count the frequency of each sequence (convert lists to tuples to hash them)
@@ -179,7 +187,7 @@ def process_flows(_tramites, selected_states, selected_procedure, selected_dates
     
     return flow_data, total_processes, filtered_processes
 
-def create_visualizations(flow_data, state_names):
+def create_visualizations(flow_data, nombres_estados):
     """
     Build legend and visualization data frames using the helper function.
     """
@@ -187,7 +195,7 @@ def create_visualizations(flow_data, state_names):
     viz_data = []
     
     for idx, flow in enumerate(flow_data, 1):
-        code, states, full_sequence, _ = generate_flow_info(flow, idx, state_names)
+        code, states, full_sequence, _ = generate_flow_info(flow, idx, nombres_estados)
         transitions = [f"{states[i]} → {states[i+1]}" for i in range(len(states) - 1)]
         
         legend_data.append({
@@ -208,7 +216,7 @@ def create_visualizations(flow_data, state_names):
     
     return pd.DataFrame(legend_data), pd.DataFrame(viz_data)
 
-def create_office_visualizations(filtered_processes, flow_data, state_names):
+def create_office_visualizations(filtered_processes, flow_data, nombres_estados):
     """
     Build DataFrames for office-level visualizations.
     For each major flow (from flow_data) and for each unidad_tramitadora,
@@ -257,7 +265,7 @@ def create_office_visualizations(filtered_processes, flow_data, state_names):
         })
         
         # Get transitions labels from state names
-        states = [str(state_names.get(s, f"S-{s}")) for s in seq_tuple]
+        states = [str(nombres_estados.get(s, f"S-{s}")) for s in seq_tuple]
         transitions = [f"{states[i]} → {states[i+1]}" for i in range(len(states)-1)]
         # Also record the transition index for ordering
         for i, d in enumerate(avg_durs):
@@ -302,22 +310,22 @@ tab1, tab2, tab3, tab4 = st.tabs([
 ])
 
 # Validate session state
-if "filtered_data" not in st.session_state:
+if "datos_filtrados_rango" not in st.session_state:
     st.error("Cargue los datos desde la página principal primero.")
 
 # Get required data from session state
-state_names = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
-selected_states = [int(s) for s in st.session_state.selected_final_states]
+nombres_estados = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
+estados_finales_selecc = [int(s) for s in st.session_state.estados_finales_selecc]
 
 # Process data with caching (MODIFIED to capture filtered_processes)
 flow_data, total, filtered_processes = process_flows(  # Changed to receive 3 values
-    st.session_state.filtered_data['tramites'],
-    selected_states,
-    st.session_state.selected_procedure,
-    st.session_state.selected_dates
+    st.session_state.datos_filtrados_rango['tramites'],
+    estados_finales_selecc,
+    st.session_state.proced_seleccionado,
+    st.session_state.rango_fechas
 )
 
-#st.dataframe(st.session_state.filtered_data['tramites'])
+#st.dataframe(st.session_state.datos_filtrados_rango['tramites'])
 
 if not flow_data:
     st.warning(f"No hay flujos que cumplan el criterio del {MIN_PERCENTAGE_SHOW}%")
@@ -331,7 +339,7 @@ with tab1:
     st.info(f"""Identifica los **flujos más comunes** y el **tiempo medio** que se dedica a **cada transición** de estados.
                    Sólo se muestran los flujos que representan más del **{MIN_PERCENTAGE_SHOW}%** del total""",  icon="🕵️‍♂️")
     # Create visualizations
-    legend_df, viz_df = create_visualizations(flow_data, state_names)
+    legend_df, viz_df = create_visualizations(flow_data, nombres_estados)
     
     flow_sequence_mapping = legend_df.set_index('Code')['Sequence'].to_dict()
 
@@ -441,7 +449,7 @@ with tab1:
         
         # Generate office-level data
         perc_df, dur_df, office_code_mapping = create_office_visualizations(
-            filtered_processes, flow_data, state_names
+            filtered_processes, flow_data, nombres_estados
         )
         
         # Create consistent color mapping for transitions across all offices
@@ -553,7 +561,7 @@ with tab2:
     selected_flows_gv = []
     with st.container(border=True):
         for idx, flow in enumerate(flow_data, 1):
-            code, _, _, label = generate_flow_info(flow, idx, state_names)
+            code, _, _, label = generate_flow_info(flow, idx, nombres_estados)
             # Only the first checkbox is True by default, similar to tab2.
             if st.checkbox(label, value=(idx == 1), key=f"gv_flow_{code}"):
                 selected_flows_gv.append(flow)
@@ -597,7 +605,7 @@ with tab2:
     # Define nodes with their labels.
     for node in nodes_sorted:
         # Use the state name mapping for a nice label.
-        node_label = state_names.get(node, f"S-{node}")
+        node_label = nombres_estados.get(node, f"S-{node}")
         dot_lines.append(f'  {node_ids[node]} [label="{node_label}"];')
     
     # Define edges with labels that show the count and average duration.
@@ -625,12 +633,12 @@ with tab2:
         matching_ids = filtered_processes[mask]['id_exp'].unique()
         
         # Filter and display tramites
-        tramites_df = st.session_state.filtered_data['tramites']
+        tramites_df = st.session_state.datos_filtrados_rango['tramites']
         filtered_tramites = tramites_df[tramites_df['id_exp'].isin(matching_ids)]
         
         # Add state names using the dictionary mapping
         filtered_tramites['Estado'] = filtered_tramites['num_tramite'].apply(
-            lambda x: state_names.get(x, f"S-{x}")  # Handle missing states
+            lambda x: nombres_estados.get(x, f"S-{x}")  # Handle missing states
         )
         
         # Select specific columns to show
@@ -683,7 +691,7 @@ with tab2:
                 if office_df1.empty:
                     st.info("No hay procesos para esta combinación en esta unidad.")
                 else:
-                    dot_str_office_1 = build_dot_for_office(office_df1, state_names)
+                    dot_str_office_1 = build_dot_for_office(office_df1, nombres_estados)
                     col_order_1_1, col_order_1_2, col_order_1_3 = st.columns([1,5,1])
                     with col_order_1_2:
                         st.graphviz_chart(dot_str_office_1)
@@ -700,7 +708,7 @@ with tab2:
                 if office_df2.empty:
                     st.info("No hay procesos para esta combinación en esta unidad.")
                 else:
-                    dot_str_office_2 = build_dot_for_office(office_df2, state_names)
+                    dot_str_office_2 = build_dot_for_office(office_df2, nombres_estados)
                     col_order_2_1, col_order_2_2, col_order_2_3 = st.columns([1,5,1])
                     with col_order_2_2:
                         st.graphviz_chart(dot_str_office_2)
@@ -716,7 +724,7 @@ with tab3:
     bubble_data = []
     for idx, flow in enumerate(flow_data, 1):
         # Use the helper function to obtain coherent information.
-        code, states, full_sequence, label = generate_flow_info(flow, idx, state_names)
+        code, states, full_sequence, label = generate_flow_info(flow, idx, nombres_estados)
         # Define complexity as the number of states (or pasos) in the flow.
         complexity = len(states)
         # Calculate total duration (in days) as an integer (rounding if necessary).
@@ -790,7 +798,7 @@ with tab4:
     selected_flows = []
     with st.container(border=True):
         for idx, flow in enumerate(flow_data, 1):
-            code, _, _, label = generate_flow_info(flow, idx, state_names)
+            code, _, _, label = generate_flow_info(flow, idx, nombres_estados)
             if st.checkbox(label, value=(idx == 1), key=f"flow_{code}"):
                 selected_flows.append(flow)
         
@@ -837,7 +845,7 @@ with tab4:
         node=dict(
             #pad=300,         # Padding between nodes
             thickness=25,   # Node thickness
-            label=[state_names.get(n, f"S-{n}") for n in nodes],
+            label=[nombres_estados.get(n, f"S-{n}") for n in nodes],
             line=dict(
                 color="black", 
                 width=0.7),
