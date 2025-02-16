@@ -3,17 +3,22 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
+
 # Get parameters from session state
 rango_fechas = st.session_state.get('rango_fechas', (None, None))
 proced_seleccionado = st.session_state.get('proced_seleccionado', None)
 estados_finales_selecc = [int(s) for s in st.session_state.estados_finales_selecc]
 nombres_estados = st.session_state.estados.set_index('NUMTRAM')['DENOMINACION_SIMPLE'].to_dict()
 
-
+# Initialize session state variable to store the selected date
+if 'selected_date' not in st.session_state:
+    st.session_state.selected_date = None
+    
+    
 # Add this function for tab1 data processing
 @st.cache_data(show_spinner="Procesando datos de inicio vs completados...")
 def process_starts_vs_completed(estados_finales_selecc):
-    
+    #cogemos directamente de session state para evitar problemas de actualizacion
     _tramites_df= st.session_state.datos_filtrados_rango['tramites'].copy()
     # Get all process starts (num_tramite=0)
     starts_df = _tramites_df[_tramites_df['num_tramite'] == 0].copy()
@@ -40,36 +45,80 @@ def process_starts_vs_completed(estados_finales_selecc):
     
     return merged.fillna(0)
 
+# Cached helper function to precompute not completed expedientes by start month
+@st.cache_data(show_spinner="Calculando expedientes no completados...")
+def get_not_completed_expedientes(estados_finales_selecc):
+    tramites_df = st.session_state.datos_filtrados_rango['tramites'].copy()
+    expedientes = st.session_state.datos_filtrados_rango['expedientes'].copy()
+    
+    # Get all process starts
+    starts_df = tramites_df[tramites_df['num_tramite'] == 0].copy()
+    # Compute start month
+    starts_df['fecha'] = starts_df['fecha_tramite'].dt.to_period('M').dt.to_timestamp()
+    
+    if estados_finales_selecc:
+        # Determine which processes reached final states
+        completed_procs = tramites_df[
+            tramites_df['num_tramite'].isin(estados_finales_selecc)
+        ]['id_exp'].unique()
+    else:
+        completed_procs = []
+    
+    # Filter to get only not completed processes
+    not_completed = starts_df[~starts_df['id_exp'].isin(completed_procs)].copy()
+    # Join with expedientes to get detailed info (assuming matching on 'id_exp')
+    not_completed_expedientes = not_completed.merge(expedientes, on='id_exp', how='left')
+    
+    not_completed_expedientes = not_completed_expedientes[['fecha', 'id_exp','unidad_tramitadora','fecha_registro_exp','municipio_x','provincia_x','es_online_x','es_empresa_x']]
+    # Convert 'fecha_registro_exp' to datetime and format it as 'YYYY-MM-DD'
+    not_completed_expedientes['fecha_registro_exp'] = pd.to_datetime(not_completed_expedientes['fecha_registro_exp']).dt.strftime('%Y-%m-%d')
+    not_completed_expedientes = not_completed_expedientes.rename(columns={
+        'id_exp': 'ID Expediente',
+        'unidad_tramitadora': 'Unidad Tramitadora',
+        'fecha_registro_exp': 'Fecha Registro',
+        'municipio_x': 'Municipio',
+        'provincia_x': 'Provincia',
+        'es_online_x': 'Online',
+        'es_empresa_x': 'Empresa'
+    })
+
+ 
+    return not_completed_expedientes
+
 # Add this new plot function
 def create_start_completion_plot(data):
+    # Add not completed column
+    data['not_completed'] = data['total_starts'] - data['completed']
+    
     fig = go.Figure()
     
-    # Main starts bar
+    # Not completed processes (orange)
     fig.add_trace(go.Bar(
         x=data['fecha'],
-        y=data['total_starts'],
-        name='Procesos iniciados',
-        marker_color='#1f77b4',
-        # width=0.4  # Wider bar for starts
+        y=data['not_completed'],
+        name='No completados',
+        #marker_color='#ff7f0e',
+        customdata=data[['fecha']],
+        hovertemplate="No completados: %{y}<extra></extra>"
     ))
     
-    # Completed overlay bar
-    if data['completed'].sum() > 0:
-        fig.add_trace(go.Bar(
-            x=data['fecha'],
-            y=data['completed'],
-            name='Procesos completados',
-            marker_color='#ff7f0e',
-            # width=0.3,  # Narrower bar for completed
-            #offset=0  # Offset to left-align
-        ))
+    # Completed processes (green)
+    fig.add_trace(go.Bar(
+        x=data['fecha'],
+        y=data['completed'],
+        name='Completados',
+        marker_color='Orange',
+        customdata=data[['fecha']],
+        hovertemplate="Completados: %{y}<extra></extra>"
+    ))
     
-    # Apply date range from session state
+ 
+    # Apply date range
     start_date = pd.to_datetime(rango_fechas[0]).to_period('M').to_timestamp()
     end_date = pd.to_datetime(rango_fechas[1]).to_period('M').to_timestamp()
     
     fig.update_layout(
-        barmode='group',
+        barmode='stack',  # Changed to stack
         xaxis_title='Fecha',
         yaxis_title='Número de procesos',
         legend_title='Leyenda',
@@ -85,7 +134,9 @@ def create_start_completion_plot(data):
             yanchor="bottom",
             y=1.02
         )
+        #clickmode='select' 
     )
+    
     return fig
 
 
@@ -167,23 +218,40 @@ with tab1:
     st.subheader("Progreso de procesos iniciados")
     st.info("Muestra la cantidad de procesos iniciados vs aquellos que alcanzaron estados finales seleccionados", icon='📈')
     
- 
     # Process data for tab1
     start_complete_data = process_starts_vs_completed(estados_finales_selecc)
     
-    # Create and display plot
+    # Create plot and capture click events
     progress_fig = create_start_completion_plot(start_complete_data)
-    st.plotly_chart(progress_fig, use_container_width=True)
+    #st.plotly_chart(progress_fig, use_container_width=True)
+    event = st.plotly_chart(progress_fig, use_container_width=True, on_select="rerun")
+    # Check if an event occurred and process it
     
-    # Add explanatory text
-    if estados_finales_selecc:
-        st.markdown("""
-            **Interpretación:**
-            - Barras azules: Total de procesos iniciados cada mes
-            - Barras naranjas: Procesos de esos iniciados que alcanzaron los estados finales seleccionados
-            """)
-    else:
-        st.warning("No se han seleccionado estados finales para mostrar procesos completados")
+    st.markdown("")
+    st.markdown("")
+    
+    if event and 'selection' in event:
+        selection = event['selection']
+        if selection and 'points' in selection and len(selection['points']) > 0:
+            # Extract the 'x' value from the first clicked point
+            clicked_date_str = selection['points'][0]['x']
+            clicked_date = pd.to_datetime(clicked_date_str).to_period('M').to_timestamp()
+            
+            st.subheader(f"Expedientes de {clicked_date.strftime('%b %Y')} no completados")
+            st.markdown("Estos expedientes no han alcanzado ninguno de los estados finales seleccionados")
+            # Get precomputed not completed expedientes
+            not_completed_expedientes = get_not_completed_expedientes(estados_finales_selecc)
+            # Filter for the selected month
+            df_filtered = not_completed_expedientes[not_completed_expedientes['fecha'] == clicked_date]
+            # Drop the 'fecha' column
+            df_filtered = df_filtered.drop(columns=['fecha'])
+
+            st.dataframe(df_filtered, 
+                    hide_index = True,
+                    column_config={
+                    "ID Expediente": st.column_config.TextColumn(),
+                    "Fecha de Registro": st.column_config.DatetimeColumn(format="DD/MM/YYYY")
+                    })
 
     
 with tab2: 

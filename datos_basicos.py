@@ -235,7 +235,7 @@ if 'unidad_tramitadora' in tram_filtr_agg_t.columns:
                 with st.container(border=True):
                     cols = st.columns([2, 1, 1, 1, 1])
                     with cols[0]:
-                        st.info(f"**{code}** - {unidad}")
+                        st.markdown(f"**{unidad}**")
                     
                     cols[1].metric("Expedientes iniciados", total_unidad)
                     cols[2].metric("Expedientes finalizados", finalized_unidad)

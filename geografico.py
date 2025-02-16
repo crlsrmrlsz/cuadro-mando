@@ -70,8 +70,8 @@ def aggregate_data(_expedientes, rango_fechas, proced_seleccionado):
 
 heigh_tab1 = 500
 opacity_data_map = 0.9
-colors_map_prov = "Plasma_r"
-colors_map_mun = "Blues"
+colors_map_prov = "YlOrRd"
+colors_map_mun = "YlOrRd"
 top_m_bar = 60
 left_m_bar = 10
 right_m_bar = 20

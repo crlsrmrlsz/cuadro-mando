@@ -232,7 +232,7 @@ with st.sidebar:
 # NOTE: The st.Page and st.navigation APIs are not part of the official Streamlit API.
 # If you are using a custom or experimental navigation solution, ensure you follow its guidelines.
 datos_basicos = st.Page("datos_basicos.py", title="Datos básicos", icon="🏠")
-flujo = st.Page("flujo.py", title="Flujos de tramitación", icon="⏳")
+flujo = st.Page("flujo.py", title="Flujos de tramitación", icon="🔀")
 estados = st.Page("estados.py", title="Cuellos de botella", icon="🎯")
 geografico = st.Page("geografico.py", title="Origen Geográfico", icon="🌍")
 
