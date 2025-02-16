@@ -1,0 +1,6 @@
+name: streamlit-dashboard
+channels:
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
+  - https://repo.anaconda.com/pkgs/msys2
+prefix: C:\Users\flipe\.conda\envs\streamlit-dashboard

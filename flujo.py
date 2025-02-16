@@ -12,7 +12,7 @@ import plotly.graph_objects as go
 import numpy as np
 
 # Global constant for the minimum percentage to show a flow
-MIN_PERCENTAGE_SHOW = 2
+MIN_PERCENTAGE_SHOW = 0.5
 
 # ------------------------------------------
 # Helper Functions

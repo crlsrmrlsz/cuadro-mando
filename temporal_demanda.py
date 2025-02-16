@@ -79,12 +79,25 @@ tab1, tab2, tab3, tab4 = st.tabs([
 
 rango_fechas = st.session_state.get('rango_fechas', (None, None))
 proced_seleccionado = st.session_state.proced_seleccionado
-
+# Determine frequency based on the date range
+start_date, end_date = rango_fechas
+if start_date is not None and end_date is not None:
+    delta_days = (end_date - start_date).days
+    if delta_days < 90:
+        freq = 'Diaria'
+    elif delta_days < 180:
+        freq = 'Semanal'
+    else:
+        freq = 'Mensual'
+else:
+    freq = 'Mensual'
+        
+        
 with tab1:
     st.subheader("Evolución mensual de la recepción de solicitudes")
     st.info("Identifica patrones de mayor entrada de solicitudes y posibles relaciones con eventos relacionados con el procedimiento",  icon="🕵️‍♂️")
-    
-    freq = 'Mensual'
+
+
     df_agregado = compute_agregado(expedientes, freq, rango_fechas, proced_seleccionado)
     
     # Checkbox to include rolling mean
@@ -149,8 +162,7 @@ with tab2:
     st.subheader("Evolución mensual por provincia")
     st.info("¿hay diferencias entre provincias en los tiempos de presentación de solicitudes?. Haz doble click en una provincia para aislar esos datos",  icon="🕵️‍♂️")
 
-    
-    freq = 'Mensual'
+
     df_provincia = compute_provincia(expedientes, freq, rango_fechas, proced_seleccionado)
     
     # Create dynamic labels for the x-axis

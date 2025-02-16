@@ -17,14 +17,14 @@ if 'selected_date' not in st.session_state:
     
 # Add this function for tab1 data processing
 @st.cache_data(show_spinner="Procesando datos de inicio vs completados...")
-def process_starts_vs_completed(estados_finales_selecc):
+def process_starts_vs_completed(estados_finales_selecc, freq):
     #cogemos directamente de session state para evitar problemas de actualizacion
     _tramites_df= st.session_state.datos_filtrados_rango['tramites'].copy()
     # Get all process starts (num_tramite=0)
     starts_df = _tramites_df[_tramites_df['num_tramite'] == 0].copy()
     
     # Group starts by month
-    starts_df['fecha'] = starts_df['fecha_tramite'].dt.to_period('M').dt.to_timestamp()
+    starts_df['fecha'] = starts_df['fecha_tramite'].dt.to_period(freq).dt.to_timestamp()
     monthly_starts = starts_df.groupby('fecha')['id_exp'].nunique().reset_index(name='total_starts')
     
     if estados_finales_selecc:
@@ -47,14 +47,14 @@ def process_starts_vs_completed(estados_finales_selecc):
 
 # Cached helper function to precompute not completed expedientes by start month
 @st.cache_data(show_spinner="Calculando expedientes no completados...")
-def get_not_completed_expedientes(estados_finales_selecc):
+def get_not_completed_expedientes(estados_finales_selecc, freq):
     tramites_df = st.session_state.datos_filtrados_rango['tramites'].copy()
     expedientes = st.session_state.datos_filtrados_rango['expedientes'].copy()
     
     # Get all process starts
     starts_df = tramites_df[tramites_df['num_tramite'] == 0].copy()
     # Compute start month
-    starts_df['fecha'] = starts_df['fecha_tramite'].dt.to_period('M').dt.to_timestamp()
+    starts_df['fecha'] = starts_df['fecha_tramite'].dt.to_period(freq).dt.to_timestamp()
     
     if estados_finales_selecc:
         # Determine which processes reached final states
@@ -86,7 +86,7 @@ def get_not_completed_expedientes(estados_finales_selecc):
     return not_completed_expedientes
 
 # Add this new plot function
-def create_start_completion_plot(data):
+def create_start_completion_plot(data, freq):
     # Add not completed column
     data['not_completed'] = data['total_starts'] - data['completed']
     
@@ -114,8 +114,17 @@ def create_start_completion_plot(data):
     
  
     # Apply date range
-    start_date = pd.to_datetime(rango_fechas[0]).to_period('M').to_timestamp()
-    end_date = pd.to_datetime(rango_fechas[1]).to_period('M').to_timestamp()
+    start_date = pd.to_datetime(rango_fechas[0]).to_period(freq).to_timestamp()
+    end_date = pd.to_datetime(rango_fechas[1]).to_period(freq).to_timestamp()
+    
+    # Dynamic labels and ticks
+    if freq == 'D':
+        _tick_format = '%Y-%m-%d'
+    elif freq == 'W':
+        _tick_format = 'Semana %U, %Y'
+    else:  # Mensual
+        _tick_format = '%b %Y'
+    
     
     fig.update_layout(
         barmode='stack',  # Changed to stack
@@ -125,7 +134,7 @@ def create_start_completion_plot(data):
         hovermode="x unified",
         height=600,
         xaxis=dict(
-            tickformat="%b %Y",
+            tickformat=_tick_format,
             range=[start_date, end_date]
         ),
         legend=dict(
@@ -141,7 +150,7 @@ def create_start_completion_plot(data):
 
 
 @st.cache_data(show_spinner="Procesando datos de trámites...")
-def process_tramites_data(_tramites_df, estados_finales_selecc, rango_fechas, proced_seleccionado):
+def process_tramites_data(_tramites_df, estados_finales_selecc, rango_fechas, proced_seleccionado, freq):
     # Filter processes that passed through selected final states
     # mask = _tramites_df.groupby('id_exp')['num_tramite'].transform(
     #     lambda x: x.isin(estados_finales_selecc).any()
@@ -157,7 +166,7 @@ def process_tramites_data(_tramites_df, estados_finales_selecc, rango_fechas, pr
         filtered_df = _tramites_df[mask]
     
     # Group by month, state, and processing unit
-    filtered_df['fecha'] = filtered_df['fecha_tramite'].dt.to_period('M').dt.to_timestamp()
+    filtered_df['fecha'] = filtered_df['fecha_tramite'].dt.to_period(freq).dt.to_timestamp()
     grouped = filtered_df.groupby(
         ['fecha', 'num_tramite', 'unidad_tramitadora']
     ).size().reset_index(name='count')
@@ -167,7 +176,7 @@ def process_tramites_data(_tramites_df, estados_finales_selecc, rango_fechas, pr
     
     return grouped
 
-def create_evolution_plot(data):
+def create_evolution_plot(data , freq):
     fig = go.Figure()
     states = sorted(data['num_tramite'].unique(), key=lambda x: int(x))
     
@@ -186,8 +195,16 @@ def create_evolution_plot(data):
             meta=[state_data['estado'].iloc[0]]
         ))
     # Get date range from session state
-    start_date = pd.to_datetime(rango_fechas[0]).to_period('M').to_timestamp() 
-    end_date = pd.to_datetime(rango_fechas[1]).to_period('M').to_timestamp()
+    start_date = pd.to_datetime(rango_fechas[0]).to_period(freq).to_timestamp() 
+    end_date = pd.to_datetime(rango_fechas[1]).to_period(freq).to_timestamp()
+    
+    # Dynamic labels and ticks
+    if freq == 'D':
+        _tick_format = '%Y-%m-%d'
+    elif freq == 'W':
+        _tick_format = 'Semana %U, %Y'
+    else:  # Mensual
+        _tick_format = '%b %Y'
     
     fig.update_layout(
         barmode='stack',
@@ -197,7 +214,7 @@ def create_evolution_plot(data):
         hovermode="x unified",
         height=600,
         xaxis=dict(
-            tickformat="%b %Y",
+            tickformat=_tick_format,
             range=[start_date, end_date]  # Force date range
         ),
         legend=dict(traceorder="normal")
@@ -213,16 +230,29 @@ tab1, tab2 = st.tabs([
     "Evolución cambios de estado"
 ])
 
+start_date, end_date = rango_fechas
+if start_date is not None and end_date is not None:
+    delta_days = (end_date - start_date).days
+    if delta_days < 90:
+        freq = 'D'
+    elif delta_days < 180:
+        freq = 'W'
+    else:
+        freq = 'M'
+else:
+    freq = 'M'
+    
+    
     
 with tab1:
     st.subheader("Progreso de procesos iniciados")
     st.info("Muestra la cantidad de procesos iniciados vs aquellos que alcanzaron estados finales seleccionados", icon='📈')
     
     # Process data for tab1
-    start_complete_data = process_starts_vs_completed(estados_finales_selecc)
+    start_complete_data = process_starts_vs_completed(estados_finales_selecc, freq)
     
     # Create plot and capture click events
-    progress_fig = create_start_completion_plot(start_complete_data)
+    progress_fig = create_start_completion_plot(start_complete_data, freq)
     #st.plotly_chart(progress_fig, use_container_width=True)
     event = st.plotly_chart(progress_fig, use_container_width=True, on_select="rerun")
     # Check if an event occurred and process it
@@ -235,8 +265,7 @@ with tab1:
         if selection and 'points' in selection and len(selection['points']) > 0:
             # Extract the 'x' value from the first clicked point
             clicked_date_str = selection['points'][0]['x']
-            clicked_date = pd.to_datetime(clicked_date_str).to_period('M').to_timestamp()
-            
+            clicked_date = pd.to_datetime(clicked_date_str).to_period(freq).to_timestamp()
             st.subheader(f"Expedientes de {clicked_date.strftime('%b %Y')} no completados")
             st.markdown("Estos expedientes no han alcanzado ninguno de los estados finales seleccionados")
             # Get precomputed not completed expedientes
@@ -265,14 +294,14 @@ with tab2:
     
     # Process data once
     processed_data = process_tramites_data(
-        tramites_df, estados_finales_selecc, rango_fechas, proced_seleccionado
+        tramites_df, estados_finales_selecc, rango_fechas, proced_seleccionado, freq
     )
     
     # Main plot (sum across all units)
     main_plot_data = processed_data.groupby(
         ['fecha', 'num_tramite', 'estado']
     )['count'].sum().reset_index()
-    main_fig = create_evolution_plot(main_plot_data)
+    main_fig = create_evolution_plot(main_plot_data, freq)
     st.plotly_chart(main_fig, use_container_width=True)
     
     # Unit-specific plots
@@ -282,6 +311,6 @@ with tab2:
         selected_unit = st.selectbox("Seleccionar unidad tramitadora", options=unique_units)
         
         unit_data = processed_data[processed_data['unidad_tramitadora'] == selected_unit]
-        unit_fig = create_evolution_plot(unit_data)
+        unit_fig = create_evolution_plot(unit_data, freq)
         st.plotly_chart(unit_fig, use_container_width=True)
 

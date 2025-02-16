@@ -127,59 +127,6 @@ def build_transition_dataframes(transition_stats, transition_stats_grouped):
     return df_transitions, df_scatter_global, df_scatter_grouped
 
 
-
-# @st.cache_data
-# def build_transition_dataframes(transition_stats, transition_stats_grouped):
-#     # Create main transitions dataframe
-#     data = []
-#     for (src, tgt), stats in transition_stats.items():
-#         avg_duration = stats['sum_duration'] / stats['count'] if stats['count'] > 0 else 0
-#         src_label = nombres_estados.get(src, f"S-{src}")
-#         tgt_label = nombres_estados.get(tgt, f"S-{tgt}")
-#         data.append({
-#             'Transition': f"{src_label} → {tgt_label}",
-#             'Mean Duration': avg_duration,
-#             'Count': stats['count']
-#         })
-#     df_transitions = pd.DataFrame(data).sort_values("Mean Duration", ascending=True)
-
-#     # Prepare scatter data
-#     data_scatter_global = []
-#     for (src, tgt), stats in transition_stats.items():
-#         mean_duration = stats['sum_duration'] / stats['count'] if stats['count'] > 0 else 0
-#         total_days = stats['sum_duration']
-#         count = stats['count']
-#         src_label = nombres_estados.get(src, f"S-{src}")
-#         tgt_label = nombres_estados.get(tgt, f"S-{tgt}")
-#         transition_label = f"{src_label} → {tgt_label}"
-#         data_scatter_global.append({
-#             'Transition': transition_label,
-#             'Mean Duration': mean_duration,
-#             'Total Processes': count,
-#             'Total Days': total_days
-#         })
-#     df_scatter_global = pd.DataFrame(data_scatter_global)
-
-#     # Grouped scatter data
-#     data_scatter_grouped = []
-#     for (src, tgt, unidad), stats in transition_stats_grouped.items():
-#         mean_duration = stats['sum_duration'] / stats['count'] if stats['count'] > 0 else 0
-#         total_days = stats['sum_duration']
-#         count = stats['count']
-#         src_label = nombres_estados.get(src, f"S-{src}")
-#         tgt_label = nombres_estados.get(tgt, f"S-{tgt}")
-#         transition_label = f"{src_label} → {tgt_label}"
-#         data_scatter_grouped.append({
-#             'Transition': transition_label,
-#             'Unidad': unidad,
-#             'Mean Duration': mean_duration,
-#             'Total Processes': count,
-#             'Total Days': total_days
-#         })
-#     df_scatter_grouped = pd.DataFrame(data_scatter_grouped)
-
-#     return df_transitions, df_scatter_global, df_scatter_grouped
-
 # Main processing pipeline
 tramites_data = st.session_state.datos_filtrados_rango['tramites']
 filtered_processes = process_flows_for_transitions(
@@ -298,8 +245,8 @@ with tab_bar:
             xaxis_title="Duración Media (días)",
             legend=dict(
                 orientation="h",
-                yanchor="bottom",
-                y=-0.1,
+                yanchor="top",
+                y=-0.015,
                 xanchor="center",
                 x=0.5
             ),
