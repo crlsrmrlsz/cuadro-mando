@@ -97,7 +97,7 @@ def plot_legend_table(legend_df, unique_key):
         ),
         columnwidth=[30, 400, 50, 30, 60]
     )])
-    custom_height = table_df.shape[0] * 30 + 40
+    custom_height = table_df.shape[0] * 35 + 40
     fig.update_layout(
         height=custom_height,
         margin=dict(l=20, r=20, t=0, b=10)
@@ -492,7 +492,7 @@ with tab1:
                     st.info("No hay procesos para esta combinación en esta unidad.")
                 else:
                     dot_str_office_2 = build_dot_for_office(office_df2, nombres_estados)
-                    col_order_2_1, col_order_2_2, col_order_2_3 = st.columns([1,5,1])
+                    col_order_2_1, col_order_2_2, col_order_2_3 = st.columns([1,3,1])
                     with col_order_2_2:
                         st.graphviz_chart(dot_str_office_2)
 
