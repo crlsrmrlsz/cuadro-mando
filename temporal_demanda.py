@@ -108,8 +108,8 @@ with tab1:
         df_agregado['label'] = df_agregado['fecha_registro_exp'].dt.strftime('%Y-%m-%d')
         tick_format = '%Y-%m-%d'
     elif freq == 'Semanal':
-        df_agregado['label'] = df_agregado['fecha_registro_exp'].dt.strftime('Week %U, %Y')
-        tick_format = 'Week %U, %Y'
+        df_agregado['label'] = df_agregado['fecha_registro_exp'].dt.strftime('Semana %U, %Y')
+        tick_format = 'Semana %U, %Y'
     else:  # Mensual
         df_agregado['label'] = df_agregado['fecha_registro_exp'].dt.strftime('%b %Y')
         tick_format = '%b %Y'
@@ -160,8 +160,7 @@ with tab1:
 
 with tab2:
     st.subheader("Evolución mensual por provincia")
-    st.info("¿hay diferencias entre provincias en los tiempos de presentación de solicitudes?. Haz doble click en una provincia para aislar esos datos",  icon="🕵️‍♂️")
-
+    st.info("Visualiza los patrones de presentación de solictudes distinguiendo por provincia. Haz doble click en una provincia para aislar esos datos",  icon="🕵️‍♂️")
 
     df_provincia = compute_provincia(expedientes, freq, rango_fechas, proced_seleccionado)
     
