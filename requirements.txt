@@ -1,5 +1,6 @@
 geopandas==0.14.4
-plotly
+plotly.express
+plotly.graph_objects
 numpy
 pandas
 streamlit
