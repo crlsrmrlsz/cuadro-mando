@@ -1,0 +1,15 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+0;Registro Sol.;0;Reg. Sol.
+202;Expediente Anulado;1;Expediente Anulado
+100;Fin de procedimiento;1;Fin proc.
+513;Finalizado y pendiente de aportar resultados o documentación;0;Finalizado pendiente aportar resultados o doc.
+270;Subsanación de Resolución;0;Subsanación Resol.
+55;Inadmisión de la Solicitud;0;Inadm. la Sol.
+52;Resolución de Desistimiento;0;Resol. Desist.
+51;Resolución Desfavorable;0;Resol. Desfavorable
+50;Resolución Favorable;0;Resol. Favorable
+43;Propuesta de Resolución Desfavorable;0;Prop. Resol. Desfavorable
+42;Propuesta de Resolución Favorable;0;Prop. Resol. Favorable
+35;Solicitud de Informes;0;Sol. Inf.s
+10;Requerimiento documentación solicitud;0;Req. doc. sol.
+1;Presentación de solicitud;0;Present. sol.

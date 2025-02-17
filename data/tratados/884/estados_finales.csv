@@ -1,0 +1,32 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+0;Registro Sol.;0;Reg. Sol.
+100;Fin de procedimiento;1;Fin proc.
+309;Lista de Reserva Provisional por Insuficiencia de Credito;0;Lista Reserva Provis. Insuf. Credito
+287;Seguimiento;0;Seguimiento
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+283;Resolución No procede pérdida total;0;Resol. No procede pérdida total
+283;Propuesta Resolución de Pérdida de Derecho al Cobro Total;0;Prop. Resol. Pérd. Dere. Cobr. Total
+278;Resolución de Pérdida de Derecho al Cobro Total;0;Resol. Pérd. Dere. Cobr. Total
+278;Resolucion de perdida parcial de derecho al cobro;0;Resol. perdida parcial derecho cobro
+155;Propuesta Resolución de Inadmisión;0;Prop. Resol. Inadm.
+152;Propuesta de Resolucion Desistimiento;0;Prop. Resol. Desist.
+90;Recurso de alzada;0;Recur. alzada
+82;Pago Parcial;0;Pag. Parcial
+82;Pago Total;0;Pag. Total
+70;Presentación Documentación Justificativa;0;Present. Doc. Justif.
+55;Resolución de inadmisión;0;Resol. inadmisión
+53;Resolución Aceptación de Renuncia;0;Resol. Aceptación Renun.
+52;Resolucion Desistimiento;0;Resol. Desist.
+51;Resolución desestimatoria - Insuficiencia Credito;0;Resol. desest. - Insuf. Credito
+51;Resolución desestimatoria - Incumple Requisitos;0;Resol. desest. - Incumple Req.
+50;Resolución de Concesión;0;Resol. Conce.
+42;Propuesta Resolución Estimatoria de Concesión;0;Prop. Resol. Estim. Conce.
+42;Propuesta Resolución Estimatoria Abono Pérdida Parcial;0;Prop. Resol. Estim. Abo. Pérd. Parcial
+41;Propuesta Resolución Desestimatoria - Incumple Requisitos;0;Prop. Resol. Desest. - Incumple Req.
+41;Propuesta Resolución Desestimatoria - Insuficiencia Credito;0;Prop. Resol. Desest. - Insuf. Credito
+30;Evaluación de solicitud;0;Eval. sol.
+30;Evaluación de justificación tras alegaciones;0;Eval. justif. tras alegaciones
+30;Evaluación de justificación;0;Eval. justif.
+21;Presentación de Renuncia;0;Present. Renun.
+10;Requerimiento de documentación;0;Req. doc.
+1;Presentación de la solicitud;0;Present. sol.

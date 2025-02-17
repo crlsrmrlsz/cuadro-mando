@@ -1,0 +1,27 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+0;Registro Sol.;0;Reg. Sol.
+379;Devolución a iniciativa del preceptor;1;Dev. iniciativa preceptor
+156;Inicio procedimiento de reintegro;1;Inic. proc. reintegro
+100;Fin de procedimiento;1;Fin proc.
+53;Resolución de aceptación de renuncia;1;Resol. aceptación renuncia
+301;Requerimiento del mes;0;Req. mes
+286;Presentación Solicitud Desistimiento;0;Present. Sol. Desist.
+281;Revisión de Justificación;0;Revisión Justif.
+155;Propuesta Resolución de inadmisión;0;Prop. Resol. inadmisión
+152;Propuesta Resolución Desistimiento;0;Prop. Resol. Desist.
+90;Presentación recurso de alzada;0;Present. recurso alzada
+82;Pago;0;Pag.
+70;Presentación de Justificación;0;Present. Justif.
+59;Resolución recurso de alzada;0;Resol. recurso alzada
+55;Resolución de inadmisión;0;Resol. inadmisión
+52;Resolución de Desistimiento;0;Resol. Desist.
+51;Resolución Denegatoria;0;Resol. Deneg.
+50;Resolución Aprobatoria;0;Resol. Aprobatoria
+43;Propuesta de Resolución Denegatoria;0;Prop. Resol. Deneg.
+42;Propuesta de Resolución Aprobatoria;0;Prop. Resol. Aprobatoria
+41;Propuesta Provisional de Resolución denegatoria;0;Prop. Provis. Resol. denegatoria
+30;Evaluacion de solicitud;0;Evaluacion sol.
+25;Trámite de audiencia;0;Trám. audiencia
+21;Presentación de Renuncia;0;Present. Renun.
+10;Requerimiento documentacion solicitud;0;Req. documentacion sol.
+1;Presentacion de solicitud;0;Present. sol.

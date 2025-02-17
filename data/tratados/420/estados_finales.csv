@@ -1,0 +1,11 @@
+﻿NUMTRAM;DENOMINACION;FINAL;DENOMINACION_SIMPLE
+0;Registro Sol.;0;Reg. Sol.
+100;Fin de procedimiento;1;Fin proc.
+286;Presentación solicitud de desistimiento;0;Present. sol. desistimiento
+55;Resolución de inadmisión (por duplicidad);0;Resol. inadmisión (por duplicidad)
+52;Resolución de desistimiento;0;Resol. desistimiento
+51;Resolución Desfavorable;0;Resol. Desfavorable
+50;Resolución (Remisión libro habilitado);0;Resol. (Remisión libro habilitado)
+30;Evaluación de solicitud;0;Eval. sol.
+10;Requerimiento documentación de solicitud;0;Req. doc. sol.
+1;Presentación de solicitud;0;Present. sol.
