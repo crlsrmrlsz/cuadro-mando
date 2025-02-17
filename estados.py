@@ -151,7 +151,7 @@ with tab_bar:
     
     # Original bar chart
     st.subheader("Duración media de cada trámite para toda la Comunidad")
-    st.info("Identifica que trámites tardan más y compara entre Unidades Tramitadoras. Este análisis permite identificar qué trámites influyen más en el tiempo total de tramitación de los expedientes, posibles ineficiencias, puntos automatizables o diferencias no previstas entre Unidades",icon='🕘')
+    st.info("En esta gráfica se puede ver qué transisiones son las que tardan más, permite analizar si los tiempos están justificados, de qué variables depende el tiemp que se tarda y sacar conclusiones sobre cómo se tramitan los expedientes y puntos de mejora",icon='🕘')
     fig_global = go.Figure()
     fig_global.add_trace(go.Bar(
         x=df_transitions["Mean Duration"],
@@ -246,7 +246,7 @@ with tab_bar:
             legend=dict(
                 orientation="h",
                 yanchor="top",
-                y=-0.035,
+                y=-0.015,
                 xanchor="center",
                 x=0.5
             ),

@@ -53,37 +53,26 @@ def get_not_completed_expedientes(estados_finales_selecc, freq):
     
     # Get all process starts
     starts_df = tramites_df[tramites_df['num_tramite'] == 0].copy()
+    # Compute start month
     starts_df['fecha'] = starts_df['fecha_tramite'].dt.to_period(freq).dt.to_timestamp()
     
-    # Determine completed processes
-    completed_procs = tramites_df[tramites_df['num_tramite'].isin(estados_finales_selecc)]['id_exp'].unique() if estados_finales_selecc else []
+    if estados_finales_selecc:
+        # Determine which processes reached final states
+        completed_procs = tramites_df[
+            tramites_df['num_tramite'].isin(estados_finales_selecc)
+        ]['id_exp'].unique()
+    else:
+        completed_procs = []
     
-    # Filter not completed processes
-    not_completed = starts_df[~starts_df['id_exp'].isin(completed_procs)]
-    
-    # Merge with expedientes data
+    # Filter to get only not completed processes
+    not_completed = starts_df[~starts_df['id_exp'].isin(completed_procs)].copy()
+    # Join with expedientes to get detailed info (assuming matching on 'id_exp')
     not_completed_expedientes = not_completed.merge(expedientes, on='id_exp', how='left')
     
-    # Generate state sequences for all expedientes
-    state_sequences = tramites_df.groupby('id_exp').apply(
-    lambda g: ' → '.join(
-            g.sort_values('num_tramite').apply(
-                lambda row: f"({pd.to_datetime(row['fecha_tramite']).strftime('%Y-%m-%d')}) {nombres_estados.get(row['num_tramite'], str(row['num_tramite']))}",
-                axis=1
-            )
-        )
-    ).reset_index(name='Secuencia')
-    
-    # Merge sequences into main dataframe
-    not_completed_expedientes = not_completed_expedientes.merge(
-        state_sequences, on='id_exp', how='left'
-    )
-    
-    # Select and rename columns
-    not_completed_expedientes = not_completed_expedientes[[
-        'fecha', 'id_exp', 'unidad_tramitadora', 'fecha_registro_exp',
-        'municipio_x', 'provincia_x', 'es_online_x', 'es_empresa_x', 'Secuencia'
-    ]].rename(columns={
+    not_completed_expedientes = not_completed_expedientes[['fecha', 'id_exp','unidad_tramitadora','fecha_registro_exp','municipio_x','provincia_x','es_online_x','es_empresa_x']]
+    # Convert 'fecha_registro_exp' to datetime and format it as 'YYYY-MM-DD'
+    not_completed_expedientes['fecha_registro_exp'] = pd.to_datetime(not_completed_expedientes['fecha_registro_exp']).dt.strftime('%Y-%m-%d')
+    not_completed_expedientes = not_completed_expedientes.rename(columns={
         'id_exp': 'ID Expediente',
         'unidad_tramitadora': 'Unidad Tramitadora',
         'fecha_registro_exp': 'Fecha Registro',
@@ -92,12 +81,8 @@ def get_not_completed_expedientes(estados_finales_selecc, freq):
         'es_online_x': 'Online',
         'es_empresa_x': 'Empresa'
     })
-    
-    # Format registration date
-    not_completed_expedientes['Fecha Registro'] = pd.to_datetime(
-        not_completed_expedientes['Fecha Registro']
-    ).dt.strftime('%Y-%m-%d')
-    
+
+ 
     return not_completed_expedientes
 
 # Add this new plot function
@@ -261,7 +246,7 @@ else:
     
 with tab1:
     st.subheader("Progreso de procesos iniciados")
-    st.info("Representación del número de expedientes finalizados según el momento en que se presentaron. identifica expedientes pendientes desde hace tiempo. Pulsa en las barras para ver el detalle de los expedientes pendientes.", icon='📈')
+    st.info("Muestra la cantidad de procesos iniciados y cuántos alcanzaron alguno de los estados finales seleccionados", icon='📈')
     
     # Process data for tab1
     start_complete_data = process_starts_vs_completed(estados_finales_selecc, freq)
@@ -284,7 +269,7 @@ with tab1:
             st.subheader(f"Expedientes de {clicked_date.strftime('%b %Y')} no completados")
             st.markdown("Estos expedientes no han alcanzado ninguno de los estados finales seleccionados")
             # Get precomputed not completed expedientes
-            not_completed_expedientes = get_not_completed_expedientes(estados_finales_selecc, freq)
+            not_completed_expedientes = get_not_completed_expedientes(estados_finales_selecc)
             # Filter for the selected month
             df_filtered = not_completed_expedientes[not_completed_expedientes['fecha'] == clicked_date]
             # Drop the 'fecha' column
@@ -301,7 +286,7 @@ with tab1:
 with tab2: 
     # Page Start
     st.subheader("Evolución de la tramitación a lo largo del tiempo")
-    st.info("Permite identificar patrones temporales en la ejecución de cada trámite, picos, caidas, tendencias. Selecciona los trámites que quieres analizar", icon='🏔️')
+    st.info("La gráfica permite ver cuántos trámites de cada tipo ocurren a lo largo del tiempo", icon='🏔️')
     # Update the tab1 section
     tramites_df = st.session_state.datos_filtrados_rango['tramites'].copy()
     # Prepare data

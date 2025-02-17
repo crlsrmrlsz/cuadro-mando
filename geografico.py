@@ -78,7 +78,7 @@ right_m_bar = 20
 bottom_m_bar = 20
 bar_width = 0.9
 num_bars = 20
-COLOR_PRIMARY = 'rgba(255, 127, 14, 0.7)'
+
 # ====================
 # VISUALIZATION FUNCTIONS
 # ====================
@@ -87,7 +87,9 @@ def create_province_barchart(df_prov, value_col, pct_col):
     """Crea gráfico de barras horizontal de provincias"""
     # Ordenar y limitar a las 15 provincias con más valor
     df = df_prov.sort_values(value_col, ascending=False).nlargest(num_bars, pct_col).copy()  
-      
+    
+    COLOR_PRIMARY = 'rgba(255, 127, 14, 0.7)'
+    
     fig = go.Figure()
     
     fig.add_trace(go.Bar(
@@ -162,7 +164,8 @@ def create_municipios_barchart(df_mun, value_col, pct_col):
     """Crea gráfico de barras horizontal de municipios"""
     df = df_mun.sort_values(value_col, ascending=False).nlargest(num_bars, pct_col).copy()  
     
-  
+    COLOR_PRIMARY = 'rgba(31, 119, 180, 0.7)'
+    
     fig = go.Figure()
     
     fig.add_trace(go.Bar(
@@ -258,7 +261,7 @@ tab1, tab2, tab3, tab4 = st.tabs([
 
 with tab1:
     st.subheader("Número de solicitudes por Provincia")
-    st.info("¿En qué provincias y  municipios se presentan más solicitudes? Conoce el origen de la demanda y si se ajusta a lo esperable",  icon="🕵️‍♂️") 
+    st.info("¿En qué provincias se presentan más solicitudes? identifica provincias y municipios que presentan más o que no lo utilizan",  icon="🌍") 
     
     col_tab1_prov_1, col_tab1_prov_2 = st.columns([0.7, 0.3])
     with col_tab1_prov_1:
@@ -284,7 +287,7 @@ with tab1:
 # --- TAB 2: Digitalización (usa columna "online" y "%_online") ---
 with tab2:
     st.subheader("Porcentaje de expedientes solicitados de manera telemática")
-    st.info("El uso de la presentación telemática puede reflejar patrones de mayor o menor digitalización en el sector",  icon="🕵️‍♂️") 
+    st.info("El uso de la presentación telemática puede reflejar patrones de digitalización en el sector",  icon="🕵️‍♂️") 
 
     
     col_tab2_prov_1, col_tab2_prov_2 = st.columns([0.7, 0.3])
@@ -311,7 +314,8 @@ with tab2:
 # --- TAB 3: Persona física/Persona jurídica (usa columna "empresas" y "%_empresas") ---
 with tab3:
     st.subheader("Expedientes de persona jurídica")
-    st.info("Identifica las áreas con mayor participación de empresas en las solicitudes",  icon="🕵️‍♂️")
+    st.markdown("Identifica las áreas con mayor participación de empresas en las solicitudes")
+    
     col_tab3_prov_1, col_tab3_prov_2 = st.columns([0.7, 0.3])
     with col_tab3_prov_1:
         map_fig_prov = create_province_map(df_prov, geo_data['provincias'], value_col='empresas', pct_col='%_empresas')

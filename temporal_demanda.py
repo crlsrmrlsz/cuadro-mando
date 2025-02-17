@@ -53,16 +53,20 @@ def compute_heatmap_data(_expedientes, rango_fechas, proced_seleccionado):
     df_week = _expedientes.set_index('fecha_registro_exp').resample('W-MON').agg(
         total_exp=('id_exp', 'count')
     )
-    df_week['year'] = df_week.index.year
-    df_week['week'] = df_week.index.isocalendar().week
+    # Extract ISO year and week to avoid calendar year conflicts
+    iso_calendar = df_week.index.isocalendar()
+    df_week['year'] = iso_calendar['year']  # Use ISO year instead of calendar year
+    df_week['week'] = iso_calendar['week']
     df_week['start_date'] = df_week.index.strftime('%Y-%m-%d')
     df_week['month'] = df_week.index.strftime('%B')
     
-    heatmap_data = df_week.pivot(index='year', columns='week', values='total_exp')
-    custom_data = np.dstack([
-        df_week.pivot(index='year', columns='week', values='start_date').values,
-        df_week.pivot(index='year', columns='week', values='month').values
-    ])
+    # Handle duplicates by aggregating (though resample should prevent this)
+    heatmap_data = df_week.groupby(['year', 'week'])['total_exp'].sum().unstack(fill_value=0)
+    
+    # Similarly pivot start_date and month using first occurrence
+    start_date_pivot = df_week.groupby(['year', 'week'])['start_date'].first().unstack()
+    month_pivot = df_week.groupby(['year', 'week'])['month'].first().unstack()
+    custom_data = np.dstack([start_date_pivot.values, month_pivot.values])
     
     return df_week, heatmap_data, custom_data
 
@@ -108,8 +112,8 @@ with tab1:
         df_agregado['label'] = df_agregado['fecha_registro_exp'].dt.strftime('%Y-%m-%d')
         tick_format = '%Y-%m-%d'
     elif freq == 'Semanal':
-        df_agregado['label'] = df_agregado['fecha_registro_exp'].dt.strftime('Semana %U, %Y')
-        tick_format = 'Semana %U, %Y'
+        df_agregado['label'] = df_agregado['fecha_registro_exp'].dt.strftime('Week %U, %Y')
+        tick_format = 'Week %U, %Y'
     else:  # Mensual
         df_agregado['label'] = df_agregado['fecha_registro_exp'].dt.strftime('%b %Y')
         tick_format = '%b %Y'
@@ -160,7 +164,8 @@ with tab1:
 
 with tab2:
     st.subheader("Evolución mensual por provincia")
-    st.info("Visualiza los patrones de presentación de solictudes distinguiendo por provincia. Haz doble click en una provincia para aislar esos datos",  icon="🕵️‍♂️")
+    st.info("¿hay diferencias entre provincias en los tiempos de presentación de solicitudes?. Haz doble click en una provincia para aislar esos datos",  icon="🕵️‍♂️")
+
 
     df_provincia = compute_provincia(expedientes, freq, rango_fechas, proced_seleccionado)
     

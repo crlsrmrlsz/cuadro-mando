@@ -85,6 +85,7 @@ st.markdown(
 
 # General Metrics for filtered data in bordered container
 with st.container(border=True):
+    st.info("En primer lugar, una visión general, ¿cuántos expedientes se han iniciado?,¿cuántos han finalizado (han alcanzado alguno de los estados seleccionados en el filtro como estado final?. Puedes ver cuántos han sido finalizados para cada estado final si seleccionas varios", icon="🛫")
     total_processes = len(tram_filtr_agg_t)
     finalized_count = tram_filtr_agg_t['contains_selected'].sum()
     finalized_percent = (finalized_count / total_processes * 100) if total_processes > 0 else 0
@@ -140,7 +141,7 @@ if 'unidad_tramitadora' in tram_filtr_agg_t.columns:
         st.markdown("")
         with st.container(border=True):
             st.subheader("Datos por Unidad Tramitadora")
-            st.info("Reparto de expedientes por Unidades y tiempos medios de finalización",icon='ℹ️')
+            st.info("Compara carga de trabajo y tiempos entre Unidades. La variación mostrada es respecto a la media de la Comunidad",icon='⚖️')
             # Ensure units are sorted as desired
             unidades_sorted = sorted(unidades_validas.unique(), key=lambda x: (x == 'No especificada', x))
             
@@ -217,8 +218,9 @@ if 'unidad_tramitadora' in tram_filtr_agg_t.columns:
                 st.plotly_chart(fig_bar, use_container_width=True, key="global-time")
             
             st.markdown("")    
-            st.subheader("Número y tiempos por Unidad")
-            st.info("Compara % de expedientes finalizados, tiempos medios y diferencia respecto a la media",icon='ℹ️')
+            st.markdown("") 
+            #st.subheader("Número y tiempos por Unidad")
+            #st.info("Compara % de expedientes finalizados, tiempos medios y diferencia respecto a la media",icon='ℹ️')
             for unidad in unidades_sorted:
                 mask = unidades_series == unidad
                 unidad_data = tram_filtr_agg_t[mask]

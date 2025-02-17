@@ -97,7 +97,7 @@ def plot_legend_table(legend_df, unique_key):
         ),
         columnwidth=[30, 400, 50, 30, 60]
     )])
-    custom_height = table_df.shape[0] * 35 + 40
+    custom_height = table_df.shape[0] * 30 + 40
     fig.update_layout(
         height=custom_height,
         margin=dict(l=20, r=20, t=0, b=10)
@@ -304,7 +304,7 @@ def create_office_visualizations(filtered_processes, flow_data, nombres_estados)
 # ------------------------------------------
 tab1, tab2, tab3 = st.tabs([
     "Diagrama de Flujo",
-    "Detalle Flujos principales", 
+    "Flujos principales", 
     "Complejidad"
 ])
 
@@ -335,10 +335,8 @@ if not flow_data:
 # -------------------------------
 with tab1:
     st.subheader("Diagrama del flujo de tramitación")
-    st.info(f"""Visualiza fácilmente el flujo de tramitación, cuántos procesos siguen cada paso y el tiempo medio que tardan. Elige los flujos que quieres visualizar y compara entre Unidades Tramitadoras si existen distintas Unidades tramitando""",  icon="🕵️‍♂️")
-    st.caption(f"Sólo se muestran los flujos que representan más del {MIN_PERCENTAGE_SHOW}% del total")
-    #st.markdown(f"Selecciona uno o varios flujos de tramitación para visualizarlos en el diagrama. Solo se representan los flujos que representan más del {MIN_PERCENTAGE_SHOW}%) del total de los expedientes finalizados")
-    
+    st.info("Selecciona uno o varios flujos de tramitación para visualizarlos en el diagrama", icon="🏄‍♀️")
+    st.caption(f"Solo se representan los flujos que representan más del {MIN_PERCENTAGE_SHOW}%) del total.Los datos están filtrados a los expedientes que alcanzan alguno de los estados finales seleccionados en el filtro")
     # Generate checkboxes for flow selection (reuse the helper function)
     selected_flows_gv = []
     with st.container(border=True):
@@ -477,7 +475,7 @@ with tab1:
                     st.info("No hay procesos para esta combinación en esta unidad.")
                 else:
                     dot_str_office_1 = build_dot_for_office(office_df1, nombres_estados)
-                    col_order_1_1, col_order_1_2, col_order_1_3 = st.columns([1,5,1])
+                    col_order_1_1, col_order_1_2, col_order_1_3 = st.columns([1,3,1])
                     with col_order_1_2:
                         st.graphviz_chart(dot_str_office_1)
             
@@ -506,8 +504,9 @@ with tab1:
 # -------------------------------
 with tab2:
     st.subheader("Análisis de principales flujos de tramitación para toda la Comunidad")
-    st.info(f"""Identifica los **flujos más comunes** y el **tiempo medio** que se dedica a **cada transición** de estados""",  icon="🕵️‍♂️")
-    st.caption(f"Sólo se muestran los flujos que representan más del {MIN_PERCENTAGE_SHOW}% del total")
+    st.info("""Identifica los **flujos más comunes** y el **tiempo medio** que se dedica a **cada transición** de estados""",  icon="🕵️‍♂️")
+    st.caption(f"Solo se representan los flujos que representan más del {MIN_PERCENTAGE_SHOW}%) del total.Los datos están filtrados a los expedientes que alcanzan alguno de los estados finales seleccionados en el filtro")
+
     # Create visualizations
     legend_df, viz_df = create_visualizations(flow_data, nombres_estados)
     
@@ -724,8 +723,9 @@ with tab2:
 
 with tab3:
     st.subheader("Análisis de complejidad")
-    st.info(f"""Cada bubuja representa una secuencia de tramitación diferente, ubicada en el gráfico en función del tiempo medio que tarda y el número de pasos que tiene. El tamaño de la burbuja depende del número de expedientes que siguen ese flujo. Identifica si los flujos con más pasos suelen tardan mas en ejecutarse y cuántos procesos siguen ese flujo. La información que se puede extraer del gráfico es cómo se relaciona el número de pasos 8complejidad del proceso) con el tiempo que se tarda y el nivel de complejidad de la mayor parte de los procesos""",  icon="🕵️‍♂️")
-    st.caption(f"Sólo se muestran los flujos que representan más del {MIN_PERCENTAGE_SHOW}% del total")
+    st.info("""Mayor númeo de pasos suele implicar mayor tiempo. Visualiza el volumen de procesos que tiene más pasos y tardan más""",  icon="☝️")
+    st.caption(f"Solo se representan los flujos que representan más del {MIN_PERCENTAGE_SHOW}%) del total.Los datos están filtrados a los expedientes que alcanzan alguno de los estados finales seleccionados en el filtro")
+
     # Prepare data for the bubble scatter plot using generate_flow_info for consistency.
     bubble_data = []
     for idx, flow in enumerate(flow_data, 1):
@@ -771,10 +771,10 @@ with tab3:
             'Duración Total (días)': True, 
             'Procesos': True, 
             '% Procesos': True,
-            'Secuencia': False
+            'Secuencia': True
         },
         size_max=60,
-        #title="Relación entre Complejidad y Duración"
+        title="Relación entre Complejidad y Duración"
     )
     
     # Update layout for a cleaner presentation.
@@ -783,7 +783,7 @@ with tab3:
         xaxis_title="Complejidad (número de pasos)",
         yaxis_title="Duración Total (días)",
         xaxis=dict(tickmode='linear', dtick=1),  # Ensure x-axis ticks are integers.
-        margin=dict(l=40, r=40, t=60, b=40)
+        margin=dict(l=40, r=40, t=60, b=40),
     )
     
     # Display the bubble chart in the Streamlit app.
