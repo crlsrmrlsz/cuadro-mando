@@ -78,7 +78,7 @@ right_m_bar = 20
 bottom_m_bar = 20
 bar_width = 0.9
 num_bars = 20
-
+COLOR_PRIMARY = 'rgba(255, 127, 14, 0.7)'
 # ====================
 # VISUALIZATION FUNCTIONS
 # ====================
@@ -88,7 +88,7 @@ def create_province_barchart(df_prov, value_col, pct_col):
     # Ordenar y limitar a las 15 provincias con más valor
     df = df_prov.sort_values(value_col, ascending=False).nlargest(num_bars, pct_col).copy()  
     
-    COLOR_PRIMARY = 'rgba(255, 127, 14, 0.7)'
+    
     
     fig = go.Figure()
     
@@ -164,7 +164,6 @@ def create_municipios_barchart(df_mun, value_col, pct_col):
     """Crea gráfico de barras horizontal de municipios"""
     df = df_mun.sort_values(value_col, ascending=False).nlargest(num_bars, pct_col).copy()  
     
-    COLOR_PRIMARY = 'rgba(31, 119, 180, 0.7)'
     
     fig = go.Figure()
     
