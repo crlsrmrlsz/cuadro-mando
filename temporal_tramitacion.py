@@ -145,7 +145,11 @@ def create_start_completion_plot(data, freq):
         )
         #clickmode='select' 
     )
-    
+    fig.update_layout(
+        plot_bgcolor='rgba(245,245,245,0.2)',
+        yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+        xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
+    )
     return fig
 
 
@@ -218,6 +222,11 @@ def create_evolution_plot(data , freq):
             range=[start_date, end_date]  # Force date range
         ),
         legend=dict(traceorder="normal")
+    )
+    fig.update_layout(
+        plot_bgcolor='rgba(245,245,245,0.2)',
+        yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+        xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
     )
     return fig
 

@@ -65,21 +65,25 @@ for state in state_cols:
         hovertemplate=f"<b>{state_name}:</b>%{{y}}<extra></extra>"
     ))
 
-fig.update_layout(
-    height= 600,
-    xaxis_title="Fecha",
-    yaxis_title="Número de procesos",
-    hovermode="x unified",
-    legend=dict(
-         orientation="h",  # Orientación horizontal
-         yanchor="top",
-         y=-0.15,           # Posiciona la leyenda por debajo del gráfico
-         xanchor="center",
-         x=0.5,
-         traceorder="normal"
+    fig.update_layout(
+        height= 600,
+        xaxis_title="Fecha",
+        yaxis_title="Número de procesos",
+        hovermode="x unified",
+        legend=dict(
+             orientation="h",  # Orientación horizontal
+             yanchor="top",
+             y=-0.15,           # Posiciona la leyenda por debajo del gráfico
+             xanchor="center",
+             x=0.5,
+             traceorder="normal"
+        )
     )
-
-)
+    fig.update_layout(
+        plot_bgcolor='rgba(245,245,245,0.2)',
+        yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+        xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
+    )
 
 st.plotly_chart(fig, use_container_width=True)
 
@@ -124,7 +128,11 @@ if len(unidades) > 1:
              traceorder="normal"
         )
     )
-    
+    fig2.update_layout(
+        plot_bgcolor='rgba(245,245,245,0.2)',
+        yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+        xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
+    )
     st.plotly_chart(fig2, use_container_width=True)
 
 
@@ -133,5 +141,5 @@ st.markdown("")
 st.markdown("")
 col1, col2, col3 = st.columns(3)
 with col2: 
-    if st.button("Pincha si te has enterado"):
+    if st.button("No pinches aquí"):
         st.balloons()

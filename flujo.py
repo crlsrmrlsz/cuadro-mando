@@ -102,6 +102,7 @@ def plot_legend_table(legend_df, unique_key):
         height=custom_height,
         margin=dict(l=20, r=20, t=0, b=10)
     )
+
     st.plotly_chart(fig, use_container_width=False, key=unique_key)
 
 def generate_flow_info(flow, idx, nombres_estados):
@@ -542,7 +543,12 @@ with tab2:
         # marker_color='#1f77b4'
     ))
     fig_perc.update_traces(hoverlabel=dict(namelength=-1))
-    
+
+    fig_perc.update_layout(
+        plot_bgcolor='rgba(245,245,245,0.2)',
+        yaxis=dict(showgrid=False, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+        xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
+    )
     max_perc = df_perc['Percentage'].max()
     
     # Compute height: one row per bar plus top and bottom margins (20 each)
@@ -588,6 +594,11 @@ with tab2:
         yaxis=dict(categoryorder="array", visible=False, autorange="reversed"),
         showlegend=False,
         bargap=BARGAP_PLOT
+    )
+    fig_dur.update_layout(
+        plot_bgcolor='rgba(245,245,245,0.2)',
+        yaxis=dict(showgrid=False, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+        xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
     )
     with st.container(border=True):
         # Display the two charts side-by-side
@@ -679,7 +690,11 @@ with tab2:
                     xaxis_range=[0, max_perc_ut * 1.15],
                     bargap=BARGAP_PLOT
                 )
-    
+                fig_perc.update_layout(
+                    plot_bgcolor='rgba(245,245,245,0.2)',
+                    yaxis=dict(showgrid=False, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+                    xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
+                )
                 # --- Right Chart: Duration Breakdown ---
                 fig_dur = go.Figure()
                 
@@ -709,7 +724,12 @@ with tab2:
                     margin=dict(l=10, r=20, t=20, b=20),
                     bargap=BARGAP_PLOT
                 )
-    
+                fig_dur.update_layout(
+                    plot_bgcolor='rgba(245,245,245,0.2)',
+                    yaxis=dict(showgrid=False, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+                    xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
+                )
+                
                 # Display charts side-by-side
                 col1, col2 = st.columns([1, 3])
                 with col1:
@@ -779,13 +799,17 @@ with tab3:
     
     # Update layout for a cleaner presentation.
     fig_bubble.update_layout(
-        template='plotly_white',
+        #template='plotly_white',
         xaxis_title="Complejidad (número de pasos)",
         yaxis_title="Duración Total (días)",
         xaxis=dict(tickmode='linear', dtick=1),  # Ensure x-axis ticks are integers.
         margin=dict(l=40, r=40, t=60, b=40),
     )
-    
+    fig_bubble.update_layout(
+        plot_bgcolor='rgba(245,245,245,0.2)',
+        yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+        xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
+    )
     # Display the bubble chart in the Streamlit app.
     st.plotly_chart(fig_bubble, use_container_width=True, key="complexity")
     

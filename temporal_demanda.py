@@ -122,7 +122,11 @@ with tab1:
                  x='fecha_registro_exp',
                  y='total_exp',
                  labels={'fecha_registro_exp': 'Fecha', 'total_exp': 'Solicitudes'})
-    
+    fig.update_layout(
+        plot_bgcolor='rgba(245,245,245,0.2)',
+        yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+        xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
+    )
     fig.update_xaxes(tickformat=tick_format)
     
     
@@ -189,7 +193,11 @@ with tab2:
             x=0.5
         )
     )
-
+    fig_prov.update_layout(
+        plot_bgcolor='rgba(245,245,245,0.2)',
+        yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+        xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
+    )
     fig_prov.update_xaxes(tickformat=tick_format)
     
     # Reorder traces

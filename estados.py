@@ -176,6 +176,25 @@ with tab_bar:
         showlegend=False,
         xaxis_range=[0, max_x]
     )
+    shapes = []
+    for i in range(len(df_transitions)):
+        if i % 2 == 0:
+            shapes.append(dict(
+                type="rect",
+                xref="x", yref="y",
+                x0=0, y0=i-0.5,
+                x1=max_x, y1=i+0.5,
+                fillcolor='rgba(0,0,0,0.03)',
+                line={"width": 0},
+                layer="below"
+            ))
+    
+    fig_global.update_layout(shapes=shapes)
+    fig_global.update_layout(
+        plot_bgcolor='rgba(245,245,245,0.2)',
+        yaxis=dict(showgrid=False, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+        xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
+    )
     st.plotly_chart(fig_global, use_container_width=True)
 
     # Grouped bar chart if multiple unidades
@@ -255,10 +274,24 @@ with tab_bar:
             yaxis=dict(autorange='reversed', title=None),
             xaxis_range=[0, max_x_group]
         )
-        fig_grouped.update_yaxes(
-            showgrid=True,
-            gridwidth=1,
-            gridcolor='rgba(211,211,211,0.3)'
+        shapes = []
+        for i in range(len(df_transitions)):
+            if i % 2 == 0:
+                shapes.append(dict(
+                    type="rect",
+                    xref="x", yref="y",
+                    x0=0, y0=i-0.5,
+                    x1=max_x, y1=i+0.5,
+                    fillcolor='rgba(0,0,0,0.03)',
+                    line={"width": 0},
+                    layer="below"
+                ))
+        
+        fig_grouped.update_layout(shapes=shapes)
+        fig_grouped.update_layout(
+            plot_bgcolor='rgba(245,245,245,0.2)',
+            yaxis=dict(showgrid=False, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+            xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
         )
         st.plotly_chart(fig_grouped, use_container_width=True)
 
@@ -289,13 +322,19 @@ with tab_scatter:
                 "Procesos: %{y}<br>"
                 "Días Totales: %{customdata[0]:.1f}<extra></extra>"
             ),
-            marker=dict(opacity=0.7, line=dict(width=0.5, color='Gray'))
+            #marker=dict(opacity=0.7, line=dict(width=0.5, color='Gray'))
         )
         fig_global.update_layout(
             template="plotly_white",
             xaxis_title="Duración Media (días)",
             yaxis_title="Número de Procesos",
             hovermode="closest"
+        )
+
+        fig_global.update_layout(
+            plot_bgcolor='rgba(245,245,245,0.2)',
+            yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+            xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
         )
         st.plotly_chart(fig_global, use_container_width=True)
     else:
@@ -329,7 +368,7 @@ with tab_scatter:
                 "Procesos: %{y}<br>"
                 "Días Totales: %{customdata[1]:.1f}<extra></extra>"
             ),
-            marker=dict(opacity=0.7, line=dict(width=0.3, color='Gray'))
+            #marker=dict(opacity=0.7, line=dict(width=0.3, color='Gray'))
         )
         fig_grouped.update_layout(
             template="plotly_white",
@@ -343,6 +382,11 @@ with tab_scatter:
                 x=0.5
             ),
             hovermode="closest"
+        )
+        fig_grouped.update_layout(
+            plot_bgcolor='rgba(245,245,245,0.2)',
+            yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1),
+            xaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.1)', gridwidth=1)
         )
         st.plotly_chart(fig_grouped, use_container_width=True)
     elif unique_unidades > 1:
