@@ -72,6 +72,18 @@ def get_not_completed_expedientes(estados_finales_selecc, freq):
     not_completed_expedientes = not_completed_expedientes[['fecha', 'id_exp','unidad_tramitadora','fecha_registro_exp','municipio_x','provincia_x','es_online_x','es_empresa_x']]
     # Convert 'fecha_registro_exp' to datetime and format it as 'YYYY-MM-DD'
     not_completed_expedientes['fecha_registro_exp'] = pd.to_datetime(not_completed_expedientes['fecha_registro_exp']).dt.strftime('%Y-%m-%d')
+    
+    state_sequences = tramites_df.groupby('id_exp').apply(
+        lambda g: ' → '.join(
+            g.sort_values('num_tramite').apply(
+                lambda row: f"({pd.to_datetime(row['fecha_tramite']).strftime('%Y-%m-%d')}) {nombres_estados.get(row['num_tramite'], str(row['num_tramite']))}",
+                axis=1
+            )
+        )
+    ).reset_index(name='Secuencia')
+    # Merge the state sequence into the not_completed_expedientes DataFrame.
+    not_completed_expedientes = not_completed_expedientes.merge(state_sequences, on='id_exp', how='left')
+    
     not_completed_expedientes = not_completed_expedientes.rename(columns={
         'id_exp': 'ID Expediente',
         'unidad_tramitadora': 'Unidad Tramitadora',
