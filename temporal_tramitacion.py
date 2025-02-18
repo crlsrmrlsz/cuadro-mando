@@ -278,7 +278,7 @@ with tab1:
             st.subheader(f"Expedientes de {clicked_date.strftime('%b %Y')} no completados")
             st.markdown("Estos expedientes no han alcanzado ninguno de los estados finales seleccionados")
             # Get precomputed not completed expedientes
-            not_completed_expedientes = get_not_completed_expedientes(estados_finales_selecc)
+            not_completed_expedientes = get_not_completed_expedientes(estados_finales_selecc, freq)
             # Filter for the selected month
             df_filtered = not_completed_expedientes[not_completed_expedientes['fecha'] == clicked_date]
             # Drop the 'fecha' column
